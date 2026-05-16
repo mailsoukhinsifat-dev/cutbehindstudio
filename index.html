@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cut Behind Studio — Video Editing Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://api.fontshare.com"/>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=cabinet-grotesk@300,400,500,700,800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --bg:           #080808;
+  --bg2:          #0e0e0e;
+  --red:          #9B1212;
+  --red-bright:   #E03131;
+  --red-dim:      #5c0a0a;
+  --red-glow:     rgba(224,49,49,0.22);
+  --white:        #F0EEE9;
+  --off-white:    #B8B4AD;
+  --gray:         #6b6861;
+  --border:       rgba(240,238,233,0.07);
+  --border-red:   rgba(224,49,49,0.18);
+  --glass:        rgba(240,238,233,0.03);
+  --font-display: 'Clash Display', sans-serif;
+  --font-body:    'Cabinet Grotesk', sans-serif;
+  --font-serif:   'DM Serif Display', serif;
+  --nav-h:        80px;
+  --ease:         cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 400;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── NOISE GRAIN ── */
+body::after {
+  content:''; position:fixed; inset:0; z-index:9999; pointer-events:none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.032;
+}
+
+/* ── CUSTOM CURSOR ── */
+#cursor {
+  position:fixed; width:10px; height:10px;
+  background:var(--red-bright); border-radius:50%;
+  pointer-events:none; z-index:99999;
+  transform:translate(-50%,-50%);
+  transition:width .2s var(--ease), height .2s var(--ease), background .2s;
+  mix-blend-mode:normal;
+}
+#cursor-ring {
+  position:fixed; width:36px; height:36px;
+  border:1px solid rgba(224,49,49,0.4); border-radius:50%;
+  pointer-events:none; z-index:99998;
+  transform:translate(-50%,-50%);
+  transition:width .4s var(--ease), height .4s var(--ease), border-color .3s;
+}
+body.hovering #cursor { width:6px; height:6px; background:var(--white); }
+body.hovering #cursor-ring { width:48px; height:48px; border-color:rgba(224,49,49,0.7); }
+
+/* ── NAVBAR ── */
+#navbar {
+  position:fixed; top:0; left:0; right:0; z-index:900;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.8rem 5vw;
+  transition:padding .5s var(--ease), background .5s, backdrop-filter .5s;
+}
+#navbar.scrolled {
+  padding:1.1rem 5vw;
+  background:rgba(8,8,8,0.82);
+  backdrop-filter:blur(28px) saturate(160%);
+  border-bottom:1px solid var(--border);
+}
+
+.nav-logo {
+  display:flex; align-items:center; gap:10px; text-decoration:none;
+}
+.nav-logo-icon {
+  width:34px; height:34px; border-radius:7px;
+  background:var(--red); display:flex; align-items:center; justify-content:center;
+  box-shadow:0 0 20px rgba(155,18,18,0.5);
+}
+.nav-logo-icon svg { width:16px; height:16px; }
+.nav-logo-text {
+  font-family:var(--font-display);
+  font-size:0.95rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--white);
+}
+.nav-logo-text em { color:var(--red-bright); font-style:normal; }
+
+.nav-pill {
+  display:flex; align-items:center; gap:.2rem;
+  background:rgba(240,238,233,0.04);
+  border:1px solid var(--border);
+  border-radius:100px;
+  padding:.3rem .4rem;
+  backdrop-filter:blur(16px);
+  list-style:none;
+}
+.nav-pill a {
+  font-family:var(--font-body);
+  font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--off-white); text-decoration:none;
+  padding:.38rem .95rem; border-radius:100px;
+  transition:color .2s, background .2s;
+}
+.nav-pill a:hover { color:var(--white); background:rgba(240,238,233,0.07); }
+
+.btn-nav {
+  font-family:var(--font-body);
+  font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--white); background:var(--red-bright); border:none;
+  padding:.58rem 1.3rem; border-radius:100px; text-decoration:none;
+  transition:background .2s, box-shadow .2s, transform .15s;
+  box-shadow:0 0 24px rgba(224,49,49,0.3);
+}
+.btn-nav:hover { background:#c82929; box-shadow:0 0 36px rgba(224,49,49,0.5); transform:scale(1.02); }
+
+.hamburger { display:none; flex-direction:column; gap:5px; cursor:none; padding:.5rem; background:none; border:none; }
+.hamburger span { display:block; width:22px; height:1.5px; background:var(--white); border-radius:2px; transition:.3s; }
+
+.mobile-menu {
+  position:fixed; inset:0; z-index:800;
+  background:rgba(8,8,8,0.97); backdrop-filter:blur(32px);
+  display:none; flex-direction:column; align-items:center; justify-content:center; gap:2.2rem;
+}
+.mobile-menu.open { display:flex; }
+.mobile-menu a {
+  font-family:var(--font-display); font-size:3rem; letter-spacing:.04em;
+  color:var(--white); text-decoration:none; transition:color .2s;
+}
+.mobile-menu a:hover { color:var(--red-bright); }
+.mob-close-btn {
+  position:absolute; top:2rem; right:5vw;
+  background:none; border:none; color:var(--white); font-size:2rem; cursor:none;
+}
+
+/* ── GLOBALS ── */
+section { position:relative; z-index:1; }
+.container { max-width:1160px; margin:0 auto; padding:0 5%; }
+
+.section-label {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--font-body);
+  font-size:0.68rem; letter-spacing:0.28em; text-transform:uppercase;
+  color:var(--red-bright); margin-bottom:1.1rem;
+}
+.section-label::before { content:''; width:24px; height:1px; background:var(--red-bright); flex-shrink:0; }
+
+.section-title {
+  font-family:var(--font-display);
+  font-size:clamp(2.6rem,5.5vw,5rem);
+  line-height:1.0; letter-spacing:-0.01em;
+  color:var(--white);
+}
+.section-sub {
+  color:var(--off-white); font-size:.95rem; line-height:1.8;
+  max-width:500px; margin-top:1.2rem;
+}
+
+/* ── HERO ── */
+#hero {
+  height:100vh; min-height:700px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:var(--nav-h) 5% 0;
+  position:relative; overflow:hidden;
+}
+
+/* animated orb bg */
+.hero-orb {
+  position:absolute; border-radius:50%; pointer-events:none;
+  filter:blur(80px);
+}
+.hero-orb-1 {
+  width:600px; height:600px;
+  background:radial-gradient(circle, rgba(155,18,18,0.14) 0%, transparent 70%);
+  top:-10%; left:55%; transform:translateX(-50%);
+  animation:orbFloat1 8s ease-in-out infinite;
+}
+.hero-orb-2 {
+  width:400px; height:400px;
+  background:radial-gradient(circle, rgba(224,49,49,0.07) 0%, transparent 70%);
+  bottom:10%; left:20%;
+  animation:orbFloat2 11s ease-in-out infinite;
+}
+@keyframes orbFloat1 { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-40px)} }
+@keyframes orbFloat2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(30px)} }
+
+.hero-grid {
+  position:absolute; inset:0; z-index:0; opacity:0.03;
+  background-image:
+    linear-gradient(var(--white) 1px, transparent 1px),
+    linear-gradient(90deg, var(--white) 1px, transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 40%, black, transparent);
+}
+
+.hero-content { position:relative; z-index:2; max-width:900px; }
+
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--font-body);
+  font-size:0.68rem; letter-spacing:0.3em; text-transform:uppercase;
+  color:var(--red-bright); margin-bottom:2rem;
+  opacity:0; animation:fadeUp .9s .1s var(--ease) forwards;
+  border:1px solid var(--border-red);
+  padding:.45rem 1.1rem; border-radius:100px;
+  background:rgba(224,49,49,0.06);
+}
+.hero-eyebrow span { width:6px; height:6px; border-radius:50%; background:var(--red-bright); flex-shrink:0; }
+
+.hero-h1 {
+  font-family:var(--font-display);
+  font-size:clamp(3rem,8vw,8rem);
+  line-height:1.0; letter-spacing:-0.02em;
+  font-weight:700;
+  opacity:0; animation:fadeUp .9s .25s var(--ease) forwards;
+}
+.hero-h1 em {
+  font-family:var(--font-serif);
+  font-style:italic; color:var(--red-bright);
+  letter-spacing:0;
+}
+
+.hero-sub {
+  font-size:clamp(.95rem,1.4vw,1.1rem); color:var(--off-white);
+  max-width:460px; line-height:1.8; margin:2rem auto 0;
+  opacity:0; animation:fadeUp .9s .4s var(--ease) forwards;
+}
+
+.hero-ctas {
+  display:flex; gap:1rem; margin-top:2.8rem; flex-wrap:wrap; justify-content:center;
+  opacity:0; animation:fadeUp .9s .55s var(--ease) forwards;
+}
+
+.btn-primary {
+  font-family:var(--font-body);
+  padding:.88rem 2.2rem; background:var(--red-bright); color:var(--white);
+  text-decoration:none; font-size:.8rem; letter-spacing:.1em;
+  text-transform:uppercase; font-weight:700; border-radius:4px;
+  border:1px solid var(--red-bright);
+  transition:background .25s, box-shadow .25s, transform .15s;
+  display:inline-flex; align-items:center; gap:9px;
+  box-shadow:0 0 32px rgba(224,49,49,0.3);
+}
+.btn-primary:hover { background:transparent; box-shadow:0 0 48px rgba(224,49,49,0.4); transform:translateY(-1px); }
+.btn-ghost {
+  font-family:var(--font-body);
+  padding:.88rem 2.2rem; background:transparent; color:var(--white);
+  text-decoration:none; font-size:.8rem; letter-spacing:.1em;
+  text-transform:uppercase; font-weight:700; border-radius:4px;
+  border:1px solid var(--border);
+  transition:border-color .25s, box-shadow .25s, transform .15s;
+  display:inline-flex; align-items:center; gap:9px;
+}
+.btn-ghost:hover { border-color:var(--red-bright); box-shadow:0 0 24px var(--red-glow); transform:translateY(-1px); }
+
+.hero-scroll {
+  position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  font-size:0.62rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gray);
+  opacity:0; animation:fadeUp 1s 1.1s var(--ease) forwards;
+}
+.hero-scroll-line {
+  width:1px; height:44px;
+  background:linear-gradient(180deg, var(--red-bright), transparent);
+  animation:scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine { 0%{opacity:0;transform:scaleY(0);transform-origin:top} 40%{opacity:1} 100%{opacity:0;transform:scaleY(1);transform-origin:top} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── MARQUEE TRUST BAR ── */
+#trust {
+  padding:0;
+  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  overflow:hidden;
+  background:var(--bg2);
+}
+.trust-marquee-outer { display:flex; }
+.trust-marquee {
+  display:flex; gap:0; flex-shrink:0;
+  animation:marqueeScroll 22s linear infinite;
+}
+.trust-marquee-outer:hover .trust-marquee { animation-play-state:paused; }
+.trust-item {
+  display:flex; align-items:center; gap:3.5rem;
+  padding:2.4rem 3.5rem;
+  border-right:1px solid var(--border);
+  white-space:nowrap; flex-shrink:0;
+}
+.trust-num {
+  font-family:var(--font-display); font-size:2.2rem; font-weight:700;
+  background:linear-gradient(135deg, var(--white) 0%, var(--red-bright) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  line-height:1;
+}
+.trust-lbl { font-size:0.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--gray); margin-top:2px; }
+.trust-divider-dot { width:4px; height:4px; border-radius:50%; background:var(--red-dim); }
+@keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ── INTRO ── */
+#intro { padding:10rem 0; }
+.intro-header { text-align:center; margin-bottom:4rem; }
+.video-frame {
+  max-width:820px; margin:0 auto; position:relative;
+  border-radius:10px; overflow:hidden;
+  border:1px solid var(--border-red);
+  box-shadow:0 0 80px rgba(155,18,18,0.18), 0 0 160px rgba(155,18,18,0.07);
+}
+.video-placeholder {
+  width:100%; aspect-ratio:16/9;
+  background:linear-gradient(135deg, #1a0505 0%, #0c0c0c 100%);
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:1.5rem;
+}
+.play-btn-big {
+  width:76px; height:76px; border-radius:50%;
+  background:var(--red-bright); display:flex; align-items:center; justify-content:center;
+  cursor:none; transition:transform .3s var(--ease), box-shadow .3s;
+  box-shadow:0 0 48px rgba(224,49,49,0.4);
+}
+.play-btn-big:hover { transform:scale(1.12); box-shadow:0 0 64px rgba(224,49,49,0.6); }
+.video-tag { font-size:0.68rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gray); }
+.iframe-wrap { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; }
+.iframe-wrap iframe { position:absolute; top:0;left:0; width:100%; height:100%; border:none; }
+
+/* ── PROBLEM → SOLUTION ── */
+#problem { padding:10rem 0; }
+.ps-head { text-align:center; margin-bottom:5rem; }
+.ps-cols {
+  display:grid;
+  grid-template-columns:1fr 60px 1fr;
+  gap:24px; align-items:start;
+}
+.ps-col { display:flex; flex-direction:column; gap:12px; }
+.col-lbl {
+  font-size:0.65rem; letter-spacing:0.26em; text-transform:uppercase;
+  font-weight:700; padding:0 0 18px;
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:4px;
+}
+.col-lbl.problem { color:var(--gray); }
+.col-lbl.solution { color:var(--red-bright); }
+.col-lbl .dot { width:6px; height:6px; border-radius:50%; background:currentColor; flex-shrink:0; }
+
+.ps-card {
+  padding:22px 26px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:var(--glass);
+  position:relative; overflow:hidden;
+  transition:border-color .3s, transform .3s var(--ease), box-shadow .3s;
+}
+.ps-card::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+  border-radius:8px 0 0 8px; background:rgba(240,238,233,0.08);
+  transition:background .3s;
+}
+.ps-card.sol::before { background:var(--red-bright); }
+.ps-card:hover { border-color:var(--border-red); transform:translateX(4px); box-shadow:0 4px 32px rgba(0,0,0,0.25); }
+.ps-card h4 { font-size:.9rem; font-weight:600; margin-bottom:5px; color:var(--white); }
+.ps-card p { font-size:.82rem; color:var(--off-white); line-height:1.68; }
+
+.ps-connector {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:12px; padding-top:52px;
+}
+.conn-line {
+  flex:1; width:1px; min-height:60px;
+  background:linear-gradient(to bottom, transparent, var(--red-bright), transparent);
+}
+.conn-node {
+  width:38px; height:38px; border-radius:50%; flex-shrink:0;
+  background:var(--red-bright);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 0 28px rgba(224,49,49,0.5);
+}
+
+/* ── SERVICES ── */
+#services { padding:10rem 0; }
+.services-header { text-align:center; margin-bottom:4.5rem; }
+.services-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--border);
+  border:1px solid var(--border); border-radius:10px; overflow:hidden;
+}
+.service-card {
+  padding:2.8rem 2.2rem;
+  background:var(--bg);
+  transition:background .3s;
+  position:relative; overflow:hidden;
+}
+.service-card::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:var(--red-bright); transform:scaleX(0); transform-origin:left;
+  transition:transform .4s var(--ease);
+}
+.service-card:hover { background:rgba(155,18,18,0.04); }
+.service-card:hover::after { transform:scaleX(1); }
+
+.service-num {
+  font-family:var(--font-display); font-size:2.8rem;
+  color:rgba(240,238,233,0.04); line-height:1; margin-bottom:1.5rem; display:block;
+}
+.service-icon { font-size:1.5rem; margin-bottom:.9rem; display:block; }
+.service-name {
+  font-family:var(--font-display); font-size:1.3rem; letter-spacing:.04em; font-weight:600;
+  margin-bottom:.75rem; color:var(--white);
+}
+.service-desc { font-size:.84rem; color:var(--off-white); line-height:1.75; }
+.service-tags { margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:.45rem; }
+.service-tag {
+  font-size:.62rem; letter-spacing:.12em; text-transform:uppercase;
+  padding:3px 9px; border:1px solid var(--border); border-radius:3px; color:var(--gray);
+}
+
+/* ── PORTFOLIO ── */
+#portfolio { padding:10rem 0; }
+.portfolio-header { display:flex; flex-direction:column; align-items:center; text-align:center; gap:1.5rem; margin-bottom:3rem; }
+.filter-bar { display:flex; gap:.4rem; flex-wrap:wrap; justify-content:center; }
+.filter-btn {
+  font-family:var(--font-body);
+  padding:.42rem 1.1rem; font-size:.7rem; letter-spacing:.1em;
+  text-transform:uppercase; background:transparent; color:var(--off-white);
+  border:1px solid var(--border); border-radius:3px; cursor:none;
+  transition:all .2s;
+}
+.filter-btn.active, .filter-btn:hover {
+  color:var(--white); border-color:var(--red-bright);
+  background:rgba(224,49,49,0.08);
+}
+.portfolio-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+.port-item { position:relative; aspect-ratio:16/9; overflow:hidden; cursor:none; background:#111; }
+.port-thumb-bg {
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .6s var(--ease);
+}
+.port-item:hover .port-thumb-bg { transform:scale(1.08); }
+.port-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 100%);
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:.5rem;
+  padding:1.5rem; opacity:0; transition:opacity .3s;
+}
+.port-item:hover .port-overlay { opacity:1; }
+.port-play {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(.7);
+  width:52px; height:52px; border-radius:50%;
+  background:var(--red-bright); display:flex; align-items:center; justify-content:center;
+  box-shadow:0 0 32px rgba(224,49,49,0.5); transition:transform .3s var(--ease);
+}
+.port-item:hover .port-play { transform:translate(-50%,-50%) scale(1); }
+.port-title { font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--white); font-weight:600; }
+.port-cat { font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--red-bright); }
+.port-item.hidden { display:none; }
+
+/* ── MODAL ── */
+#modal {
+  position:fixed; inset:0; z-index:9000;
+  background:rgba(0,0,0,0.94); backdrop-filter:blur(12px);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity .3s;
+}
+#modal.open { opacity:1; pointer-events:all; }
+.modal-inner { width:90%; max-width:880px; position:relative; }
+.modal-close {
+  position:absolute; top:-3rem; right:0;
+  background:none; border:none; color:var(--white);
+  font-size:1.4rem; cursor:none; opacity:.6; transition:opacity .2s;
+}
+.modal-close:hover { opacity:1; }
+.modal-video { width:100%; aspect-ratio:16/9; background:#000; border-radius:8px; overflow:hidden; }
+.modal-video iframe { width:100%; height:100%; border:none; }
+.modal-placeholder {
+  width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,#180000,#0d0d0d);
+  color:var(--gray); font-size:.9rem; border-radius:8px; aspect-ratio:16/9;
+}
+
+/* ── TESTIMONIALS ── */
+#testimonials { padding:10rem 0; }
+.testi-wrap { max-width:760px; margin:3rem auto 0; }
+.testi-slider { overflow:hidden; border-radius:10px; }
+.testi-track { display:flex; transition:transform .6s var(--ease); }
+.testi-slide { flex:0 0 100%; }
+.testi-card {
+  padding:3rem 3.5rem;
+  border:1px solid var(--border); border-radius:10px;
+  background:var(--glass); text-align:center;
+  position:relative; overflow:hidden;
+}
+.testi-card::before {
+  content:'"'; font-family:var(--font-serif); font-size:10rem; line-height:1;
+  position:absolute; top:-1.5rem; left:2rem; color:var(--red-dim); opacity:.5;
+  pointer-events:none;
+}
+.testi-stars { color:var(--red-bright); font-size:.85rem; margin-bottom:1.4rem; letter-spacing:.1em; }
+.testi-quote {
+  font-family:var(--font-serif); font-style:italic;
+  font-size:1.15rem; color:var(--white); line-height:1.75;
+  margin-bottom:2rem; position:relative; z-index:1;
+}
+.testi-name { font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; color:var(--red-bright); font-weight:700; }
+.testi-role { font-size:.74rem; color:var(--gray); margin-top:5px; }
+.testi-video-wrap {
+  width:180px; aspect-ratio:9/16; margin:0 auto 1.8rem;
+  border-radius:8px; overflow:hidden; border:1px solid var(--border-red);
+  background:linear-gradient(160deg,#1e0505,#0d0d0d);
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:.5rem;
+  color:var(--gray); font-size:.65rem;
+  letter-spacing:.15em; text-transform:uppercase;
+  box-shadow:0 0 36px rgba(155,18,18,0.18); position:relative;
+}
+.testi-play {
+  position:absolute; width:40px; height:40px; border-radius:50%;
+  background:rgba(155,18,18,0.85); display:flex; align-items:center; justify-content:center;
+}
+.testi-nav { display:flex; justify-content:center; align-items:center; gap:1.2rem; margin-top:2rem; }
+.testi-btn {
+  width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--border); background:transparent; color:var(--white);
+  cursor:none; display:flex; align-items:center; justify-content:center;
+  transition:border-color .2s, box-shadow .2s;
+}
+.testi-btn:hover { border-color:var(--red-bright); box-shadow:0 0 16px var(--red-glow); }
+.testi-dots { display:flex; gap:6px; align-items:center; }
+.testi-dot { width:6px; height:6px; border-radius:50%; background:var(--border); transition:all .3s; cursor:none; }
+.testi-dot.active { background:var(--red-bright); box-shadow:0 0 8px rgba(224,49,49,0.5); width:18px; border-radius:3px; }
+
+/* ── BOOKING ── */
+#booking { padding:10rem 0; }
+.booking-header { text-align:center; margin-bottom:3.5rem; }
+.cal-wrap {
+  max-width:880px; margin:0 auto;
+  border:1px solid var(--border); border-radius:10px; overflow:hidden;
+  box-shadow:0 0 80px rgba(155,18,18,0.1);
+}
+.calendly-placeholder {
+  width:100%; min-height:580px; background:var(--glass);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.5rem;
+  color:var(--gray); text-align:center; padding:3rem;
+}
+.calendly-placeholder h3 { font-family:var(--font-display); color:var(--white); font-size:1.8rem; font-weight:600; letter-spacing:.05em; }
+.calendly-placeholder p { font-size:.84rem; line-height:1.75; max-width:400px; }
+
+/* ── FAQ ── */
+#faq { padding:10rem 0; }
+.faq-wrap { max-width:700px; margin:3rem auto 0; }
+.faq-item { border-bottom:1px solid var(--border); }
+.faq-q {
+  width:100%; text-align:left; background:none; border:none;
+  color:var(--white); padding:1.6rem 0;
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:.95rem; font-family:var(--font-body); font-weight:600;
+  cursor:none; transition:color .2s; gap:1rem;
+}
+.faq-q:hover { color:var(--red-bright); }
+.faq-icon { font-size:1.2rem; color:var(--red-bright); transition:transform .35s var(--ease); flex-shrink:0; }
+.faq-item.open .faq-icon { transform:rotate(45deg); }
+.faq-a {
+  max-height:0; overflow:hidden; transition:max-height .45s var(--ease), padding .3s;
+  color:var(--off-white); font-size:.88rem; line-height:1.85;
+}
+.faq-item.open .faq-a { max-height:300px; padding-bottom:1.6rem; }
+
+/* ── FINAL CTA ── */
+#final-cta {
+  padding:10rem 0; text-align:center; position:relative; overflow:hidden;
+}
+#final-cta::before {
+  content:''; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:700px; height:700px; border-radius:50%;
+  background:radial-gradient(circle, rgba(155,18,18,0.09) 0%, transparent 65%);
+  pointer-events:none;
+}
+.final-title {
+  font-family:var(--font-display);
+  font-size:clamp(3rem,8vw,8rem); line-height:.95; letter-spacing:-.02em;
+  font-weight:700; margin-bottom:2rem;
+}
+.final-title em { font-family:var(--font-serif); font-style:italic; color:var(--red-bright); }
+.final-sub { color:var(--off-white); font-size:1rem; max-width:400px; margin:0 auto 3rem; line-height:1.8; }
+.final-ctas { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+
+/* ── FOOTER ── */
+footer { padding:4.5rem 0 2.5rem; border-top:1px solid var(--border); }
+.footer-top {
+  display:flex; justify-content:space-between; align-items:flex-start;
+  flex-wrap:wrap; gap:3rem; margin-bottom:3rem;
+}
+.footer-tagline { color:var(--gray); font-size:.82rem; margin-top:.75rem; max-width:240px; line-height:1.65; }
+.footer-links { display:flex; gap:4rem; flex-wrap:wrap; }
+.footer-col h4 {
+  font-size:.62rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--red-bright); margin-bottom:1rem; font-weight:700;
+}
+.footer-col a {
+  display:block; color:var(--off-white); text-decoration:none; font-size:.83rem;
+  margin-bottom:.6rem; transition:color .2s;
+}
+.footer-col a:hover { color:var(--white); }
+.footer-bottom {
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;
+  border-top:1px solid var(--border); padding-top:2rem;
+}
+.footer-copy { font-size:.73rem; color:var(--gray); }
+.footer-socials { display:flex; gap:.75rem; }
+.footer-social {
+  width:36px; height:36px; border:1px solid var(--border); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--gray); text-decoration:none; font-size:.75rem; font-weight:700;
+  transition:border-color .2s, color .2s, box-shadow .2s;
+}
+.footer-social:hover { border-color:var(--red-bright); color:var(--white); box-shadow:0 0 14px var(--red-glow); }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal-delay-1 { transition-delay:.1s; }
+.reveal-delay-2 { transition-delay:.2s; }
+.reveal-delay-3 { transition-delay:.3s; }
+.reveal-delay-4 { transition-delay:.4s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width:1024px) {
+  .ps-cols { grid-template-columns:1fr; }
+  .ps-connector { flex-direction:row; padding-top:0; padding:16px 0; }
+  .conn-line { min-height:1px; width:60px; flex:none; background:linear-gradient(to right,transparent,var(--red-bright),transparent); }
+  .services-grid { grid-template-columns:repeat(2,1fr); }
+  .portfolio-grid { grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:768px) {
+  .nav-pill, .btn-nav { display:none; }
+  .hamburger { display:flex; }
+  .services-grid { grid-template-columns:1fr; }
+  .portfolio-grid { grid-template-columns:repeat(2,1fr); }
+  .footer-links { gap:2rem; }
+  .testi-card { padding:2rem 1.5rem; }
+}
+@media (max-width:480px) {
+  .portfolio-grid { grid-template-columns:1fr; }
+  .hero-ctas, .final-ctas { flex-direction:column; align-items:center; }
+  #cursor, #cursor-ring { display:none; }
+  body { cursor:auto; }
+  .hamburger, .mobile-menu a, .filter-btn, .testi-btn, .faq-q, .play-btn-big, .port-item, .footer-social { cursor:pointer; }
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ── NAVBAR ── -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M4 3L12 8L4 13V3Z" fill="white"/><path d="M10 3H13V13H10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </div>
+    <span class="nav-logo-text">Cut<em>Behind</em></span>
+  </a>
+  <ul class="nav-pill">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#intro">About</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#booking" class="btn-nav">Book a Call</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── MOBILE MENU ── -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero" class="mob-link">Home</a>
+  <a href="#services" class="mob-link">Services</a>
+  <a href="#portfolio" class="mob-link">Portfolio</a>
+  <a href="#intro" class="mob-link">About</a>
+  <a href="#faq" class="mob-link">FAQ</a>
+  <a href="#booking" class="mob-link" style="color:var(--red-bright)">Book a Call</a>
+  <button class="mob-close-btn" id="mobClose">✕</button>
+</div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span></span>
+      Premium Video Editing Agency
+    </div>
+    <h1 class="hero-h1">Turn Your Viewers<br>Into <em>Customers</em></h1>
+    <p class="hero-sub">We transform raw footage into cinematic, high-retention videos that stop the scroll and drive real results.</p>
+    <div class="hero-ctas">
+      <a href="#booking" class="btn-primary">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+        Book a Free Call
+      </a>
+      <a href="#portfolio" class="btn-ghost">
+        View Our Work
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── TRUST MARQUEE ── -->
+<section id="trust">
+  <div class="trust-marquee-outer">
+    <!-- doubled for seamless loop -->
+    <div class="trust-marquee" id="marquee1">
+      <div class="trust-item">
+        <div><div class="trust-num">120+</div><div class="trust-lbl">Videos Delivered</div></div>
+      </div>
+      <div class="trust-divider-dot"></div>
+      <div class="trust-item">
+        <div><div class="trust-num">98%</div><div class="trust-lbl">Client Satisfaction</div></div>
+      </div>
+      <div class="trust-divider-dot"></div>
+      <div class="trust-item">
+        <div><div class="trust-num">3.2M+</div><div class="trust-lbl">Total Views Generated</div></div>
+      </div>
+      <div class="trust-divider-dot"></div>
+      <div class="trust-item">
+        <div><div class="trust-num">48h</div><div class="trust-lbl">Average Turnaround</div></div>
+      </div>
+      <div class="trust-divider-dot"></div>
+      <div class="trust-item">
+        <div><div class="trust-num">∞</div><div class="trust-lbl">Revisions Included</div></div>
+      </div>
+      <div class="trust-divider-dot"></div>
+      <!-- duplicate -->
+      <div class="trust-item">
+        <div><div class="trust-num">120+</div><div class="trust-lbl">Videos Delivered</div></div>
+      </div>
+      <div class="trust-divider-dot"></div>
+      <div class="trust-item">
+        <div><div class="trust-num">98%</div><div class="trust-lbl">Client Satisfaction</div></div>
+      </div>
+      <div class="trust-divider-dot"></div>
+      <div class="trust-item">
+        <div><div class="trust-num">3.2M+</div><div class="trust-lbl">Total Views Generated</div></div>
+      </div>
+      <div class="trust-divider-dot"></div>
+      <div class="trust-item">
+        <div><div class="trust-num">48h</div><div class="trust-lbl">Average Turnaround</div></div>
+      </div>
+      <div class="trust-divider-dot"></div>
+      <div class="trust-item">
+        <div><div class="trust-num">∞</div><div class="trust-lbl">Revisions Included</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INTRO VIDEO ── -->
+<section id="intro">
+  <div class="container">
+    <div class="intro-header reveal">
+      <span class="section-label">The Studio</span>
+      <h2 class="section-title">Cut Behind Studio</h2>
+    </div>
+    <div class="video-frame reveal">
+      <div class="video-placeholder">
+        <div class="play-btn-big" id="introPlayBtn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+        <p class="video-tag">Play Intro Reel — 2:30</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROBLEM → SOLUTION ── -->
+<section id="problem">
+  <div class="container">
+    <div class="ps-head reveal">
+      <span class="section-label">The Transformation</span>
+      <h2 class="section-title">From Invisible<br>to <em style="font-family:var(--font-serif);font-style:italic;color:var(--red-bright)">Unmissable</em></h2>
+    </div>
+    <div class="ps-cols">
+      <div class="ps-col reveal">
+        <p class="col-lbl problem"><span class="dot"></span>The Problem</p>
+        <div class="ps-card">
+          <h4>📉 Low Views &amp; Reach</h4>
+          <p>Your videos get ignored. The algorithm skips content that doesn't hook viewers in the first 3 seconds.</p>
+        </div>
+        <div class="ps-card">
+          <h4>⏩ Poor Audience Retention</h4>
+          <p>Viewers drop off before your message lands. Generic pacing and flat energy kill your watch-time score.</p>
+        </div>
+        <div class="ps-card">
+          <h4>😴 Forgettable Edits</h4>
+          <p>Your content disappears in the feed. Without strong visual storytelling, you're just noise.</p>
+        </div>
+        <div class="ps-card">
+          <h4>🕐 Time Drain</h4>
+          <p>Editing hours you don't have. You're a creator — post-production is stealing your creative time.</p>
+        </div>
+      </div>
+      <div class="ps-connector">
+        <div class="conn-line"></div>
+        <div class="conn-node">
+          <svg width="16" height="16" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="conn-line"></div>
+      </div>
+      <div class="ps-col reveal">
+        <p class="col-lbl solution"><span class="dot"></span>The Solution</p>
+        <div class="ps-card sol">
+          <h4>🎬 Cinematic Storytelling</h4>
+          <p>Every frame earns its place. We craft visual hooks, pacing maps, and narrative arcs engineered to demand attention.</p>
+        </div>
+        <div class="ps-card sol">
+          <h4>⚡ Fast-Paced Precision Cuts</h4>
+          <p>Dynamic edits, layered sound design, and motion sync that maximize average view duration and emotional impact.</p>
+        </div>
+        <div class="ps-card sol">
+          <h4>📱 Platform Optimization</h4>
+          <p>Each video is engineered for its native platform — from short-form Reels to long-form YouTube deep dives.</p>
+        </div>
+        <div class="ps-card sol">
+          <h4>🚀 Done-For-You Pipeline</h4>
+          <p>Send footage, receive a polished video. Full post-production so you can stay focused on creating.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="container">
+    <div class="services-header">
+      <span class="section-label reveal">What We Do</span>
+      <h2 class="section-title reveal">Our Services</h2>
+      <p class="section-sub reveal" style="margin:1.2rem auto 0;text-align:center">Every format. Every platform. Edited to perform.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-num">01</span>
+        <span class="service-icon">🎬</span>
+        <div class="service-name">YouTube Long-Form</div>
+        <p class="service-desc">Full-length YouTube videos edited with strong hooks, dynamic pacing, b-roll, lower thirds, and end cards that drive subscriptions.</p>
+        <div class="service-tags">
+          <span class="service-tag">Retention</span>
+          <span class="service-tag">Chapters</span>
+          <span class="service-tag">Thumbnails</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-num">02</span>
+        <span class="service-icon">⚡</span>
+        <div class="service-name">Short-Form Reels</div>
+        <p class="service-desc">Hook-first vertical videos for TikTok, Instagram Reels, and YouTube Shorts engineered for maximum viral reach.</p>
+        <div class="service-tags">
+          <span class="service-tag">TikTok</span>
+          <span class="service-tag">Reels</span>
+          <span class="service-tag">Shorts</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <span class="service-num">03</span>
+        <span class="service-icon">📢</span>
+        <div class="service-name">Video Ads</div>
+        <p class="service-desc">Direct-response video ads built to stop the scroll, build desire, and drive clicks — optimised for Meta, YouTube, and TikTok ads.</p>
+        <div class="service-tags">
+          <span class="service-tag">Meta Ads</span>
+          <span class="service-tag">VSL</span>
+          <span class="service-tag">UGC</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-num">04</span>
+        <span class="service-icon">🎙️</span>
+        <div class="service-name">Podcast Editing</div>
+        <p class="service-desc">Audiogram clips, full podcast episodes, branded intros/outros — everything needed to make your show look premium.</p>
+        <div class="service-tags">
+          <span class="service-tag">Audio Clean</span>
+          <span class="service-tag">Clips</span>
+          <span class="service-tag">Audiograms</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <span class="service-num">05</span>
+        <span class="service-icon">🏢</span>
+        <div class="service-name">Brand Videos</div>
+        <p class="service-desc">Corporate promos, product reveals, testimonial compilations — edited to reflect your brand identity at the highest level.</p>
+        <div class="service-tags">
+          <span class="service-tag">Corporate</span>
+          <span class="service-tag">Promo</span>
+          <span class="service-tag">Testimonial</span>
+        </div>
+      </div>
+      <div class="service-card reveal reveal-delay-3">
+        <span class="service-num">06</span>
+        <span class="service-icon">✦</span>
+        <div class="service-name">Motion Graphics</div>
+        <p class="service-desc">Custom animated titles, lower thirds, transitions, and visual effects that elevate your video beyond the ordinary.</p>
+        <div class="service-tags">
+          <span class="service-tag">After Effects</span>
+          <span class="service-tag">Animation</span>
+          <span class="service-tag">VFX</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PORTFOLIO ── -->
+<section id="portfolio">
+  <div class="container">
+    <div class="portfolio-header">
+      <div>
+        <span class="section-label reveal">Case Studies</span>
+        <h2 class="section-title reveal">Our Work</h2>
+      </div>
+      <div class="filter-bar reveal">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="shorts">Shorts</button>
+        <button class="filter-btn" data-filter="youtube">YouTube</button>
+        <button class="filter-btn" data-filter="ads">Ads</button>
+      </div>
+    </div>
+    <div class="portfolio-grid" id="portfolioGrid"></div>
+  </div>
+</section>
+
+<!-- ── MODAL ── -->
+<div id="modal">
+  <div class="modal-inner">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-video" id="modalContent">
+      <div class="modal-placeholder"><p>Video player</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── TESTIMONIALS ── -->
+<section id="testimonials">
+  <div class="container">
+    <div style="text-align:center">
+      <span class="section-label reveal">Social Proof</span>
+      <h2 class="section-title reveal">What Clients Say</h2>
+    </div>
+    <div class="testi-wrap reveal">
+      <div class="testi-slider">
+        <div class="testi-track" id="testiTrack">
+
+          <div class="testi-slide">
+            <div class="testi-card">
+              <div class="testi-video-wrap">
+                <span>Client Testimonial</span>
+                <div class="testi-play">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+              </div>
+              <div class="testi-stars">★★★★★</div>
+              <p class="testi-quote">"Cut Behind Studio completely transformed our YouTube channel. Our average view duration jumped from 35% to 68% within the first month. The edits are cinematic — our audience absolutely loves it."</p>
+              <p class="testi-name">Marcus Rivera</p>
+              <p class="testi-role">YouTuber · 380K Subscribers</p>
+            </div>
+          </div>
+
+          <div class="testi-slide">
+            <div class="testi-card">
+              <div class="testi-video-wrap">
+                <span>Client Testimonial</span>
+                <div class="testi-play">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+              </div>
+              <div class="testi-stars">★★★★★</div>
+              <p class="testi-quote">"We hired them for our ad campaigns and the ROI was insane. Our best performing video ad — edited by these guys — generated over $40K in sales in two weeks."</p>
+              <p class="testi-name">Sophie Chen</p>
+              <p class="testi-role">E-commerce Brand Owner</p>
+            </div>
+          </div>
+
+          <div class="testi-slide">
+            <div class="testi-card">
+              <div class="testi-video-wrap">
+                <span>Client Testimonial</span>
+                <div class="testi-play">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+              </div>
+              <div class="testi-stars">★★★★★</div>
+              <p class="testi-quote">"Professional, fast, and genuinely creative. They understood our brand voice from day one. The short-form clips they create for us consistently hit 500K+ views. We don't work with anyone else."</p>
+              <p class="testi-name">Jordan Blake</p>
+              <p class="testi-role">TikTok Creator · 1.2M Followers</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="testi-nav">
+        <button class="testi-btn" id="testiPrev">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="testi-dots" id="testiDots"></div>
+        <button class="testi-btn" id="testiNext">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOOKING ── -->
+<section id="booking">
+  <div class="container">
+    <div class="booking-header">
+      <span class="section-label reveal">Schedule a Call</span>
+      <h2 class="section-title reveal">Book a Free<br>Strategy Call</h2>
+      <p class="section-sub reveal" style="margin:1rem auto 0;text-align:center">Pick a time that works for you — no pressure, no pitch, just strategy.</p>
+    </div>
+    <div class="cal-wrap reveal">
+      <div class="calendly-placeholder">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--red-bright)" stroke-width="1.4"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+        <h3>Calendly Calendar</h3>
+        <p>Replace this placeholder with your Calendly embed:<br><code style="font-size:.73rem;color:var(--red-bright);background:rgba(155,18,18,0.1);padding:4px 8px;border-radius:4px">&lt;div class="calendly-inline-widget" data-url="..."&gt;</code></p>
+        <a href="#" class="btn-primary" style="margin-top:.5rem">Open Calendly ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section id="faq">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:1rem">
+      <span class="section-label reveal">Got Questions?</span>
+      <h2 class="section-title reveal">FAQ</h2>
+    </div>
+    <div class="faq-wrap">
+      <div class="faq-item reveal">
+        <button class="faq-q">How long does delivery take?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Standard turnaround is <strong>48–72 hours</strong> for short-form content and 3–5 business days for long-form YouTube videos. Rush delivery is available upon request. We'll confirm exact timelines during your strategy call.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-1">
+        <button class="faq-q">How many revisions do I get?<span class="faq-icon">+</span></button>
+        <div class="faq-a">We offer <strong>unlimited revisions</strong> until you're 100% satisfied. We want you to love the final result — we won't stop until you do. Most clients are happy after the first or second revision.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-2">
+        <button class="faq-q">What packages do you offer?<span class="faq-icon">+</span></button>
+        <div class="faq-a">We offer three core packages: <strong>Starter</strong> (4 short-form videos/month), <strong>Creator</strong> (2 long-form + 8 short-form/month), and <strong>Agency</strong> (fully custom volume). Pricing starts from $497/month. Full details shared on your call.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-3">
+        <button class="faq-q">How do I get started?<span class="faq-icon">+</span></button>
+        <div class="faq-a">It's simple — <strong>book your free strategy call</strong> above. We'll learn about your content goals, show you examples, and propose the right package. If you're happy, we start immediately. No long-term commitment required on your first project.</div>
+      </div>
+      <div class="faq-item reveal reveal-delay-4">
+        <button class="faq-q">What formats do you work with?<span class="faq-icon">+</span></button>
+        <div class="faq-a">We work with all major formats — MP4, MOV, MXF, and RAW footage. We use <strong>Adobe Premiere Pro and After Effects</strong> and deliver in any output format you need including 4K, 1080p, vertical (9:16), horizontal (16:9), and square (1:1).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FINAL CTA ── -->
+<section id="final-cta">
+  <div class="container">
+    <h2 class="final-title reveal">Ready to<br><em>Cut Behind</em><br>the Rest?</h2>
+    <p class="final-sub reveal">Let's build videos that actually convert. Your first call is free.</p>
+    <div class="final-ctas reveal">
+      <a href="#booking" class="btn-primary">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/></svg>
+        Book a Free Call
+      </a>
+      <a href="#portfolio" class="btn-ghost">See Our Work →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#hero" class="nav-logo" style="margin-bottom:.75rem">
+          <div class="nav-logo-icon">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M4 3L12 8L4 13V3Z" fill="white"/><path d="M10 3H13V13H10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          <span class="nav-logo-text">Cut<em>Behind</em></span>
+        </a>
+        <p class="footer-tagline">Cinematic video editing that stops the scroll and drives results.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="#services">YouTube Long-Form</a>
+          <a href="#services">Short-Form Reels</a>
+          <a href="#services">Video Ads</a>
+          <a href="#services">Podcast Editing</a>
+        </div>
+        <div class="footer-col">
+          <h4>Studio</h4>
+          <a href="#intro">About</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#testimonials">Testimonials</a>
+          <a href="#booking">Book a Call</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Cut Behind Studio. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/cutbehind.studio" class="footer-social" target="_blank">IG</a>
+        <a href="#" class="footer-social">YT</a>
+        <a href="#" class="footer-social">TK</a>
+        <a href="#" class="footer-social">LI</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── CURSOR ──
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+function animRing(){ rx+=(mx-rx)*.1; ry+=(my-ry)*.1; cursorRing.style.left=rx+'px'; cursorRing.style.top=ry+'px'; requestAnimationFrame(animRing); }
+animRing();
+document.querySelectorAll('a,button,[data-filter]').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
+});
+
+// ── NAVBAR ──
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);
+});
+
+// ── HAMBURGER ──
+const ham=document.getElementById('hamburger');
+const mob=document.getElementById('mobileMenu');
+let mobOpen=false;
+ham.addEventListener('click',()=>{ mobOpen=!mobOpen; mob.style.display=mobOpen?'flex':'none'; document.body.style.overflow=mobOpen?'hidden':''; });
+document.querySelectorAll('.mob-link').forEach(l=>{ l.addEventListener('click',()=>{ mobOpen=false; mob.style.display='none'; document.body.style.overflow=''; }); });
+const mobClose=document.getElementById('mobClose');
+if(mobClose){ mobClose.addEventListener('click',()=>{ mobOpen=false; mob.style.display='none'; document.body.style.overflow=''; }); }
+
+// ── PORTFOLIO ──
+const videos=[
+  {id:1,title:'Brand Film — TechFlow',cat:'youtube',ytId:'dQw4w9WgXcQ',color:'#1a0800'},
+  {id:2,title:'Product Reel — NovaSkin',cat:'shorts',ytId:'dQw4w9WgXcQ',color:'#001208'},
+  {id:3,title:'Meta Ad — FitBox Pro',cat:'ads',ytId:'dQw4w9WgXcQ',color:'#080016'},
+  {id:4,title:'Vlog Edit — Marcus R.',cat:'youtube',ytId:'dQw4w9WgXcQ',color:'#180000'},
+  {id:5,title:'TikTok Viral — @creator',cat:'shorts',ytId:'dQw4w9WgXcQ',color:'#001616'},
+  {id:6,title:'VSL Ad — CoachPro',cat:'ads',ytId:'dQw4w9WgXcQ',color:'#0c0c00'},
+];
+const grid=document.getElementById('portfolioGrid');
+videos.forEach(v=>{
+  const item=document.createElement('div');
+  item.className='port-item'; item.dataset.cat=v.cat;
+  item.innerHTML=`
+    <div class="port-thumb-bg" style="background:linear-gradient(135deg,${v.color},#080808)">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    </div>
+    <div class="port-overlay">
+      <div class="port-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+      <div class="port-title">${v.title}</div>
+      <div class="port-cat">${v.cat.charAt(0).toUpperCase()+v.cat.slice(1)}</div>
+    </div>`;
+  item.addEventListener('click',()=>openModal(v.ytId));
+  grid.appendChild(item);
+});
+
+// ── FILTER ──
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.port-item').forEach(item=>{
+      item.classList.toggle('hidden',f!=='all'&&item.dataset.cat!==f);
+    });
+  });
+});
+
+// ── MODAL ──
+const modal=document.getElementById('modal');
+const modalContent=document.getElementById('modalContent');
+function openModal(ytId){
+  modalContent.innerHTML=`<div style="position:relative;padding-bottom:56.25%;height:0"><iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1" allow="autoplay;encrypted-media" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none"></iframe></div>`;
+  modal.classList.add('open'); document.body.style.overflow='hidden';
+}
+function closeModal(){
+  modal.classList.remove('open'); document.body.style.overflow='';
+  setTimeout(()=>{ modalContent.innerHTML='<div class="modal-placeholder"><p>Video player</p></div>'; },300);
+}
+document.getElementById('modalClose').addEventListener('click',closeModal);
+modal.addEventListener('click',e=>{ if(e.target===modal) closeModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+
+// ── TESTIMONIALS ──
+const track=document.getElementById('testiTrack');
+const slides=track.querySelectorAll('.testi-slide');
+const dotsWrap=document.getElementById('testiDots');
+let cur=0;
+slides.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='testi-dot'+(i===0?' active':'');
+  d.addEventListener('click',()=>goTo(i));
+  dotsWrap.appendChild(d);
+});
+function goTo(n){ cur=(n+slides.length)%slides.length; track.style.transform=`translateX(-${cur*100}%)`; document.querySelectorAll('.testi-dot').forEach((d,i)=>d.classList.toggle('active',i===cur)); }
+document.getElementById('testiPrev').addEventListener('click',()=>goTo(cur-1));
+document.getElementById('testiNext').addEventListener('click',()=>goTo(cur+1));
+setInterval(()=>goTo(cur+1),5500);
+
+// ── FAQ ──
+document.querySelectorAll('.faq-q').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.parentElement;
+    const was=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!was) item.classList.add('open');
+  });
+});
+
+// ── SCROLL REVEAL ──
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+  });
+});
+</script>
+</body>
+</html>
