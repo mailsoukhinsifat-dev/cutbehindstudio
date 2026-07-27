@@ -293,21 +293,6 @@ p{font-size:16px;}
 .work-link svg{width:14px;height:14px;transition:transform .3s var(--ease);}
 .work-card:hover .work-link svg{transform:translate(3px,-3px);}
 
-/* ============ CASE STUDY SPOTLIGHT ============ */
-#case-study{background:var(--bg-raised);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.case-top{display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px;margin-bottom:60px;}
-.case-top .eyebrow{justify-content:center;}
-.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
-.case-media{border-radius:var(--radius-lg);overflow:hidden;position:sticky;top:110px;}
-.case-media .work-media{aspect-ratio:4/5;}
-.case-block{margin-bottom:36px;}
-.case-block .num{font-family:var(--font-display);font-size:12.5px;color:var(--accent-bright);font-weight:700;letter-spacing:.1em;}
-.case-block h4{font-size:19px;margin:10px 0 10px;font-weight:700;}
-.case-block p{color:var(--text-secondary);font-size:15.5px;}
-.case-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;padding-top:34px;border-top:1px solid var(--border);}
-.case-metrics b{display:block;font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--accent-bright);}
-.case-metrics span{font-size:12.5px;color:var(--text-tertiary);}
-
 /* ============ SERVICES ============ */
 .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
 .service-card{
@@ -559,47 +544,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 34px;}
     </div>
     <div class="work-grid" id="workGrid">
       <!-- cards injected below in stagger for reveal -->
-    </div>
-  </div>
-</section>
-
-<!-- CASE STUDY SPOTLIGHT -->
-<section id="case-study" class="section-pad">
-  <div class="wrap">
-    <div class="case-top">
-      <div>
-        <span class="eyebrow reveal">Case study</span>
-        <h2 class="reveal">Vertex SaaS: from feature list to funded Series&nbsp;B.</h2>
-      </div>
-      <a href="#cta" class="btn btn-ghost btn-sm magnetic reveal">Start a project like this</a>
-      </div>
-      <div class="case-copy">
-        <div class="case-block reveal">
-          <span class="num">01 — Challenge</span>
-          <h4>A product with real traction and an explainer nobody watched past 8 seconds.</h4>
-          <p>Vertex SaaS had strong retention and a growing waitlist, but their product explainer was built like a feature tour. It read like documentation, and prospects were bouncing before the pitch even started.</p>
-        </div>
-        <div class="case-block reveal">
-          <span class="num">02 — Strategy</span>
-          <h4>Lead with the outcome the buyer wants, not the interface they'll learn.</h4>
-          <p>We restructured the narrative around a single before-and-after moment for their ideal customer, pushed every feature mention past the 30-second mark, and scripted a hook built to survive the first three seconds of a scroll.</p>
-        </div>
-        <div class="case-block reveal">
-          <span class="num">03 — Execution</span>
-          <h4>A 60-second hero explainer, six short-form cutdowns, and a founder-led ad set.</h4>
-          <p>Our team handled scripting, motion graphics, sound design, and a retention-focused edit pass, then repackaged the story into a founder-facing ad series for paid distribution.</p>
-        </div>
-        <div class="case-block reveal">
-          <span class="num">04 — Results</span>
-          <h4>The explainer became their highest-converting landing page asset within three weeks.</h4>
-          <p>Watch-through rates tripled, demo requests attributed to video content grew month over month, and the founder-led ad set became the best-performing creative in their paid stack heading into their Series B raise.</p>
-        </div>
-        <div class="case-metrics reveal">
-          <div><b>3.1x</b><span>Watch-through rate</span></div>
-          <div><b>+164%</b><span>Demo requests</span></div>
-          <div><b>21 days</b><span>Idea to publish</span></div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
