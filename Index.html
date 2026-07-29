@@ -62,6 +62,40 @@ b{font-weight:600;}
 .eyebrow::before{content:'';width:16px;height:1px;background:var(--accent-bright);}
 .text-secondary{color:var(--text-secondary);}
 
+/* ============ SECTION DIVIDER ============ */
+.section-divider{
+  display:flex;align-items:center;justify-content:center;
+  padding:0;position:relative;height:1px;
+}
+.section-divider .divider-line{
+  position:relative;width:0;max-width:150px;height:2px;border-radius:2px;overflow:hidden;
+  background:linear-gradient(90deg, transparent, var(--accent-bright) 18%, var(--accent-bright) 82%, transparent);
+  box-shadow:0 0 14px 1px rgba(213,21,46,.55);
+  transition:width 1.4s var(--ease);
+}
+.section-divider.is-visible .divider-line{width:150px;}
+.section-divider .divider-dot{
+  position:absolute;top:50%;left:50%;width:5px;height:5px;border-radius:50%;
+  background:var(--accent-bright);box-shadow:0 0 10px 2px rgba(213,21,46,.8);
+  transform:translate(-50%,-50%) scale(0);transition:transform .6s var(--ease) .9s;
+}
+.section-divider.is-visible .divider-dot{transform:translate(-50%,-50%) scale(1);}
+.section-divider .divider-line::after{
+  content:'';position:absolute;top:-3px;left:-35%;width:35%;height:8px;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.95), transparent);
+  filter:blur(1.5px);opacity:0;
+  animation:dividerSweep 3s ease-in-out infinite;animation-delay:1.6s;
+}
+.section-divider.is-visible .divider-line::after{opacity:.85;}
+@keyframes dividerSweep{
+  0%{left:-35%;}
+  55%{left:100%;}
+  100%{left:100%;}
+}
+@media (prefers-reduced-motion: reduce){
+  .section-divider .divider-line::after{animation:none;}
+}
+
 /* ============ SCROLLBAR ============ */
 ::-webkit-scrollbar{width:9px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
@@ -166,7 +200,7 @@ nav{display:flex;align-items:center;justify-content:space-between;}
 .word-reveal.is-visible .word span{transform:translateY(0);}
 
 section{position:relative;}
-.section-pad{padding:150px 0;}
+.section-pad{padding:22px 0 52px;}
 .section-head{max-width:680px;margin:0 auto 70px;text-align:center;}
 .section-head .eyebrow{justify-content:center;}
 .section-head h2{margin-top:20px;}
@@ -201,6 +235,15 @@ p{font-size:16px;}
   margin-bottom:64px;
 }
 .hero-headline .accent{color:var(--accent-bright);font-style:italic;}
+.cta-headline{
+  font-weight:400;
+  font-style:normal;
+  color:#fff;
+  font-size:clamp(32px,5vw,58px);
+  max-width:760px;
+  margin:36px auto 0;
+  line-height:1.15;
+}
 .hero-sub{
   max-width:520px;margin:34px auto 0;font-size:17px;color:var(--text-secondary);line-height:1.65;
 }
@@ -429,7 +472,7 @@ p{font-size:16px;}
 .faq-a p{color:var(--text-secondary);padding-bottom:28px;max-width:640px;font-size:15.5px;}
 
 /* ============ FOOTER ============ */
-footer{padding:26px 0 20px;}
+footer{padding:26px 0 70px;}
 .footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
 .footer-bottom span{font-size:13px;color:var(--text-tertiary);}
 .footer-socials{display:flex;gap:18px;}
@@ -450,7 +493,7 @@ footer{padding:26px 0 20px;}
   .nav-links{display:none;}
   .mobile-toggle{display:flex;}
   .nav-cta-wrap .btn-ghost{display:none;}
-  .section-pad{padding:90px 0;}
+  .section-pad{padding:18px 0 42px;}
   .section-head{margin:0 auto 44px;}
   .hero-actions .btn{width:100%;}
   .hero-actions{flex-direction:column;}
@@ -472,7 +515,7 @@ footer{padding:26px 0 20px;}
   .faq-q{font-size:16.5px;padding:22px 0;gap:14px;}
   .faq-a p{font-size:14.5px;}
   #faq[style]{padding-bottom:50px !important;}
-  footer{padding:22px 0 16px;}
+  footer{padding:22px 0 46px;}
   .footer-bottom{flex-direction:column;align-items:flex-start;gap:14px;}
   .testi-wrap{padding:0 4px;}
   .testi-quote{font-size:19px;}
@@ -482,7 +525,7 @@ footer{padding:26px 0 20px;}
   .logo{font-size:15px;}
   .btn{padding:12px 20px;font-size:13.5px;}
   h2{font-size:clamp(26px,7vw,34px);}
-  .section-pad{padding:70px 0;}
+  .section-pad{padding:14px 0 34px;}
   .section-head{margin:0 auto 34px;}
   .eyebrow{font-size:11.5px;}
   .hero-stats{gap:20px 26px;}
@@ -546,7 +589,7 @@ footer{padding:26px 0 20px;}
   <div class="hero-bg"></div>
   <div class="wrap">
     <div class="hero-top">
-      <h1 class="hero-headline reveal is-visible">More Than Editing. A Content Growth Partner!</h1>
+      <h1 class="hero-headline reveal is-visible">Content That Captivates, Results That Scale!</h1>
     </div>
     <div class="hero-video reveal-scale is-visible" id="heroVideo" style="transition-delay:.15s;" data-video-id="9gSRLCmFtcA">
       <div class="video-poster" id="heroVideoPoster">
@@ -560,11 +603,12 @@ footer{padding:26px 0 20px;}
   </div>
 </section>
 
+<div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
+
 <!-- ABOUT & TEAM -->
 <section id="about" class="section-pad">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow reveal">About Us</span>
       <h2 class="reveal">The team behind the edits.</h2>
     </div>
     
@@ -593,22 +637,24 @@ footer{padding:26px 0 20px;}
   </div>
 </section>
 
+<div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
+
 <!-- SERVICES -->
 <section id="services" class="section-pad">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow reveal">Services</span>
       <h2 class="reveal">Everything a growing brand needs from its video partner.</h2>
     </div>
     <div class="services-grid" id="servicesGrid"></div>
   </div>
 </section>
 
+<div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
+
 <!-- FEATURED WORK -->
 <section id="work" class="section-pad">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow reveal">Featured work</span>
       <h2 class="reveal">Content built to move a business, not just a feed.</h2>
     </div>
     <div class="filter-row" id="filterRow">
@@ -626,11 +672,12 @@ footer{padding:26px 0 20px;}
   </div>
 </section>
 
+<div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
+
 <!-- PROCESS -->
 <section id="process" class="section-pad">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow reveal">Our process</span>
       <h2 class="reveal">A repeatable system, built so nothing depends on luck.</h2>
     </div>
     <div class="process-list reveal" id="processList">
@@ -639,33 +686,36 @@ footer{padding:26px 0 20px;}
   </div>
 </section>
 
+<div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
+
 <!-- WHY CHOOSE US -->
 <section id="why" class="section-pad">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow reveal">Why Cut Behind</span>
       <h2 class="reveal">We're not the cheaper option. Here's the difference.</h2>
     </div>
     <div class="compare reveal" id="whyTable"></div>
   </div>
 </section>
 
+<div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
+
 <!-- TESTIMONIALS -->
 <section id="testimonials" class="section-pad">
   <div class="wrap">
     <div class="section-head" style="margin:0 auto 60px;text-align:center;">
-      <span class="eyebrow reveal" style="justify-content:center;">Client results</span>
       <h2 class="reveal">Don't take our word for it.</h2>
     </div>
     <div class="testi-wrap" id="testiWrap"></div>
   </div>
 </section>
 
+<div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
+
 <!-- FAQ -->
 <section id="faq" class="section-pad" style="padding-bottom:70px;">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow reveal">FAQ</span>
       <h2 class="reveal">Questions we hear before a first project.</h2>
     </div>
     <div class="faq-list" id="faqList"></div>
@@ -676,8 +726,11 @@ footer{padding:26px 0 20px;}
 <section id="cta" class="section-pad" style="padding-top:0;text-align:center;">
   <div class="wrap">
     <a href="https://cal.com/soukhin-sifat/get-free-30-min-video-strategy-call" class="btn btn-primary magnetic">Book a Discovery Call</a>
+    <h2 class="cta-headline reveal">Ready to Grow Your Brand!</h2>
   </div>
 </section>
+
+<div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
 
 <!-- FOOTER -->
 <footer>
@@ -691,9 +744,9 @@ footer{padding:26px 0 20px;}
             <span>© 2026 Cut Behind Studio. All rights reserved.</span>
 
             <div class="footer-socials">
-                <a href="https://www.instagram.com/cutbehind.studio/">Instagram</a>
-                <a href="https://www.youtube.com/@soukhinsifat">YouTube</a>
-                <a href="https://www.linkedin.com/company/cut-behind-studio/">LinkedIn</a>
+                <a href="#">Instagram</a>
+                <a href="#">YouTube</a>
+                <a href="#">LinkedIn</a>
             </div>
         </div>
 
