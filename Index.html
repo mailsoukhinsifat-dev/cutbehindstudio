@@ -232,13 +232,6 @@ p{font-size:16px;}
   background-size:64px 64px;
   mask-image:radial-gradient(ellipse 60% 50% at 50% 20%, black, transparent);
 }
-.hero-spotlight{
-  position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;
-  background:radial-gradient(circle 420px at var(--mx,50%) var(--my,50%), rgba(213,21,46,0.20), rgba(213,21,46,0.05) 45%, transparent 70%);
-  transition:opacity .5s var(--ease);
-}
-.hero-spotlight.active{opacity:1;}
-@media (hover:none), (pointer:coarse){.hero-spotlight{display:none;}}
 .hero-top{display:flex;flex-direction:column;align-items:center;text-align:center;gap:0;}
 .hero-headline{
   font-weight:500;
@@ -262,7 +255,7 @@ p{font-size:16px;}
 }
 .hero-actions{display:flex;gap:16px;margin-top:clamp(44px, 3.4vw + 31px, 72px);flex-wrap:wrap;justify-content:center;}
 .hero-video{
-  width:100%;max-width:1300px;margin:8px auto 0;border-radius:var(--radius-lg);overflow:hidden;
+  width:100%;max-width:1000px;margin:8px auto 0;border-radius:var(--radius-lg);overflow:hidden;
   position:relative;aspect-ratio:16/9;background:var(--bg-raised);
   box-shadow:0 40px 100px -30px rgba(0,0,0,0.6);
 }
@@ -365,6 +358,34 @@ p{font-size:16px;}
 .service-icon svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.6;}
 .service-card h3{font-size:18px;margin-bottom:8px;}
 .service-card p{font-size:14px;color:var(--text-secondary);}
+
+/* ============ PRICING ============ */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.price-card{
+  background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:40px 32px;display:flex;flex-direction:column;position:relative;transition:border-color .3s ease,transform .3s var(--ease);
+}
+.price-card:hover{transform:translateY(-4px);}
+.price-card.featured{border-color:var(--accent-bright);box-shadow:0 20px 60px -25px rgba(213,21,46,.45);}
+.price-badge{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--accent-bright);color:#fff;
+  font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:6px 16px;border-radius:100px;white-space:nowrap;
+}
+.price-name{font-family:var(--font-display);font-size:19px;font-weight:600;}
+.price-sub{font-size:13.5px;color:var(--text-tertiary);margin-top:6px;margin-bottom:28px;}
+.price-amount{font-family:var(--font-display);font-size:40px;font-weight:500;letter-spacing:-0.02em;}
+.price-amount span{font-size:14px;color:var(--text-tertiary);font-weight:400;margin-left:4px;letter-spacing:0;}
+.price-features{list-style:none;margin:28px 0 32px;display:flex;flex-direction:column;gap:13px;}
+.price-features li{font-size:14px;color:var(--text-secondary);padding-left:22px;position:relative;}
+.price-features li::before{content:'✓';position:absolute;left:0;top:0;color:var(--accent-bright);font-weight:700;}
+.price-cta{
+  margin-top:auto;text-align:center;padding:13px 0;border-radius:100px;border:1px solid var(--border-strong);
+  font-size:14px;font-weight:500;transition:all .3s var(--ease);
+}
+.price-cta:hover{background:var(--accent-bright);border-color:var(--accent-bright);color:#fff;}
+.price-card.featured .price-cta{background:var(--white);color:#0a0a0a;border-color:#fff;}
+.price-card.featured .price-cta:hover{background:var(--accent-bright);color:#fff;}
+.pricing-note{text-align:center;margin-top:40px;font-size:14px;color:var(--text-tertiary);}
 
 /* ============ PROCESS ============ */
 #process{background:var(--bg-raised);}
@@ -514,6 +535,8 @@ footer{padding:38px 0 70px;}
   .hero-stats{gap:26px 34px;}
   .hero-stat b{font-size:clamp(26px,7vw,34px);}
   .services-grid{grid-template-columns:1fr;}
+  .pricing-grid{grid-template-columns:1fr;gap:36px;}
+  .price-card.featured{order:-1;}
   .service-card{padding:30px 26px;min-height:auto;}
   .work-grid{grid-template-columns:1fr;}
   .process-line{left:21px;}
@@ -603,6 +626,7 @@ footer{padding:38px 0 70px;}
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#work">Work</a>
+      <a href="#pricing">Pricing</a>
       <a href="#process">Process</a>
       <a href="#about">Team</a>
       <a href="#testimonials">Reviews</a>
@@ -621,6 +645,7 @@ footer{padding:38px 0 70px;}
   <a href="#about">About</a>
   <a href="#services">Services</a>
   <a href="#work">Work</a>
+  <a href="#pricing">Pricing</a>
   <a href="#process">Process</a>
   <a href="#faq">FAQ</a>
   <a href="https://cal.com/soukhin-sifat/get-free-30-min-video-strategy-call" target="_blank" rel="noopener" class="btn btn-primary">Book a Discovery Call</a>
@@ -629,7 +654,6 @@ footer{padding:38px 0 70px;}
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
-  <div class="hero-spotlight" id="heroSpotlight"></div>
   <div class="wrap">
     <div class="hero-top">
       <h1 class="hero-headline reveal is-visible">Grow Your Brand Through Videos</h1>
@@ -675,6 +699,57 @@ footer{padding:38px 0 70px;}
     <div class="work-grid" id="workGrid">
       <!-- cards injected below in stagger for reveal -->
     </div>
+  </div>
+</section>
+
+<div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
+
+<!-- PRICING -->
+<section id="pricing" class="section-pad">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="reveal">Pricing Built Around Your Content Type</h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="price-name">SaaS</div>
+        <div class="price-sub">Product explainers &amp; demo videos</div>
+        <div class="price-amount">$1,500<span>/ video</span></div>
+        <ul class="price-features">
+          <li>Script-assisted storyboarding</li>
+          <li>Motion graphics &amp; UI callouts</li>
+          <li>2 rounds of revisions</li>
+          <li>5–7 day turnaround</li>
+        </ul>
+        <a href="https://cal.com/soukhin-sifat/get-free-30-min-video-strategy-call" target="_blank" rel="noopener" class="price-cta">Book a Discovery Call</a>
+      </div>
+      <div class="price-card featured reveal">
+        <span class="price-badge">Most Popular</span>
+        <div class="price-name">Short Form</div>
+        <div class="price-sub">Daily-ready reels &amp; shorts</div>
+        <div class="price-amount">$1000<span>/ month</span></div>
+        <ul class="price-features">
+          <li>8 shorts delivered monthly</li>
+          <li>Hook-first editing &amp; pacing</li>
+          <li>Captions, SFX &amp; sound design</li>
+          <li>Unlimited revisions</li>
+        </ul>
+        <a href="https://cal.com/soukhin-sifat/get-free-30-min-video-strategy-call" target="_blank" rel="noopener" class="price-cta">Book a Discovery Call</a>
+      </div>
+      <div class="price-card reveal">
+        <div class="price-name">Long Form</div>
+        <div class="price-sub">YouTube-style storytelling</div>
+        <div class="price-amount">$250<span>/ video</span></div>
+        <ul class="price-features">
+          <li>Full edit up to 20 minutes</li>
+          <li>Color grade &amp; sound mix</li>
+          <li>Thumbnail concept included</li>
+          <li>3–5 day turnaround</li>
+        </ul>
+        <a href="https://cal.com/soukhin-sifat/get-free-30-min-video-strategy-call" target="_blank" rel="noopener" class="price-cta">Book a Discovery Call</a>
+      </div>
+    </div>
+    <p class="pricing-note reveal">Need higher volume or a custom retainer? Every plan starts with a free strategy call — we'll tailor a package to fit.</p>
   </div>
 </section>
 
@@ -774,10 +849,10 @@ footer{padding:38px 0 70px;}
             <span>© 2026 Cut Behind Studio. All rights reserved.</span>
 
             <div class="footer-socials">
-                <a href="https://www.instagram.com/cutbehind.studio">Instagram</a>
-                <a href="https://www.youtube.com/@soukhinsifat">YouTube</a>
-                <a href="https://www.linkedin.com/company/cut-behind-studio/">LinkedIn</a>
-                <a href="https://x.com/soukhinsifat">X</a>
+                <a href="https://www.instagram.com/cutbehind.studio" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://www.youtube.com/@soukhinsifat" target="_blank" rel="noopener">YouTube</a>
+                <a href="https://www.linkedin.com/company/cut-behind-studio/" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://x.com/soukhinsifat" target="_blank" rel="noopener">X</a>
             </div>
         </div>
 
@@ -1003,26 +1078,6 @@ if(!isCoarse && !prefersReduced){
     el.addEventListener('mouseenter', () => ring.classList.add('hover'));
     el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
   });
-
-  const heroEl = document.getElementById('hero');
-  const spotlight = document.getElementById('heroSpotlight');
-  if(heroEl && spotlight){
-    let sx=50, sy=50, tx=50, ty=50;
-    heroEl.addEventListener('mouseenter', () => spotlight.classList.add('active'));
-    heroEl.addEventListener('mouseleave', () => spotlight.classList.remove('active'));
-    heroEl.addEventListener('mousemove', e => {
-      const r = heroEl.getBoundingClientRect();
-      tx = ((e.clientX - r.left) / r.width) * 100;
-      ty = ((e.clientY - r.top) / r.height) * 100;
-    });
-    function spotlightLoop(){
-      sx += (tx-sx)*0.08; sy += (ty-sy)*0.08;
-      spotlight.style.setProperty('--mx', sx+'%');
-      spotlight.style.setProperty('--my', sy+'%');
-      requestAnimationFrame(spotlightLoop);
-    }
-    spotlightLoop();
-  }
 }
 
 /* ============================================================
