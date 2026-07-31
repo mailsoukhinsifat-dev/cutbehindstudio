@@ -217,7 +217,7 @@ p{font-size:16px;}
 
 /* ============ HERO ============ */
 #hero{
-  min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  min-height:clamp(560px, 100svh, 880px);display:flex;flex-direction:column;justify-content:center;
   padding-top:clamp(90px, 6.1vw + 67px, 140px);padding-bottom:clamp(26px, 1.5vw + 20px, 38px);overflow:hidden;
 }
 .hero-bg{
@@ -232,6 +232,13 @@ p{font-size:16px;}
   background-size:64px 64px;
   mask-image:radial-gradient(ellipse 60% 50% at 50% 20%, black, transparent);
 }
+.hero-spotlight{
+  position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;
+  background:radial-gradient(circle 420px at var(--mx,50%) var(--my,50%), rgba(213,21,46,0.20), rgba(213,21,46,0.05) 45%, transparent 70%);
+  transition:opacity .5s var(--ease);
+}
+.hero-spotlight.active{opacity:1;}
+@media (hover:none), (pointer:coarse){.hero-spotlight{display:none;}}
 .hero-top{display:flex;flex-direction:column;align-items:center;text-align:center;gap:0;}
 .hero-headline{
   font-weight:500;
@@ -622,6 +629,7 @@ footer{padding:38px 0 70px;}
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
+  <div class="hero-spotlight" id="heroSpotlight"></div>
   <div class="wrap">
     <div class="hero-top">
       <h1 class="hero-headline reveal is-visible">Grow Your Brand Through Videos</h1>
@@ -995,6 +1003,26 @@ if(!isCoarse && !prefersReduced){
     el.addEventListener('mouseenter', () => ring.classList.add('hover'));
     el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
   });
+
+  const heroEl = document.getElementById('hero');
+  const spotlight = document.getElementById('heroSpotlight');
+  if(heroEl && spotlight){
+    let sx=50, sy=50, tx=50, ty=50;
+    heroEl.addEventListener('mouseenter', () => spotlight.classList.add('active'));
+    heroEl.addEventListener('mouseleave', () => spotlight.classList.remove('active'));
+    heroEl.addEventListener('mousemove', e => {
+      const r = heroEl.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width) * 100;
+      ty = ((e.clientY - r.top) / r.height) * 100;
+    });
+    function spotlightLoop(){
+      sx += (tx-sx)*0.08; sy += (ty-sy)*0.08;
+      spotlight.style.setProperty('--mx', sx+'%');
+      spotlight.style.setProperty('--my', sy+'%');
+      requestAnimationFrame(spotlightLoop);
+    }
+    spotlightLoop();
+  }
 }
 
 /* ============================================================
