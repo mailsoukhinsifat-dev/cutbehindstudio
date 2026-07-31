@@ -316,6 +316,7 @@ p{font-size:16px;}
   aspect-ratio:16/10;position:relative;overflow:hidden;
   background:linear-gradient(135deg,var(--bg-raised-2),#000000);
 }
+.work-media.vertical{aspect-ratio:9/16;}
 .work-media .gradient-layer{
   position:absolute;inset:0;opacity:.9;transition:transform 1.1s var(--ease), filter .6s ease;
   background:
@@ -953,7 +954,7 @@ const checkIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" st
 
 document.getElementById('workGrid').innerHTML = WORK.map(w => `
   <div class="work-card reveal" data-cat="${w.cat}">
-    <div class="work-media" ${w.videoId ? `data-video-id="${w.videoId}"` : ''}>
+    <div class="work-media${w.cat === 'shortform' ? ' vertical' : ''}" ${w.videoId ? `data-video-id="${w.videoId}"` : ''}>
       ${w.videoId
         ? `<div class="gradient-layer" style="background-image:url('https://img.youtube.com/vi/${w.videoId}/hqdefault.jpg');background-size:cover;background-position:center;"></div>`
         : `<div class="gradient-layer"></div>`}
