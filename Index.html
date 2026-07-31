@@ -260,21 +260,11 @@ p{font-size:16px;}
   box-shadow:0 40px 100px -30px rgba(0,0,0,0.6);
 }
 .hero-video .video-poster{
-  position:absolute;
-  inset:0;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background-image:
-    linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)),
-    url("https://img.youtube.com/vi/aSte18D2_YE/maxresdefault.jpg");
-
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-
+  position:absolute;inset:0;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(177,18,38,0.45), transparent 55%),
+    radial-gradient(circle at 75% 75%, rgba(255,255,255,0.06), transparent 50%),
+    linear-gradient(160deg,var(--bg-raised-2),#000000);
   transition:filter .4s ease;
 }
 .hero-video .video-poster:hover{filter:brightness(1.08);}
@@ -668,8 +658,8 @@ footer{padding:38px 0 70px;}
     <div class="hero-top">
       <h1 class="hero-headline reveal is-visible">Grow Your Brand Through Videos</h1>
     </div>
-    <div class="hero-video reveal-scale is-visible" id="heroVideo" style="transition-delay:.15s;" data-video-id="aSte18D2_YE">
-      <div class="video-poster" id="heroVideoPoster">
+    <div class="hero-video reveal-scale is-visible" id="heroVideo" style="transition-delay:.15s;" data-video-id="awUYikrGsKk">
+      <div class="video-poster" id="heroVideoPoster" style="background-image:url('https://img.youtube.com/vi/awUYikrGsKk/hqdefault.jpg');background-size:cover;background-position:center;">
         <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
       </div>
     </div>
