@@ -437,8 +437,26 @@ p{font-size:16px;}
 .founder-photo{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#1a0206);}
 .team-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:70px;padding-top:50px;border-top:1px solid var(--border);}
 .team-card{text-align:left;}
-.team-photo{aspect-ratio:1;border-radius:var(--radius-md);background:linear-gradient(150deg,var(--bg-raised-2),#000000);margin-bottom:16px;overflow:hidden;}
-.team-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.team-photo{
+  aspect-ratio:1;
+  border-radius:var(--radius-md);
+  background:linear-gradient(150deg,var(--bg-raised-2),#000000);
+  margin-bottom:16px;
+  overflow:hidden;
+  position:relative;
+}
+.team-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .6s var(--ease);
+}
+.team-card:hover .team-photo img{
+  transform:scale(1.06);
+}
+.team-card{transition:transform .5s var(--ease);}
+.team-card:hover{transform:translateY(-6px);}
 .team-card b{display:block;font-size:15px;}
 .team-card span{font-size:13px;color:var(--text-tertiary);}
 
@@ -483,6 +501,8 @@ footer{padding:38px 0 70px;}
   .nav-cta-wrap .btn-primary{display:none;}
   .section-pad{padding:30px 0;}
   .section-head{margin:0 auto 44px;}
+  #hero{padding-top:92px;}
+  .hero-headline{margin-bottom:40px;}
   .hero-actions .btn{width:100%;}
   .hero-actions{flex-direction:column;}
   .hero-stats{gap:26px 34px;}
@@ -490,6 +510,7 @@ footer{padding:38px 0 70px;}
   .services-grid{grid-template-columns:1fr;}
   .service-card{padding:30px 26px;min-height:auto;}
   .work-grid{grid-template-columns:1fr;}
+  .process-line{left:21px;}
   .process-item{grid-template-columns:44px 1fr;gap:16px;padding:26px 0;}
   .process-content{flex-direction:column;gap:6px;}
   .compare{grid-template-columns:1fr;}
@@ -504,7 +525,8 @@ footer{padding:38px 0 70px;}
   .faq-a p{font-size:14.5px;}
   #faq[style]{padding-bottom:50px !important;}
   footer{padding:24px 0 46px;}
-  .footer-bottom{flex-direction:column;align-items:flex-start;gap:14px;}
+  .footer-bottom{flex-direction:column;align-items:center;text-align:center;gap:14px;}
+  .footer-socials{justify-content:center;}
   .testi-wrap{padding:0 4px;}
   .testi-quote{font-size:19px;}
 }
@@ -517,8 +539,8 @@ footer{padding:38px 0 70px;}
   .section-pad{padding:24px 0;}
   .section-head{margin:0 auto 34px;}
   .eyebrow{font-size:11.5px;}
-  #hero{padding-top:110px;}
-  .hero-headline{margin-bottom:36px;}
+  #hero{padding-top:78px;}
+  .hero-headline{margin-bottom:32px;}
   .hero-sub{font-size:15.5px;margin-top:22px;}
   .hero-actions{margin-top:44px;}
   .hero-bottom{margin-top:50px;gap:24px;padding-top:26px;}
@@ -532,6 +554,7 @@ footer{padding:38px 0 70px;}
   .number-item b{font-size:clamp(30px,9vw,40px);}
   .work-info{padding:18px;flex-direction:column;align-items:flex-start;gap:12px;}
   .service-card{padding:24px 20px;}
+  .process-line{left:16px;}
   .process-item{grid-template-columns:34px 1fr;gap:12px;}
   .process-text h3{font-size:17px;}
   .process-text p{font-size:14px;}
@@ -635,13 +658,10 @@ footer{padding:38px 0 70px;}
       <h2 class="reveal">The Works That Define Us</h2>
     </div>
     <div class="filter-row" id="filterRow">
-      <button class="filter-btn active" data-filter="all">All Work</button>
-      <button class="filter-btn" data-filter="saas">SaaS</button>
-      <button class="filter-btn" data-filter="realestate">Real Estate</button>
-      <button class="filter-btn" data-filter="personal">Personal Brand</button>
-      <button class="filter-btn" data-filter="podcast">Podcast</button>
+      <button class="filter-btn active" data-filter="saas">SaaS</button>
       <button class="filter-btn" data-filter="shortform">Short Form</button>
-      <button class="filter-btn" data-filter="youtube">YouTube</button>
+      <button class="filter-btn" data-filter="longform">Long Form</button>
+      <button class="filter-btn" data-filter="podcast">Podcast</button>
     </div>
     <div class="work-grid" id="workGrid">
       <!-- cards injected below in stagger for reveal -->
@@ -771,13 +791,30 @@ footer{padding:38px 0 70px;}
    DATA
 ============================================================ */
 const WORK = [
-  {cat:'saas', tag:'SaaS', title:'Vertex SaaS', desc:'Product explainer that tripled watch-through rate.'},
-  {cat:'realestate', tag:'Real Estate', title:'Northpeak Realty', desc:'Selling the lifestyle, not the listing.'},
-  {cat:'realestate', tag:'Real Estate', title:'Real Estate Showcase', desc:'A listing film built to make buyers feel the space before they walk in.', videoId:'XsgxkXOQF18'},
-  {cat:'personal', tag:'Personal Brand', title:'Maya Chen', desc:'One video a week, 40,000 founders reached.'},
-  {cat:'podcast', tag:'Podcast', title:'The Ledger Podcast', desc:'Weekly episodes edited for retention, not just cuts.'},
-  {cat:'shortform', tag:'Short Form', title:'Arclight Media', desc:'A daily short-form system that compounds reach.'},
-  {cat:'youtube', tag:'YouTube', title:'Studio Nine', desc:'Channel strategy that turned views into a waitlist.'},
+  {cat:'saas', tag:'SaaS'},
+  {cat:'saas', tag:'SaaS'},
+  {cat:'saas', tag:'SaaS'},
+  {cat:'saas', tag:'SaaS'},
+  {cat:'saas', tag:'SaaS'},
+  {cat:'saas', tag:'SaaS'},
+  {cat:'shortform', tag:'Short Form'},
+  {cat:'shortform', tag:'Short Form'},
+  {cat:'shortform', tag:'Short Form'},
+  {cat:'shortform', tag:'Short Form'},
+  {cat:'shortform', tag:'Short Form'},
+  {cat:'shortform', tag:'Short Form'},
+  {cat:'longform', tag:'Long Form'},
+  {cat:'longform', tag:'Long Form'},
+  {cat:'longform', tag:'Long Form'},
+  {cat:'longform', tag:'Long Form'},
+  {cat:'longform', tag:'Long Form'},
+  {cat:'longform', tag:'Long Form'},
+  {cat:'podcast', tag:'Podcast'},
+  {cat:'podcast', tag:'Podcast'},
+  {cat:'podcast', tag:'Podcast'},
+  {cat:'podcast', tag:'Podcast'},
+  {cat:'podcast', tag:'Podcast'},
+  {cat:'podcast', tag:'Podcast'},
 ];
 
 const SERVICES = [
@@ -849,10 +886,6 @@ document.getElementById('workGrid').innerHTML = WORK.map(w => `
         : `<div class="gradient-layer"></div>`}
       <span class="work-tag">${w.tag}</span>
       <div class="work-play"><span>${playIcon}</span></div>
-    </div>
-    <div class="work-info">
-      <div><h3>${w.title}</h3><p>${w.desc}</p></div>
-      <a href="#case-study" class="work-link">View Case Study ${arrowIcon}</a>
     </div>
   </div>`).join('');
 
@@ -1038,16 +1071,22 @@ counters.forEach(c => counterIO.observe(c));
 /* ============================================================
    WORK FILTER
 ============================================================ */
+/* ============================================================
+   WORK FILTER
+============================================================ */
+function applyWorkFilter(f){
+  document.querySelectorAll('.work-card').forEach(card => {
+    card.classList.toggle('hide', f !== 'all' && card.dataset.cat !== f);
+  });
+}
 document.getElementById('filterRow').addEventListener('click', e => {
   const btn = e.target.closest('.filter-btn');
   if(!btn) return;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const f = btn.dataset.filter;
-  document.querySelectorAll('.work-card').forEach(card => {
-    card.classList.toggle('hide', f !== 'all' && card.dataset.cat !== f);
-  });
+  applyWorkFilter(btn.dataset.filter);
 });
+applyWorkFilter(document.querySelector('.filter-btn.active')?.dataset.filter || 'saas');
 
 /* ============================================================
    PROCESS SCROLL PROGRESS
