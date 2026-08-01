@@ -110,7 +110,7 @@ b{font-weight:500;}
 /* ============ LOADER ============ */
 #loader{
   position:fixed;inset:0;z-index:9999;background:var(--bg);
-  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:28px;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;
   transition:opacity .8s var(--ease), visibility .8s var(--ease);
 }
 #loader.hidden{opacity:0;visibility:hidden;pointer-events:none;}
@@ -349,16 +349,21 @@ p{font-size:16px;}
 /* ============ SERVICES ============ */
 .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
 .service-card{
-  background:var(--bg);padding:38px 30px;min-height:250px;display:flex;flex-direction:column;justify-content:space-between;
+  background:var(--bg);padding:38px 30px;min-height:250px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
   transition:background .4s ease;
 }
 .service-card:hover{background:var(--bg-raised);}
-.service-num{font-family:var(--font-display);font-size:12.5px;color:var(--text-tertiary);font-weight:500;}
-.service-icon{width:38px;height:38px;border-radius:10px;background:var(--bg-raised-2);display:flex;align-items:center;justify-content:center;margin:18px 0 20px;transition:background .35s;}
-.service-card:hover .service-icon{background:var(--accent);}
-.service-icon svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.6;}
+.service-icon{
+  width:44px;height:44px;border-radius:12px;background:var(--bg-raised-2);display:flex;align-items:center;justify-content:center;
+  margin:0 auto 18px;transition:background .35s;
+}
+.service-card:hover .service-icon{background:var(--accent);animation:iconBounce .6s var(--ease);}
+@keyframes iconBounce{0%{transform:translateY(0) scale(1);}35%{transform:translateY(-9px) scale(1.06);}65%{transform:translateY(2px) scale(0.98);}100%{transform:translateY(0) scale(1);}}
+.service-icon svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.6;transition:transform .4s var(--ease);}
+.service-card:hover .service-icon svg{transform:scale(1.18) rotate(8deg);}
 .service-card h3{font-size:18px;margin-bottom:8px;}
 .service-card p{font-size:14px;color:var(--text-secondary);}
+@media (prefers-reduced-motion: reduce){.service-icon{animation:none;}}
 
 /* ============ PRICING ============ */
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
@@ -438,8 +443,9 @@ p{font-size:16px;}
 .testi-avatar{
   position:relative;width:44px;height:44px;flex-shrink:0;border-radius:50%;
   background:linear-gradient(135deg,var(--accent),#2a0409);display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-display);font-weight:500;font-size:13.5px;
+  font-family:var(--font-display);font-weight:500;font-size:13.5px;overflow:hidden;
 }
+.testi-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
 .testi-name{text-align:left;}
 .testi-name b{display:block;font-size:14.5px;font-weight:500;}
 .testi-name span{font-size:13px;color:var(--text-tertiary);}
@@ -915,25 +921,27 @@ const PROCESS = [
 const WHY = [
   {old:'Cuts what you send.', new:'Strategic storytelling', newd:'We build the narrative before the timeline exists.'},
   {old:'Edits for aesthetics.', new:'Retention editing', newd:'Every cut is engineered to hold attention, not just look good.'},
-  {old:'Treats you like a task.', new:'Business-first approach', newd:'Every video is tied to a growth metric we agree on up front.'},
-  {old:'Replies in days.', new:'Fast communication', newd:'Same-day updates through a dedicated project channel.'},
-  {old:'Runs on ad-hoc favors.', new:'Premium workflow', newd:'A repeatable system with clear stages, not a one-off scramble.'},
+  {old:'Treats you like a task.', new:'Business focused approach', newd:'Every video is tied to a growth metric we agree on up front.'},
+  {old:'Replies in days.', new:'Fast communication', newd:'Updates the same day through a dedicated project channel.'},
+  {old:'Runs on informal favors.', new:'Premium workflow', newd:'A repeatable system with clear stages, not a rushed scramble.'},
   {old:"\"It'll be done soon.\"", new:'Reliable turnaround', newd:'Dates land on a calendar, not as a promise in the air.'},
 ];
 
 const TESTIMONIALS = [
-  {q:"These guys are the OGs. They completely blew past our expectations on the demo video, and we keep coming back to them for every new one we need.", n:'David Ferris', r:'CEO, Vertex SaaS', profile:'#'},
-  {q:"If you want premium video then look no further. You pay good for what you get. Got our video done faster than expected and it ended up being the centerpiece of our entire launch.", n:'Amara Osei', r:'Broker, Northpeak Realty', profile:'#'},
-  {q:"It was a pleasure to work with Cut Behind Studio!! They deliver quick, high quality results and they also took the extra effort to make sure I was satisfied.", n:'Jonah Pratt', r:'Host, The Ledger Podcast', profile:'#'},
-  {q:"These guys made our launch video and the response we got from it was crazy. Felt like a real team behind the project, not just freelancers passing files around. Will be coming back for our next round of ads!!", n:'Maya Chen', r:'Founder & Coach', profile:'#'},
-  {q:"I was surprised by how smooth the whole thing felt. The team got back to every message within a few hours, the first storyboard hit way closer than I expected, and the final video ended up being the strongest asset on our landing page.", n:'Priya Nandan', r:'Marketing Lead, Studio Nine', profile:'#'},
-  {q:"These guys were extremely professional to work with. They made a launch video for us that we are extremely proud of. Would highly recommend!!", n:'Owen Bracket', r:'Founder, Arclight Media', profile:'#'},
-  {q:"Honestly a great team to work with! They were quick, super easy to communicate with, and the final video came out way better than I was expecting. They even made a couple last minute tweaks the day before our launch without any pushback.", n:'Selin Kaya', r:'Growth Lead, Helonic', profile:'#'},
-  {q:"Working with Cut Behind Studio for our launch video was a great experience. They turned it around super quickly and would make any revisions requested within 24 hours. I would highly recommend them to anyone that needs video work done.", n:'Marcus Webb', r:'Founder, Patentwatch', profile:'#'},
-  {q:"Such a great experience working with Cut Behind Studio. They were quick, handled every revision and the final video came out way more polished than what we had seen from other agencies. Highly recommend them!!", n:'Elena Ruiz', r:'Head of Content, Reachly', profile:'#'},
+  {q:"These guys are the OGs. They completely blew past our expectations on the demo video, and we keep coming back to them for every new one we need.", n:'David Ferris', r:'CEO, Vertex SaaS', profile:'#', photo:''},
+  {q:"If you want premium video then look no further. You pay good for what you get. Got our video done faster than expected and it ended up being the centerpiece of our entire launch.", n:'Amara Osei', r:'Broker, Northpeak Realty', profile:'#', photo:''},
+  {q:"It was a pleasure to work with Cut Behind Studio!! They deliver quick, high quality results and they also took the extra effort to make sure I was satisfied.", n:'Jonah Pratt', r:'Host, The Ledger Podcast', profile:'#', photo:''},
+  {q:"These guys made our launch video and the response we got from it was crazy. Felt like a real team behind the project, not just freelancers passing files around. Will be coming back for our next round of ads!!", n:'Maya Chen', r:'Founder & Coach', profile:'#', photo:''},
+  {q:"I was surprised by how smooth the whole thing felt. The team got back to every message within a few hours, the first storyboard hit way closer than I expected, and the final video ended up being the strongest asset on our landing page.", n:'Priya Nandan', r:'Marketing Lead, Studio Nine', profile:'#', photo:''},
+  {q:"These guys were extremely professional to work with. They made a launch video for us that we are extremely proud of. Would highly recommend!!", n:'Owen Bracket', r:'Founder, Arclight Media', profile:'#', photo:''},
+  {q:"Honestly a great team to work with! They were quick, super easy to communicate with, and the final video came out way better than I was expecting. They even made a couple last minute tweaks the day before our launch without any pushback.", n:'Selin Kaya', r:'Growth Lead, Helonic', profile:'#', photo:''},
+  {q:"Working with Cut Behind Studio for our launch video was a great experience. They turned it around super quickly and would make any revisions requested within 24 hours. I would highly recommend them to anyone that needs video work done.", n:'Marcus Webb', r:'Founder, Patentwatch', profile:'#', photo:''},
+  {q:"Such a great experience working with Cut Behind Studio. They were quick, handled every revision and the final video came out way more polished than what we had seen from other agencies. Highly recommend them!!", n:'Elena Ruiz', r:'Head of Content, Reachly', profile:'#', photo:''},
 ];
 // Note: set each "profile" field above to the client's real profile URL
 // (e.g. their LinkedIn) so clicking a review card opens their profile in a new tab.
+// Note: set each "photo" field above to an image URL (or base64) to show the client's
+// photo next to their name. Leave it empty ('') to keep showing their initials instead.
 
 const FAQ = [
   {q:'How fast is turnaround on a typical project?', a:'Most short-form and social content is delivered within 5–7 business days. Larger projects like SaaS explainers or brand films run on a 3–4 week timeline, mapped out during Discovery.'},
@@ -980,7 +988,6 @@ document.querySelectorAll('#workGrid .work-media[data-video-id]').forEach(media 
 
 document.getElementById('servicesGrid').innerHTML = SERVICES.map((s,i) => `
   <div class="service-card reveal">
-    <span class="service-num">${String(i+1).padStart(2,'0')}</span>
     <div class="service-icon"><svg viewBox="0 0 24 24"><path d="${s.icon}"/></svg></div>
     <div><h3>${s.t}</h3><p>${s.d}</p></div>
   </div>`).join('');
@@ -1001,14 +1008,14 @@ document.getElementById('whyTable').innerHTML = `
   </div>
   <div class="compare-col us">
     <h3>Cut Behind Studio</h3>
-    ${WHY.map(w => `<div class="compare-row"><span class="why-icon">${checkIcon}</span>${w.new} — ${w.newd}</div>`).join('')}
+    ${WHY.map(w => `<div class="compare-row"><span class="why-icon">${checkIcon}</span>${w.new}: ${w.newd}</div>`).join('')}
   </div>`;
 
 document.getElementById('testiWrap').innerHTML = TESTIMONIALS.map(t => `
   <a class="testi-card reveal" href="${t.profile}" target="_blank" rel="noopener">
     <p>${t.q}</p>
     <div class="testi-person">
-      <div class="testi-avatar">${t.n.split(' ').map(x=>x[0]).join('')}</div>
+      <div class="testi-avatar">${t.photo ? `<img src="${t.photo}" alt="${t.n}">` : t.n.split(' ').map(x=>x[0]).join('')}</div>
       <div class="testi-name"><b>${t.n}</b><span>${t.r}</span></div>
     </div>
   </a>`).join('');
