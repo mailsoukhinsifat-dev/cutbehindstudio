@@ -702,7 +702,7 @@ footer{padding:38px 0 70px;}
       <h1 class="hero-headline reveal is-visible">Grow Your Brand Through Videos</h1>
     </div>
     <div class="hero-video reveal-scale is-visible" id="heroVideo" style="transition-delay:.15s;" data-video-id="awUYikrGsKk">
-      <div class="video-poster" id="heroVideoPoster" style="background-image:url('https://img.youtube.com/vi/awUYikrGsKk/hqdefault.jpg');background-size:cover;background-position:center;">
+      <div class="video-poster" id="heroVideoPoster" data-yt-id="awUYikrGsKk" style="background-image:url('https://img.youtube.com/vi/awUYikrGsKk/maxresdefault.jpg');background-size:cover;background-position:center;">
         <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
       </div>
     </div>
@@ -1000,12 +1000,26 @@ document.getElementById('workGrid').innerHTML = WORK.map(w => `
   <div class="work-card reveal" data-cat="${w.cat}">
     <div class="work-media${w.cat === 'shortform' ? ' vertical' : ''}" ${w.videoId ? `data-video-id="${w.videoId}"` : ''}>
       ${w.videoId
-        ? `<div class="gradient-layer" style="background-image:url('https://img.youtube.com/vi/${w.videoId}/hqdefault.jpg');background-size:cover;background-position:center;"></div>`
+        ? `<div class="gradient-layer" data-yt-id="${w.videoId}" style="background-image:url('https://img.youtube.com/vi/${w.videoId}/maxresdefault.jpg');background-size:cover;background-position:center;"></div>`
         : `<div class="gradient-layer"></div>`}
       <span class="work-tag">${w.tag}</span>
       <div class="work-play"><span>${playIcon}</span></div>
     </div>
   </div>`).join('');
+
+document.querySelectorAll('#workGrid [data-yt-id]').forEach(layer => {
+  const id = layer.dataset.ytId;
+  const probe = new Image();
+  probe.onload = function(){
+    if (this.naturalWidth <= 120) {
+      layer.style.backgroundImage = `url('https://img.youtube.com/vi/${id}/sddefault.jpg')`;
+    }
+  };
+  probe.onerror = function(){
+    layer.style.backgroundImage = `url('https://img.youtube.com/vi/${id}/hqdefault.jpg')`;
+  };
+  probe.src = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+});
 
 document.querySelectorAll('#workGrid .work-media[data-video-id]').forEach(media => {
   media.style.cursor = 'pointer';
@@ -1074,6 +1088,19 @@ document.getElementById('faqList').innerHTML = FAQ.map((f,i) => `
 ============================================================ */
 const heroVideo = document.getElementById('heroVideo');
 const heroVideoPoster = document.getElementById('heroVideoPoster');
+if(heroVideoPoster){
+  const heroProbe = new Image();
+  const heroId = heroVideoPoster.dataset.ytId;
+  heroProbe.onload = function(){
+    if (this.naturalWidth <= 120) {
+      heroVideoPoster.style.backgroundImage = `url('https://img.youtube.com/vi/${heroId}/sddefault.jpg')`;
+    }
+  };
+  heroProbe.onerror = function(){
+    heroVideoPoster.style.backgroundImage = `url('https://img.youtube.com/vi/${heroId}/hqdefault.jpg')`;
+  };
+  heroProbe.src = `https://img.youtube.com/vi/${heroId}/maxresdefault.jpg`;
+}
 if(heroVideo && heroVideoPoster){
   heroVideoPoster.addEventListener('click', () => {
     const id = heroVideo.dataset.videoId;
