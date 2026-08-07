@@ -323,13 +323,11 @@ p{font-size:16px;}
 }
 .work-media.vertical{aspect-ratio:9/16;}
 .work-media .gradient-layer{
-  position:absolute;inset:0;opacity:.9;transition:filter .6s ease;
+  position:absolute;inset:0;opacity:.9;
   background:
     radial-gradient(circle at 25% 25%, rgba(177,18,38,0.5), transparent 55%),
     radial-gradient(circle at 75% 70%, rgba(255,255,255,0.06), transparent 50%);
-  filter:grayscale(0.35) contrast(1.05);
 }
-.work-card:hover .gradient-layer{filter:grayscale(0) contrast(1.1);}
 .work-play{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
 }
@@ -628,7 +626,7 @@ footer{padding:38px 0 70px;}
   .price-card:hover{transform:none;}
   .price-cta:hover{background:transparent;border-color:var(--border-strong);color:var(--white);}
   .price-card.featured .price-cta:hover{background:var(--white);border-color:#fff;color:#0a0a0a;}
-  .work-card:hover .gradient-layer{transform:none;filter:grayscale(1) contrast(1);}
+  .work-card:hover .gradient-layer{transform:none;}
   .work-card:hover .work-play span{background:rgba(0,0,0,0.25);border-color:rgba(255,255,255,0.35);transform:none;}
   .work-card:hover .work-link svg{transform:none;}
   .testi-card:hover{border-color:var(--border);background:var(--bg-raised-2);transform:none;}
