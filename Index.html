@@ -467,10 +467,10 @@ p{font-size:16px;}
   width:44px;height:44px;border-radius:8px;background:var(--bg-raised-2);display:flex;align-items:center;justify-content:center;
   margin:0 auto 18px;transition:background .35s;
 }
-.service-card:hover .service-icon{background:var(--accent);animation:iconBounce .6s var(--ease);}
+.service-card:hover .service-icon{background:#ffffff;animation:iconBounce .6s var(--ease);}
 @keyframes iconBounce{0%{transform:translateY(0) scale(1);}35%{transform:translateY(-9px) scale(1.06);}65%{transform:translateY(2px) scale(0.98);}100%{transform:translateY(0) scale(1);}}
-.service-icon svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.6;transition:transform .4s var(--ease);}
-.service-card:hover .service-icon svg{transform:scale(1.18) rotate(8deg);}
+.service-icon svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.6;transition:transform .4s var(--ease),stroke .35s;}
+.service-card:hover .service-icon svg{transform:scale(1.18) rotate(8deg);stroke:#0a0a0a;}
 .service-card h3{font-size:18px;margin-bottom:8px;}
 .service-card p{font-size:14px;color:var(--text-secondary);}
 @media (prefers-reduced-motion: reduce){.service-icon{animation:none;}}
@@ -507,16 +507,25 @@ p{font-size:16px;}
 /* ============ PROCESS ============ */
 #process{background:var(--bg-raised);}
 .process-list{position:relative;}
-.process-line{position:absolute;left:29px;top:0;bottom:0;width:1px;background:var(--border);}
-.process-line i{position:absolute;left:0;top:0;width:100%;background:var(--accent-bright);height:0%;box-shadow:0 0 10px 1px rgba(213,21,46,.6);}
+.process-line{position:absolute;left:29px;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.2);}
+.process-line i{position:absolute;left:0;top:0;width:100%;background:#ffffff;height:0%;box-shadow:0 0 10px 1px rgba(255,255,255,.5);}
 .process-item{position:relative;display:grid;grid-template-columns:60px 1fr;gap:32px;padding:34px 0;border-bottom:1px solid var(--border);}
 .process-item:last-child{border-bottom:none;}
-.process-dot{width:14px;height:14px;border-radius:50%;background:var(--bg-raised);border:1px solid var(--border-strong);position:relative;top:6px;justify-self:center;transition:background .3s ease,border-color .3s ease,box-shadow .3s ease;}
-.process-item.active .process-dot{background:var(--accent-bright);border-color:var(--accent-bright);box-shadow:0 0 0 5px rgba(177,18,38,.15);}
+.process-dot{width:14px;height:14px;border-radius:50%;background:var(--bg-raised);border:1px solid rgba(255,255,255,0.3);position:relative;top:6px;justify-self:center;transition:background .3s ease,border-color .3s ease,box-shadow .3s ease;}
+.process-item.active .process-dot{background:#ffffff;border-color:#ffffff;box-shadow:0 0 0 5px rgba(255,255,255,.15);}
 .process-content{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;}
 .process-text h3{font-size:1.4rem;margin-bottom:8px;}
 .process-text p{color:var(--text-secondary);font-size:14.5px;max-width:520px;line-height:1.7;}
 .process-time{color:var(--text-tertiary);font-size:12px;font-variant-numeric:tabular-nums;letter-spacing:.05em;white-space:nowrap;padding-top:4px;}
+.process-right{display:flex;align-items:center;gap:16px;flex-shrink:0;}
+.process-thumb{
+  width:56px;height:56px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:#ffffff;border:1px solid rgba(255,255,255,0.3);
+  color:#0a0a0a;transition:transform .3s var(--ease),border-color .3s ease;
+}
+.process-thumb svg{width:24px;height:24px;}
+.process-item.active .process-thumb{border-color:#ffffff;transform:scale(1.06);}
 
 /* ============ WHY ============ */
 .compare{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
@@ -665,6 +674,9 @@ footer{padding:18px 0 70px;}
   .process-line{left:21px;}
   .process-item{grid-template-columns:44px 1fr;gap:16px;padding:26px 0;}
   .process-content{flex-direction:column;gap:6px;}
+  .process-right{margin-top:4px;}
+  .process-thumb{width:46px;height:46px;}
+  .process-thumb svg{width:20px;height:20px;}
   .compare{grid-template-columns:1fr;}
   .compare-col.us{border-left:none;}
   .numbers-grid{grid-template-columns:repeat(2,1fr);}
@@ -983,7 +995,7 @@ footer{padding:18px 0 70px;}
 <section id="cta" class="section-pad">
   <div class="wrap">
     <div class="booking-panel reveal-scale" style="padding-top:56px;">
-      <h1 class="reveal" style="font-family:var(--font-display);font-weight:500;letter-spacing:-0.025em;line-height:1.04;font-size:clamp(28px,4.2vw,54px);text-align:center;margin-bottom:28px;">Explore A Partnership!</h1>
+      <h1 class="reveal" style="font-family:var(--font-display);font-weight:500;letter-spacing:-0.025em;line-height:1.04;font-size:clamp(28px,4.2vw,54px);text-align:center;margin-bottom:28px;">Explore a Partnership</h1>
       <div class="booking-cal">
         <div class="cal-loading">Loading calendar…</div>
         <div id="my-cal-inline-get-free-30-min-video-strategy-call" style="width:100%;height:100%;overflow:scroll"></div>
@@ -1086,13 +1098,13 @@ const SERVICES = [
 ];
 
 const PROCESS = [
-  {t:'Discovery', d:'We learn your business, your audience, and the growth goal video needs to serve.'},
-  {t:'Research', d:'We study your market, your competitors, and the content already winning attention in it.'},
-  {t:'Strategy', d:'We build a content plan tied to a specific outcome — leads, trust, or reach.'},
-  {t:'Editing', d:'Our team scripts, shoots or sources footage, and edits with retention as the first priority.'},
-  {t:'Review', d:'You see every cut early, with clear notes on what each edit is built to do.'},
-  {t:'Delivery', d:'Final files land on schedule, formatted and ready for every platform you publish to.'},
-  {t:'Growth', d:'We track performance and feed it back into the next round of strategy.'},
+  {t:'Discovery', d:'We learn your business, your audience, and the growth goal video needs to serve.', icon:'<circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path>'},
+  {t:'Research', d:'We study your market, your competitors, and the content already winning attention in it.', icon:'<path d="M3 3v18h18"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path>'},
+  {t:'Strategy', d:'We build a content plan tied to a specific outcome — leads, trust, or reach.', icon:'<circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1.2" fill="currentColor"></circle>'},
+  {t:'Editing', d:'Our team scripts, shoots or sources footage, and edits with retention as the first priority.', icon:'<rect x="2" y="3" width="20" height="18" rx="2"></rect><path d="M7 3v18"></path><path d="M17 3v18"></path><path d="M2 8h5"></path><path d="M2 16h5"></path><path d="M17 8h5"></path><path d="M17 16h5"></path>'},
+  {t:'Review', d:'You see every cut early, with clear notes on what each edit is built to do.', icon:'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path><circle cx="12" cy="12" r="3"></circle>'},
+  {t:'Delivery', d:'Final files land on schedule, formatted and ready for every platform you publish to.', icon:'<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path>'},
+  {t:'Growth', d:'We track performance and feed it back into the next round of strategy.', icon:'<polyline points="3 17 9 11 13 15 21 7"></polyline><polyline points="14 7 21 7 21 14"></polyline>'},
 ];
 
 const WHY = [
@@ -1187,7 +1199,11 @@ document.getElementById('processList').insertAdjacentHTML('beforeend', PROCESS.m
     <div class="process-dot"></div>
     <div class="process-content">
       <div class="process-text"><h3>${p.t}</h3><p>${p.d}</p></div>
-      <span class="process-time">00:00:0${i+1}</span>
+      <div class="process-right">
+        <div class="process-thumb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${p.icon}</svg>
+        </div>
+      </div>
     </div>
   </div>`).join(''));
 
