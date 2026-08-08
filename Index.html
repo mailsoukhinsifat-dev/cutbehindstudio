@@ -223,7 +223,7 @@ p{font-size:16px;}
 /* ============ HERO ============ */
 #hero{
   min-height:clamp(560px, 100svh, 880px);display:flex;flex-direction:column;justify-content:center;
-  padding-top:clamp(90px, 6.1vw + 67px, 140px);padding-bottom:clamp(26px, 1.5vw + 20px, 38px);overflow:hidden;
+  padding-top:clamp(70px, 4.4vw + 52px, 108px);padding-bottom:clamp(26px, 1.5vw + 20px, 38px);overflow:hidden;
 }
 .hero-bg{
   position:absolute;inset:0;z-index:-1;
@@ -241,9 +241,9 @@ p{font-size:16px;}
 .hero-headline{
   font-weight:500;
   font-size:clamp(28px,4.2vw,54px);
-  max-width:920px;
+  max-width:780px;
   margin-top:0;
-  margin-bottom:clamp(38px, 3.2vw + 26px, 64px);
+  margin-bottom:clamp(22px, 1.8vw + 14px, 38px);
 }
 .hero-headline .accent{color:var(--accent-bright);font-style:italic;}
 .cta-headline{
@@ -339,7 +339,7 @@ p{font-size:16px;}
 }
 .hero-actions{display:flex;gap:16px;margin-top:clamp(44px, 3.4vw + 31px, 72px);flex-wrap:wrap;justify-content:center;}
 .hero-video{
-  width:100%;max-width:1000px;margin:8px auto 0;border-radius:var(--radius-lg);overflow:hidden;
+  width:calc(100% - 80px);max-width:980px;margin:8px auto 0;border-radius:var(--radius-lg);overflow:hidden;
   position:relative;aspect-ratio:16/9;background:var(--bg-raised);
   box-shadow:0 40px 100px -30px rgba(0,0,0,0.6);
 }
@@ -781,11 +781,13 @@ footer{padding:18px 0 70px;}
     <div class="hero-top">
       <h1 class="hero-headline reveal is-visible">We Make Content Perform</h1>
     </div>
+  </div>
     <div class="hero-video reveal-scale is-visible" id="heroVideo" style="transition-delay:.15s;" data-video-id="awUYikrGsKk">
       <div class="video-poster" id="heroVideoPoster" data-yt-id="awUYikrGsKk" style="background-image:url('https://img.youtube.com/vi/awUYikrGsKk/maxresdefault.jpg');background-size:cover;background-position:center;">
         <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
       </div>
     </div>
+  <div class="wrap">
     <div class="hero-actions reveal is-visible" style="transition-delay:.4s;">
       <a href="#cta" class="btn btn-primary magnetic">Book a Discovery Call</a>
       <a href="#work" class="btn btn-ghost magnetic">View Our Work</a>
