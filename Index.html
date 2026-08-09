@@ -240,13 +240,18 @@ p{font-size:16px;}
 }
 .hero-headline .accent{color:var(--accent-bright);font-style:italic;}
 
-/* ============ HERO SUBTITLE ============ */
-.hero-subtitle{
-  font-weight:500;
-  font-size:16px;
-  color:var(--white);
-  margin-bottom:4px;
+/* ============ HERO TRUST BADGE (glass) ============ */
+.trust-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 22px;border-radius:100px;margin-bottom:26px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.14);
+  backdrop-filter:blur(16px) saturate(160%);
+  -webkit-backdrop-filter:blur(16px) saturate(160%);
+  box-shadow:0 8px 32px -12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+  font-size:13.5px;font-weight:500;color:var(--white);letter-spacing:.01em;
 }
+.trust-badge i{width:7px;height:7px;border-radius:50%;background:var(--accent-bright);box-shadow:0 0 10px 2px rgba(213,21,46,.8);flex-shrink:0;font-style:normal;}
 .cta-headline{
   font-weight:400;
   font-style:normal;
@@ -431,24 +436,207 @@ p{font-size:16px;}
 .work-link svg{width:14px;height:14px;transition:transform .3s var(--ease);}
 .work-card:hover .work-link svg{transform:translate(3px,-3px);}
 
-/* ============ SERVICES ============ */
-.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
-.service-card{
-  background:var(--bg);padding:38px 30px;min-height:250px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-  transition:background .4s ease;
+/* ============ SERVICES (alternating rows) ============ */
+#services{position:relative;overflow:hidden;}
+#services::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1.4px);
+  background-size:38px 38px;
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 20%, #000 0%, transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 20%, #000 0%, transparent 75%);
 }
-.service-card:hover{background:var(--bg-raised);}
-.service-icon{
-  width:44px;height:44px;border-radius:8px;background:var(--bg-raised-2);display:flex;align-items:center;justify-content:center;
-  margin:0 auto 18px;transition:background .35s;
+.svc-rows{position:relative;display:flex;flex-direction:column;gap:110px;margin-top:64px;}
+.svc-row{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+.svc-row:nth-child(even) .svc-visual{order:2;}
+.svc-row:nth-child(even) .svc-content{order:1;}
+
+.svc-visual{
+  position:relative;border-radius:var(--radius-lg);border:1px solid var(--border);
+  background:linear-gradient(160deg, var(--bg-raised-2), #0d0d0d);
+  padding:36px;min-height:300px;display:flex;align-items:center;justify-content:center;
+  overflow:hidden;transition:border-color .4s ease, box-shadow .5s var(--ease), transform .5s var(--ease);
 }
-.service-card:hover .service-icon{background:#ffffff;animation:iconBounce .6s var(--ease);}
-@keyframes iconBounce{0%{transform:translateY(0) scale(1);}35%{transform:translateY(-9px) scale(1.06);}65%{transform:translateY(2px) scale(0.98);}100%{transform:translateY(0) scale(1);}}
-.service-icon svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.6;transition:transform .4s var(--ease),stroke .35s;}
-.service-card:hover .service-icon svg{transform:scale(1.18) rotate(8deg);stroke:#0a0a0a;}
-.service-card h3{font-size:18px;margin-bottom:8px;}
-.service-card p{font-size:14px;color:var(--text-secondary);}
-@media (prefers-reduced-motion: reduce){.service-icon{animation:none;}}
+.svc-visual::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 65% at 50% 0%, rgba(213,21,46,0.16), transparent 65%);
+}
+.svc-row:hover .svc-visual{border-color:rgba(213,21,46,.4);box-shadow:0 30px 70px -30px rgba(213,21,46,.35);transform:translateY(-4px);}
+
+.svc-content{max-width:480px;}
+.svc-tag{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:8px;
+  border:1px solid var(--border-strong);font-size:13px;font-weight:500;letter-spacing:.01em;
+  color:var(--accent-bright);margin-bottom:22px;
+}
+.svc-content h3{font-size:clamp(24px,2.6vw,32px);font-weight:500;letter-spacing:-0.02em;margin-bottom:16px;line-height:1.15;}
+.svc-content p{font-size:15.5px;line-height:1.75;color:var(--text-secondary);}
+.svc-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+.svc-pill{padding:9px 16px;border-radius:8px;border:1px solid var(--border-strong);background:rgba(255,255,255,.02);font-size:13px;font-weight:500;color:#fff;}
+
+/* -- mock 1: short-form vertical reel -- */
+.reel-frame{width:172px;height:308px;border-radius:22px;border:1px solid var(--border-strong);
+  background:radial-gradient(circle at 30% 15%, rgba(213,21,46,.4), transparent 60%), linear-gradient(180deg,#161616,#000);
+  padding:16px;display:flex;flex-direction:column;position:relative;}
+.reel-progress{display:flex;gap:4px;}
+.reel-progress span{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.16);}
+.reel-progress span.active{background:var(--accent-bright);}
+.reel-play{margin:auto;width:52px;height:52px;border-radius:50%;background:rgba(0,0,0,.4);
+  border:1px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.reel-play svg{width:16px;height:16px;fill:#fff;margin-left:2px;}
+.reel-caption{font-size:11px;color:#fff;line-height:1.4;}
+.reel-caption b{display:block;color:var(--accent-bright);font-size:13px;margin-top:4px;font-weight:600;}
+
+/* -- mock 2: long-form editor timeline -- */
+.editor-frame{width:100%;max-width:400px;border-radius:16px;border:1px solid var(--border-strong);
+  background:linear-gradient(160deg,#161616,#000);overflow:hidden;}
+.editor-topbar{display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid var(--border);}
+.editor-topbar span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.15);}
+.editor-preview{aspect-ratio:16/9;background:radial-gradient(circle at 30% 30%, rgba(213,21,46,.35),transparent 60%),#0b0b0b;
+  display:flex;align-items:center;justify-content:center;}
+.editor-preview svg{width:15px;height:15px;fill:#fff;margin-left:2px;}
+.editor-preview .play-btn{width:44px;height:44px;border-radius:8px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;}
+.editor-timeline{padding:14px 16px 16px;display:flex;flex-direction:column;gap:7px;}
+.editor-track{display:flex;gap:3px;height:18px;}
+.editor-clip{flex:1;border-radius:4px;background:linear-gradient(180deg, rgba(213,21,46,.55),rgba(213,21,46,.08));}
+.editor-clip.dim{background:rgba(255,255,255,.08);}
+.editor-clip.wide{flex:2.4;}
+
+/* -- mock 3: SaaS explainer browser -- */
+.browser-frame{width:100%;max-width:400px;border-radius:16px;border:1px solid var(--border-strong);
+  background:linear-gradient(160deg,#161616,#000);overflow:hidden;}
+.browser-topbar{display:flex;align-items:center;gap:6px;padding:12px 16px;border-bottom:1px solid var(--border);}
+.browser-topbar span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.15);}
+.browser-topbar i{margin-left:10px;flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.06);font-style:normal;}
+.browser-body{padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.browser-card{border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--border);height:64px;position:relative;overflow:hidden;}
+.browser-card.chart::after{content:'';position:absolute;bottom:0;left:0;right:0;height:65%;
+  background:linear-gradient(180deg, rgba(213,21,46,.5), transparent);}
+.browser-card.full{grid-column:1/-1;height:40px;display:flex;align-items:center;padding:0 12px;gap:8px;}
+.browser-card.full i{width:60%;height:7px;border-radius:4px;background:rgba(255,255,255,.1);font-style:normal;}
+.browser-card.full b{width:22px;height:22px;border-radius:6px;background:var(--accent-bright);flex-shrink:0;}
+
+/* -- mock 4: podcast player -- */
+.pod-frame{width:100%;max-width:400px;border-radius:16px;border:1px solid var(--border-strong);
+  background:linear-gradient(160deg,#161616,#000);padding:24px;}
+.pod-top{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.pod-avatar{width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.25), transparent 55%), var(--accent-bright);}
+.pod-meta b{display:block;font-size:14px;font-weight:500;}
+.pod-meta span{font-size:12px;color:var(--text-tertiary);}
+.pod-wave{display:flex;align-items:flex-end;gap:3px;height:46px;margin-bottom:18px;}
+.pod-wave span{flex:1;border-radius:2px;background:rgba(255,255,255,.14);}
+.pod-wave span.hi{background:var(--accent-bright);}
+.pod-controls{display:flex;align-items:center;justify-content:center;gap:20px;color:var(--text-tertiary);}
+.pod-play{width:42px;height:42px;border-radius:50%;background:var(--accent-bright);display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 28px -6px var(--accent-bright);}
+.pod-play svg{width:15px;height:15px;fill:#fff;margin-left:1px;}
+.pod-controls svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;}
+
+/* -- mock 5: custom AI prompt -- */
+.ai-frame{width:100%;max-width:400px;border-radius:16px;border:1px solid var(--border-strong);
+  background:linear-gradient(160deg,#161616,#000);padding:30px;text-align:center;}
+.ai-orb{width:64px;height:64px;margin:0 auto 18px;border-radius:50%;
+  background:conic-gradient(from 180deg, var(--accent-bright), #000 40%, var(--accent) 70%, #000);
+  box-shadow:0 0 40px -6px var(--accent-bright);}
+.ai-title{font-size:15px;color:#fff;margin-bottom:4px;font-weight:500;}
+.ai-sub{font-size:12px;color:var(--text-tertiary);margin-bottom:20px;line-height:1.5;}
+.ai-input{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border:1px solid var(--border-strong);border-radius:10px;padding:11px 14px;font-size:12.5px;color:var(--text-secondary);}
+.ai-input svg{width:15px;height:15px;fill:none;stroke:var(--accent-bright);stroke-width:1.8;flex-shrink:0;}
+
+@media (max-width:900px){
+  .svc-rows{gap:60px;margin-top:44px;}
+  .svc-row{grid-template-columns:1fr;gap:28px;}
+  .svc-row:nth-child(even) .svc-visual{order:1;}
+  .svc-row:nth-child(even) .svc-content{order:2;}
+  .svc-content{max-width:none;}
+  .svc-visual{padding:26px;min-height:auto;}
+}
+@media (prefers-reduced-motion: reduce){.svc-visual,.svc-row{transition:none;}}
+
+
+/* ============ PROBLEM ============ */
+.problem-section{position:relative;overflow:hidden;}
+.problem-section::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 45% at 50% 8%, rgba(213,21,46,0.12), transparent 60%);
+}
+.problem-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.problem-card{
+  position:relative;
+  background:linear-gradient(165deg, var(--bg-raised-2), #0d0d0d);
+  border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;
+  transition:transform .5s var(--ease), border-color .4s ease, box-shadow .5s var(--ease);
+}
+.problem-card:hover{transform:translateY(-6px);border-color:rgba(213,21,46,.4);box-shadow:0 30px 60px -30px rgba(213,21,46,.35);}
+.problem-visual{
+  position:relative;height:236px;padding:24px 24px 18px;
+  background:radial-gradient(ellipse 90% 70% at 50% 0%, rgba(213,21,46,0.12), transparent 65%);
+  border-bottom:1px solid var(--border);
+}
+.problem-body{padding:26px 24px 30px;}
+.problem-body h3{font-size:18.5px;font-weight:500;margin-bottom:8px;}
+.problem-body p{font-size:14px;color:var(--text-secondary);line-height:1.5;}
+
+/* -- card 1: chart -- */
+.pv-chart{display:flex;flex-direction:column;height:100%;}
+.pv-tag{font-size:11px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.06em;}
+.pv-value{font-family:var(--font-display);font-size:28px;font-weight:600;margin:4px 0 2px;line-height:1.1;}
+.pv-sub{font-size:11.5px;color:var(--accent-bright);}
+.pv-bars{position:relative;flex:1;display:flex;align-items:flex-end;gap:9px;margin-top:14px;}
+.pv-bar{flex:1;background:linear-gradient(180deg, rgba(213,21,46,.5), rgba(213,21,46,.06));border-radius:4px 4px 0 0;}
+.pv-line{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.pv-callout{
+  position:absolute;top:48%;right:2%;transform:translateY(-50%);
+  background:var(--accent-bright);color:#fff;font-size:10px;font-weight:600;
+  padding:4px 10px;border-radius:20px;white-space:nowrap;box-shadow:0 6px 16px -4px rgba(213,21,46,.6);
+}
+.pv-axis{display:flex;justify-content:space-between;margin-top:8px;font-size:9.5px;color:var(--text-tertiary);letter-spacing:.04em;}
+
+/* -- card 2: radial engagement -- */
+.pv-radial{position:relative;height:100%;}
+.pv-tag-abs{position:absolute;left:0;top:0;}
+.pv-value-abs{position:absolute;left:0;top:16px;}
+.pv-rings{position:absolute;left:50%;top:50%;transform:translate(-50%,-42%);width:148px;height:148px;}
+.pv-rings svg{width:100%;height:100%;}
+.pv-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.pv-play svg{width:16px;height:16px;fill:#fff;margin-left:2px;}
+.pv-play::before{
+  content:'';position:absolute;width:54px;height:54px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.25), transparent 55%), var(--accent-bright);
+  box-shadow:0 0 34px -4px var(--accent-bright);
+}
+.pv-play svg{position:relative;z-index:1;}
+.pv-pill{
+  position:absolute;display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;
+  padding:6px 13px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid var(--border);
+}
+.pv-pill svg{width:13px;height:13px;fill:none;stroke:currentColor;}
+.pv-pill-top{top:0;right:0;}
+.pv-pill-bottom-left{bottom:0;left:0;}
+.pv-metric{position:absolute;bottom:0;right:0;display:flex;flex-direction:column;align-items:flex-end;}
+.pv-metric-label{font-size:10.5px;color:var(--text-tertiary);}
+.pv-metric-value{font-family:var(--font-display);font-size:22px;font-weight:600;}
+
+/* -- card 3: consistency -- */
+.pv-consistency{display:flex;flex-direction:column;height:100%;}
+.pv-trend{width:100%;height:30px;margin:8px 0 16px;opacity:.85;}
+.pv-days{display:flex;justify-content:space-between;}
+.pv-day{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.pv-dot{width:19px;height:19px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid var(--border-strong);}
+.pv-dot.active{
+  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.3), transparent 60%), var(--accent-bright);
+  box-shadow:0 0 12px -1px var(--accent-bright);border-color:transparent;
+}
+.pv-day label{font-size:8.5px;color:var(--text-tertiary);letter-spacing:.04em;}
+.pv-output{margin-top:auto;padding-top:18px;}
+.pv-output-label{font-size:10.5px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.05em;}
+.pv-output-row{display:flex;justify-content:space-between;align-items:baseline;margin:7px 0 10px;}
+.pv-output-value{font-family:var(--font-display);font-size:19px;font-weight:600;}
+.pv-output-value small{font-size:11px;font-weight:400;color:var(--text-secondary);margin-left:4px;}
+.pv-output-pct{font-family:var(--font-display);font-size:15px;color:var(--accent-bright);font-weight:600;}
+.pv-progress{height:5px;border-radius:6px;background:var(--bg-raised);overflow:hidden;}
+.pv-progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent),var(--accent-bright));}
 
 /* ============ PROCESS ============ */
 #process{background:var(--bg-raised);position:relative;overflow:hidden;}
@@ -675,6 +863,7 @@ footer{padding:18px 0 70px;}
 @media (max-width:1080px){
   .work-grid{grid-template-columns:repeat(2,1fr);}
   .services-grid{grid-template-columns:repeat(2,1fr);}
+  .problem-grid{grid-template-columns:1fr;max-width:520px;margin:0 auto;}
   .case-grid{grid-template-columns:1fr;}
   .case-media{position:relative;top:0;}
   .about-grid{grid-template-columns:1fr;}
@@ -693,7 +882,14 @@ footer{padding:18px 0 70px;}
   .hero-stats{gap:26px 34px;}
   .hero-stat b{font-size:clamp(26px,7vw,34px);}
   .services-grid{grid-template-columns:1fr;}
-  .service-card{padding:30px 26px;min-height:auto;}
+  .service-tile-visual{height:120px;}
+  .service-tile-icon{width:68px;height:68px;}
+  .service-tile-icon svg{width:25px;height:25px;}
+  .service-tile-body{padding:18px 20px 22px;}
+  .service-tile-body h3{font-size:16px;}
+  .problem-grid{max-width:none;}
+  .problem-visual{height:216px;padding:20px 20px 16px;}
+  .problem-body{padding:22px 20px 26px;}
   .work-grid{grid-template-columns:1fr;}
   .process-card{padding:26px 24px;}
   .numbers-grid{grid-template-columns:repeat(2,1fr);}
@@ -734,7 +930,7 @@ footer{padding:18px 0 70px;}
   .number-item{padding:26px 14px;}
   .number-item b{font-size:clamp(30px,9vw,40px);}
   .work-info{padding:18px;flex-direction:column;align-items:flex-start;gap:12px;}
-  .service-card{padding:24px 20px;}
+  .service-tile-body{padding:16px 16px 20px;}
   .process-card{padding:22px 20px;}
   .process-card h3{font-size:17px;}
   .process-card p{font-size:14px;}
@@ -759,9 +955,10 @@ footer{padding:18px 0 70px;}
   .footer-socials{gap:14px;flex-wrap:wrap;}
 }
 @media (hover:none), (pointer:coarse){
-  .service-card:hover{background:var(--bg);}
-  .service-card:hover .service-icon{background:var(--bg-raised-2);animation:none;}
-  .service-card:hover .service-icon svg{transform:none;stroke:#fff;}
+  .service-tile:hover{transform:none;border-color:var(--border);box-shadow:none;}
+  .service-tile:hover .service-tile-icon{transform:none;box-shadow:inset 0 2px 5px rgba(255,255,255,0.12), inset 0 -10px 18px rgba(0,0,0,0.65), 0 0 0px rgba(213,21,46,0);}
+  .service-tile:hover .service-tile-icon svg{transform:none;}
+  .problem-card:hover{transform:none;border-color:var(--border);box-shadow:none;}
   .work-card:hover .gradient-layer{transform:none;}
   .work-card:hover .work-play span{background:rgba(0,0,0,0.25);border-color:rgba(255,255,255,0.35);transform:none;}
   .work-card:hover .work-link svg{transform:none;}
@@ -826,8 +1023,8 @@ footer{padding:18px 0 70px;}
   <div class="hero-bg"></div>
   <div class="wrap">
     <div class="hero-top">
-      <h4 class="hero-subtitle reveal is-visible">A Video Editing Agency for Brands, Startup &amp; Real Estate</h6>
-      <h1 class="hero-headline reveal is-visible">We Make Content Perform</h2>
+      <span class="trust-badge reveal is-visible"><i></i>Trusted by 1000+ Brands</span>
+      <h1 class="hero-headline reveal is-visible">We Make Content Perform</h1>
     </div>
   </div>
     <div class="hero-video reveal-scale is-visible" id="heroVideo" style="transition-delay:.15s;" data-video-id="awUYikrGsKk">
@@ -848,10 +1045,119 @@ footer{padding:18px 0 70px;}
 <!-- SERVICES -->
 <section id="services" class="section-pad">
   <div class="wrap">
-    <div class="section-head">
-      <h2 class="reveal">Services Built for Growth</h2>
+    <div class="section-head" style="max-width:720px;">
+      <h2 class="reveal">Content Built For Every Format</h2>
     </div>
-    <div class="services-grid" id="servicesGrid"></div>
+
+    <div class="svc-rows">
+
+      <!-- 1. Short Form Content -->
+      <div class="svc-row reveal">
+        <div class="svc-visual">
+          <div class="reel-frame">
+            <div class="reel-progress"><span class="active"></span><span></span><span></span></div>
+            <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
+            <div class="reel-caption">"Behind the scenes"<b>2.4M views</b></div>
+          </div>
+        </div>
+        <div class="svc-content">
+          <span class="svc-tag">Short Form Content</span>
+          <h3>Built for the scroll</h3>
+          <p>Daily-ready cutdowns engineered for retention on Reels, TikTok and Shorts — a hook in the first second and a payoff before the swipe.</p>
+          <div class="svc-pills"><span class="svc-pill">Reels</span><span class="svc-pill">TikTok</span><span class="svc-pill">Shorts</span></div>
+        </div>
+      </div>
+
+      <!-- 2. Long Form Content -->
+      <div class="svc-row reveal">
+        <div class="svc-visual">
+          <div class="editor-frame">
+            <div class="editor-topbar"><span></span><span></span><span></span></div>
+            <div class="editor-preview"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div></div>
+            <div class="editor-timeline">
+              <div class="editor-track"><div class="editor-clip wide"></div><div class="editor-clip dim"></div><div class="editor-clip"></div></div>
+              <div class="editor-track"><div class="editor-clip dim"></div><div class="editor-clip"></div><div class="editor-clip wide dim"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="svc-content">
+          <span class="svc-tag">Long Form Content</span>
+          <h3>Full episodes that hold attention</h3>
+          <p>YouTube videos, brand films and interviews edited with a story arc — paced so people stay for the whole runtime, not just the intro.</p>
+          <div class="svc-pills"><span class="svc-pill">YouTube</span><span class="svc-pill">Interviews</span><span class="svc-pill">Brand Films</span></div>
+        </div>
+      </div>
+
+      <!-- 3. SaaS Explainers -->
+      <div class="svc-row reveal">
+        <div class="svc-visual">
+          <div class="browser-frame">
+            <div class="browser-topbar"><span></span><span></span><span></span><i></i></div>
+            <div class="browser-body">
+              <div class="browser-card chart"></div>
+              <div class="browser-card"></div>
+              <div class="browser-card full"><b></b><i></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="svc-content">
+          <span class="svc-tag">Saas Explainers</span>
+          <h3>Product stories that convert</h3>
+          <p>Feature walkthroughs and demo videos that turn a visitor into a signup — built to sit on your landing page and do the selling for you.</p>
+          <div class="svc-pills"><span class="svc-pill">Product Demos</span><span class="svc-pill">Landing Page</span><span class="svc-pill">Onboarding</span></div>
+        </div>
+      </div>
+
+      <!-- 4. Podcast -->
+      <div class="svc-row reveal">
+        <div class="svc-visual">
+          <div class="pod-frame">
+            <div class="pod-top">
+              <div class="pod-avatar"></div>
+              <div class="pod-meta"><b>The Ledger Podcast</b><span>Ep. 42 — 38:12</span></div>
+            </div>
+            <div class="pod-wave">
+              <span style="height:30%"></span><span style="height:60%" class="hi"></span><span style="height:45%"></span>
+              <span style="height:80%" class="hi"></span><span style="height:35%"></span><span style="height:65%"></span>
+              <span style="height:50%" class="hi"></span><span style="height:25%"></span><span style="height:70%"></span>
+              <span style="height:40%"></span><span style="height:55%" class="hi"></span><span style="height:30%"></span>
+            </div>
+            <div class="pod-controls">
+              <svg viewBox="0 0 24 24"><path d="M11 19l-7-7 7-7M20 19l-7-7 7-7"/></svg>
+              <div class="pod-play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
+              <svg viewBox="0 0 24 24"><path d="M13 5l7 7-7 7M4 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="svc-content">
+          <span class="svc-tag">Podcast</span>
+          <h3>Full episodes, clean clips</h3>
+          <p>Full-episode polish plus retention-cut clips for social — built around a listener's attention, not just a raw timeline.</p>
+          <div class="svc-pills"><span class="svc-pill">Episode Editing</span><span class="svc-pill">Clip Cutdowns</span><span class="svc-pill">Audio Cleanup</span></div>
+        </div>
+      </div>
+
+      <!-- 5. Custom AI -->
+      <div class="svc-row reveal">
+        <div class="svc-visual">
+          <div class="ai-frame">
+            <div class="ai-orb"></div>
+            <div class="ai-title">Describe your project</div>
+            <div class="ai-sub">Tell us the goal — we'll build the video around it.</div>
+            <div class="ai-input">Launch video for our new feature…
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="svc-content">
+          <span class="svc-tag">Custom Ai</span>
+          <h3>AI-assisted where it helps</h3>
+          <p>AI-assisted scripting, voiceover and asset generation folded into a human edit — faster turnaround without losing the craft.</p>
+          <div class="svc-pills"><span class="svc-pill">AI Scripting</span><span class="svc-pill">Voiceover</span><span class="svc-pill">Rapid Turnaround</span></div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -871,6 +1177,111 @@ footer{padding:18px 0 70px;}
     </div>
     <div class="work-grid" id="workGrid">
       <!-- cards injected below in stagger for reveal -->
+    </div>
+  </div>
+</section>
+
+<div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
+
+<!-- PROBLEM -->
+<section id="problem" class="section-pad problem-section">
+  <div class="wrap">
+    <div class="section-head" style="max-width:700px;">
+      <h2 class="reveal">Great Content, But No Real Growth?</h2>
+    </div>
+
+    <div class="problem-grid">
+      <!-- CARD 1: Views chart -->
+      <div class="problem-card reveal">
+        <div class="problem-visual">
+          <div class="pv-chart">
+            <div class="pv-top">
+              <span class="pv-tag">Views</span>
+              <div class="pv-value">120K</div>
+              <span class="pv-sub">-68% retention drop</span>
+            </div>
+            <div class="pv-bars">
+              <svg class="pv-line" viewBox="0 0 300 120" preserveAspectRatio="none">
+                <polyline points="15,18 65,32 115,42 165,52 215,94 265,104" fill="none" stroke="var(--accent-bright)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="215" cy="94" r="5.5" fill="var(--accent-bright)"/>
+              </svg>
+              <span class="pv-callout">50% Viewers dropped</span>
+              <div class="pv-bar" style="height:32%"></div>
+              <div class="pv-bar" style="height:48%"></div>
+              <div class="pv-bar" style="height:62%"></div>
+              <div class="pv-bar" style="height:76%"></div>
+              <div class="pv-bar" style="height:50%"></div>
+              <div class="pv-bar" style="height:42%"></div>
+            </div>
+            <div class="pv-axis"><span>JAN</span><span>FEB</span><span>MAR</span><span>APR</span><span>MAY</span><span>JUN</span></div>
+          </div>
+        </div>
+        <div class="problem-body">
+          <h3>Views that don't convert</h3>
+          <p>Your videos get views, but no real engagement or business impact.</p>
+        </div>
+      </div>
+
+      <!-- CARD 2: Engagement radial -->
+      <div class="problem-card reveal">
+        <div class="problem-visual">
+          <div class="pv-radial">
+            <span class="pv-tag pv-tag-abs">Engagement</span>
+            <div class="pv-value pv-value-abs">88K</div>
+            <span class="pv-pill pv-pill-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 8.6a5.5 5.5 0 00-9.3-4 5.5 5.5 0 00-9.3 4c0 6 9.3 10.9 9.3 10.9s9.3-4.9 9.3-10.9z"/></svg>Likes</span>
+            <div class="pv-rings">
+              <svg viewBox="0 0 160 160">
+                <circle cx="80" cy="80" r="72" stroke="rgba(213,21,46,.14)" stroke-width="1" fill="none"/>
+                <circle cx="80" cy="80" r="56" stroke="rgba(213,21,46,.22)" stroke-width="1" fill="none"/>
+                <circle cx="80" cy="80" r="40" stroke="var(--accent-bright)" stroke-width="1.4" fill="none" stroke-dasharray="3 6"/>
+              </svg>
+              <span class="pv-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+            </div>
+            <span class="pv-pill pv-pill-bottom-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 16l6-6 4 4 6-8M14 6h6v6"/></svg>Growth</span>
+            <div class="pv-metric">
+              <span class="pv-metric-label">Growth</span>
+              <span class="pv-metric-value">03%</span>
+            </div>
+          </div>
+        </div>
+        <div class="problem-body">
+          <h3>Likes don't pay the bills</h3>
+          <p>Viral moments feel good, but they don't build a sustainable audience.</p>
+        </div>
+      </div>
+
+      <!-- CARD 3: Consistency -->
+      <div class="problem-card reveal">
+        <div class="problem-visual">
+          <div class="pv-consistency">
+            <span class="pv-tag">Consistency</span>
+            <svg class="pv-trend" viewBox="0 0 300 40" preserveAspectRatio="none">
+              <polyline points="0,12 50,16 100,8 150,22 200,17 250,24 300,20" fill="none" stroke="rgba(213,21,46,.45)" stroke-width="1.6"/>
+            </svg>
+            <div class="pv-days">
+              <div class="pv-day"><span class="pv-dot active"></span><label>TUE</label></div>
+              <div class="pv-day"><span class="pv-dot active"></span><label>WED</label></div>
+              <div class="pv-day"><span class="pv-dot"></span><label>THU</label></div>
+              <div class="pv-day"><span class="pv-dot"></span><label>FRI</label></div>
+              <div class="pv-day"><span class="pv-dot active"></span><label>SAT</label></div>
+              <div class="pv-day"><span class="pv-dot"></span><label>SUN</label></div>
+              <div class="pv-day"><span class="pv-dot"></span><label>MON</label></div>
+            </div>
+            <div class="pv-output">
+              <span class="pv-output-label">Content Output</span>
+              <div class="pv-output-row">
+                <span class="pv-output-value">3/10 <small>posts this week</small></span>
+                <span class="pv-output-pct">32%</span>
+              </div>
+              <div class="pv-progress"><i style="width:32%"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="problem-body">
+          <h3>No system, no consistency</h3>
+          <p>Posting randomly without a system leads to inconsistent results and no real growth.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -936,7 +1347,7 @@ footer{padding:18px 0 70px;}
 <section id="cta" class="section-pad">
   <div class="wrap">
     <div class="booking-panel reveal-scale" style="padding-top:56px;">
-      <h1 class="reveal" style="font-family:var(--font-display);font-weight:500;letter-spacing:-0.025em;line-height:1.04;font-size:clamp(28px,4.2vw,54px);text-align:center;margin-bottom:28px;">Let's Create Something</h2>
+      <h1 class="reveal" style="font-family:var(--font-display);font-weight:500;letter-spacing:-0.025em;line-height:1.04;font-size:clamp(28px,4.2vw,54px);text-align:center;margin-bottom:28px;">Let's Create Something</h1>
       <div class="booking-cal">
         <div class="cal-loading">Loading calendar…</div>
         <div id="my-cal-inline-get-free-30-min-video-strategy-call" style="width:100%;height:100%;overflow:scroll"></div>
@@ -1027,17 +1438,6 @@ const WORK = [
   {cat:'podcast', tag:'Podcast'},
 ];
 
-const SERVICES = [
-  {t:'Short-Form Content', d:'Daily-ready cutdowns engineered for retention on every platform.', icon:'M4 4h16v16H4z M9 9l6 3-6 3z'},
-  {t:'SaaS Explainers', d:'Product stories that convert a visitor into a demo request.', icon:'M3 12h4l3 9 4-18 3 9h4'},
-  {t:'Real Estate Content', d:'Listing and lifestyle films that sell the feeling of a place.', icon:'M4 11l8-7 8 7v9a1 1 0 01-1 1H5a1 1 0 01-1-1z'},
-  {t:'Personal Branding', d:'A consistent on-camera presence that builds trust at scale.', icon:'M12 12a4 4 0 100-8 4 4 0 000 8z M4 20c0-4 4-6 8-6s8 2 8 6'},
-  {t:'Podcast Editing', d:'Full-episode and clip editing built around a listener, not a timeline.', icon:'M12 2a3 3 0 013 3v6a3 3 0 01-6 0V5a3 3 0 013-3z M6 11a6 6 0 0012 0 M12 17v4'},
-  {t:'Motion Graphics', d:'Titles, data visuals and brand animation that feel premium, not decorative.', icon:'M4 4h6v6H4z M14 4h6v6h-6z M4 14h6v6H4z M14 14h6v6h-6z'},
-  {t:'Creative Direction', d:'A point of view on every project, not just execution of a brief.', icon:'M12 3l2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5z'},
-  {t:'Content Strategy', d:'A publishing system tied to a business goal, not a vanity metric.', icon:'M4 19V5 M4 19h16 M8 15l3-4 3 3 4-6'},
-];
-
 const PROCESS = [
   {t:'Strategy', d:'We learn your business, study your market, and build a content plan tied to a specific outcome — leads, trust, or reach.', icon:'<circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1.2" fill="currentColor"></circle>'},
   {t:'Create', d:'Our team scripts, shoots or sources footage, and edits with retention as the first priority — with early cuts and clear notes along the way.', icon:'<rect x="2" y="3" width="20" height="18" rx="2"></rect><path d="M7 3v18"></path><path d="M17 3v18"></path><path d="M2 8h5"></path><path d="M2 16h5"></path><path d="M17 8h5"></path><path d="M17 16h5"></path>'},
@@ -1124,12 +1524,6 @@ document.querySelectorAll('#workGrid .work-media[data-video-id]').forEach(media 
     media.appendChild(iframe);
   });
 });
-
-document.getElementById('servicesGrid').innerHTML = SERVICES.map((s,i) => `
-  <div class="service-card reveal">
-    <div class="service-icon"><svg viewBox="0 0 24 24"><path d="${s.icon}"/></svg></div>
-    <div><h3>${s.t}</h3><p>${s.d}</p></div>
-  </div>`).join('');
 
 document.getElementById('processList').innerHTML = PROCESS.map((p,i) => `
   <div class="process-card reveal">
@@ -1269,7 +1663,7 @@ const io = new IntersectionObserver((entries) => {
 revealEls.forEach(el => io.observe(el));
 
 /* stagger children of grids dynamically */
-['workGrid','servicesGrid','processList','whyTable'].forEach(id => {
+['workGrid','processList','whyTable'].forEach(id => {
   const container = document.getElementById(id);
   if(!container) return;
   [...container.children].forEach((c,i) => { c.style.transitionDelay = (i%4)*0.08 + 's'; });
