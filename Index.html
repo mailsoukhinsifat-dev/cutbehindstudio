@@ -458,91 +458,59 @@ p{font-size:16px;}
 }
 .svc-visual::before{
   content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 80% 65% at 50% 0%, rgba(213,21,46,0.16), transparent 65%);
+  background-image:radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1.4px);
+  background-size:26px 26px;
+  mask-image:radial-gradient(ellipse 65% 65% at 50% 50%, #000 0%, transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 65% 65% at 50% 50%, #000 0%, transparent 75%);
 }
-.svc-row:hover .svc-visual{border-color:rgba(213,21,46,.4);box-shadow:0 30px 70px -30px rgba(213,21,46,.35);transform:translateY(-4px);}
+.svc-row:hover .svc-visual{border-color:rgba(213,21,46,.35);box-shadow:0 30px 70px -34px rgba(213,21,46,.4);transform:translateY(-4px);}
 
 .svc-content{max-width:480px;}
 .svc-tag{
   display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:8px;
   border:1px solid var(--border-strong);font-size:13px;font-weight:500;letter-spacing:.01em;
-  color:var(--accent-bright);margin-bottom:22px;
+  color:var(--tiya);margin-bottom:22px;
 }
 .svc-content h3{font-size:clamp(24px,2.6vw,32px);font-weight:500;letter-spacing:-0.02em;margin-bottom:16px;line-height:1.15;}
 .svc-content p{font-size:15.5px;line-height:1.75;color:var(--text-secondary);}
 .svc-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
 .svc-pill{padding:9px 16px;border-radius:8px;border:1px solid var(--border-strong);background:rgba(255,255,255,.02);font-size:13px;font-weight:500;color:#fff;}
 
-/* -- mock 1: short-form vertical reel -- */
-.reel-frame{width:172px;height:308px;border-radius:22px;border:1px solid var(--border-strong);
-  background:radial-gradient(circle at 30% 15%, rgba(213,21,46,.4), transparent 60%), linear-gradient(180deg,#161616,#000);
-  padding:16px;display:flex;flex-direction:column;position:relative;}
-.reel-progress{display:flex;gap:4px;}
-.reel-progress span{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.16);}
-.reel-progress span.active{background:var(--accent-bright);}
-.reel-play{margin:auto;width:52px;height:52px;border-radius:50%;background:rgba(0,0,0,.4);
-  border:1px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
-.reel-play svg{width:16px;height:16px;fill:#fff;margin-left:2px;}
-.reel-caption{font-size:11px;color:#fff;line-height:1.4;}
-.reel-caption b{display:block;color:var(--accent-bright);font-size:13px;margin-top:4px;font-weight:600;}
-
-/* -- mock 2: long-form editor timeline -- */
-.editor-frame{width:100%;max-width:400px;border-radius:16px;border:1px solid var(--border-strong);
-  background:linear-gradient(160deg,#161616,#000);overflow:hidden;}
-.editor-topbar{display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid var(--border);}
-.editor-topbar span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.15);}
-.editor-preview{aspect-ratio:16/9;background:radial-gradient(circle at 30% 30%, rgba(213,21,46,.35),transparent 60%),#0b0b0b;
-  display:flex;align-items:center;justify-content:center;}
-.editor-preview svg{width:15px;height:15px;fill:#fff;margin-left:2px;}
-.editor-preview .play-btn{width:44px;height:44px;border-radius:8px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;}
-.editor-timeline{padding:14px 16px 16px;display:flex;flex-direction:column;gap:7px;}
-.editor-track{display:flex;gap:3px;height:18px;}
-.editor-clip{flex:1;border-radius:4px;background:linear-gradient(180deg, rgba(213,21,46,.55),rgba(213,21,46,.08));}
-.editor-clip.dim{background:rgba(255,255,255,.08);}
-.editor-clip.wide{flex:2.4;}
-
-/* -- mock 3: SaaS explainer browser -- */
-.browser-frame{width:100%;max-width:400px;border-radius:16px;border:1px solid var(--border-strong);
-  background:linear-gradient(160deg,#161616,#000);overflow:hidden;}
-.browser-topbar{display:flex;align-items:center;gap:6px;padding:12px 16px;border-bottom:1px solid var(--border);}
-.browser-topbar span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.15);}
-.browser-topbar i{margin-left:10px;flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.06);font-style:normal;}
-.browser-body{padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.browser-card{border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--border);height:64px;position:relative;overflow:hidden;}
-.browser-card.chart::after{content:'';position:absolute;bottom:0;left:0;right:0;height:65%;
-  background:linear-gradient(180deg, rgba(213,21,46,.5), transparent);}
-.browser-card.full{grid-column:1/-1;height:40px;display:flex;align-items:center;padding:0 12px;gap:8px;}
-.browser-card.full i{width:60%;height:7px;border-radius:4px;background:rgba(255,255,255,.1);font-style:normal;}
-.browser-card.full b{width:22px;height:22px;border-radius:6px;background:var(--accent-bright);flex-shrink:0;}
-
-/* -- mock 4: podcast player -- */
-.pod-frame{width:100%;max-width:400px;border-radius:16px;border:1px solid var(--border-strong);
-  background:linear-gradient(160deg,#161616,#000);padding:24px;}
-.pod-top{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
-.pod-avatar{width:44px;height:44px;border-radius:50%;flex-shrink:0;
-  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.25), transparent 55%), var(--accent-bright);}
-.pod-meta b{display:block;font-size:14px;font-weight:500;}
-.pod-meta span{font-size:12px;color:var(--text-tertiary);}
-.pod-wave{display:flex;align-items:flex-end;gap:3px;height:46px;margin-bottom:18px;}
-.pod-wave span{flex:1;border-radius:2px;background:rgba(255,255,255,.14);}
-.pod-wave span.hi{background:var(--accent-bright);}
-.pod-controls{display:flex;align-items:center;justify-content:center;gap:20px;color:var(--text-tertiary);}
-.pod-play{width:42px;height:42px;border-radius:50%;background:var(--accent-bright);display:flex;align-items:center;justify-content:center;
-  box-shadow:0 0 28px -6px var(--accent-bright);}
-.pod-play svg{width:15px;height:15px;fill:#fff;margin-left:1px;}
-.pod-controls svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;}
-
-/* -- mock 5: custom AI prompt -- */
-.ai-frame{width:100%;max-width:400px;border-radius:16px;border:1px solid var(--border-strong);
-  background:linear-gradient(160deg,#161616,#000);padding:30px;text-align:center;}
-.ai-orb{width:64px;height:64px;margin:0 auto 18px;border-radius:50%;
-  background:conic-gradient(from 180deg, var(--accent-bright), #000 40%, var(--accent) 70%, #000);
-  box-shadow:0 0 40px -6px var(--accent-bright);}
-.ai-title{font-size:15px;color:#fff;margin-bottom:4px;font-weight:500;}
-.ai-sub{font-size:12px;color:var(--text-tertiary);margin-bottom:20px;line-height:1.5;}
-.ai-input{display:flex;align-items:center;justify-content:space-between;gap:10px;
-  border:1px solid var(--border-strong);border-radius:10px;padding:11px 14px;font-size:12.5px;color:var(--text-secondary);}
-.ai-input svg{width:15px;height:15px;fill:none;stroke:var(--accent-bright);stroke-width:1.8;flex-shrink:0;}
+/* -- signature visual: fanned "stacked clips" illustration, shared across all 5 -- */
+.svc-stack{position:relative;width:100%;max-width:320px;height:270px;display:flex;align-items:center;justify-content:center;}
+.stack-card{position:absolute;width:196px;height:236px;border-radius:20px;border:1px solid var(--border-strong);
+  background:linear-gradient(160deg, var(--bg-raised-2), #0d0d0d);
+  box-shadow:0 30px 60px -26px rgba(0,0,0,.7);
+  transition:transform .5s var(--ease), opacity .5s var(--ease);
+}
+.stack-card.back-1{transform:rotate(-9deg) translate(-38px,12px);opacity:.5;}
+.stack-card.back-2{transform:rotate(9deg) translate(38px,16px);opacity:.32;}
+.svc-row:hover .stack-card.back-1{transform:rotate(-13deg) translate(-46px,8px);opacity:.65;}
+.svc-row:hover .stack-card.back-2{transform:rotate(13deg) translate(46px,12px);opacity:.45;}
+.stack-card.front{
+  z-index:2;overflow:hidden;
+  background:
+    radial-gradient(circle at 24% 18%, rgba(255,255,255,.08), transparent 50%),
+    radial-gradient(circle at 76% 82%, rgba(213,21,46,.3), transparent 55%),
+    linear-gradient(165deg, var(--bg-raised-2), #0a0a0a);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+}
+.svc-row:hover .stack-card.front{transform:translateY(-6px);}
+.stack-card.front::before{
+  content:'';position:absolute;top:0;left:16%;right:16%;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,var(--accent-bright),transparent);
+}
+.stack-icon{
+  width:58px;height:58px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 32% 26%, rgba(255,255,255,.16), transparent 55%), linear-gradient(150deg,#241009,#0b0504);
+  border:1px solid rgba(213,21,46,0.35);
+  box-shadow:inset 0 2px 5px rgba(255,255,255,0.12), inset 0 -8px 14px rgba(0,0,0,0.65), 0 0 26px -8px rgba(213,21,46,.55);
+}
+.stack-icon svg{width:24px;height:24px;fill:none;stroke:var(--accent-bright);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.stack-icon svg.filled{fill:var(--accent-bright);stroke:none;}
+.stack-label{text-align:center;}
+.stack-label b{display:block;font-family:var(--font-display);font-size:15px;font-weight:500;color:#fff;margin-bottom:3px;letter-spacing:-.01em;}
+.stack-label span{font-size:11px;color:var(--text-tertiary);letter-spacing:.03em;}
 
 @media (max-width:900px){
   .svc-rows{gap:60px;margin-top:44px;}
@@ -552,7 +520,8 @@ p{font-size:16px;}
   .svc-content{max-width:none;}
   .svc-visual{padding:26px;min-height:auto;}
 }
-@media (prefers-reduced-motion: reduce){.svc-visual,.svc-row{transition:none;}}
+@media (prefers-reduced-motion: reduce){.svc-visual,.svc-row,.stack-card{transition:none;}}
+
 
 
 /* ============ PROBLEM ============ */
@@ -1054,10 +1023,13 @@ footer{padding:18px 0 70px;}
       <!-- 1. Short Form Content -->
       <div class="svc-row reveal">
         <div class="svc-visual">
-          <div class="reel-frame">
-            <div class="reel-progress"><span class="active"></span><span></span><span></span></div>
-            <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
-            <div class="reel-caption">"Behind the scenes"<b>2.4M views</b></div>
+          <div class="svc-stack">
+            <div class="stack-card back-1"></div>
+            <div class="stack-card back-2"></div>
+            <div class="stack-card front">
+              <div class="stack-icon"><svg viewBox="0 0 24 24"><rect x="7.5" y="2.5" width="9" height="19" rx="2.6"></rect><path class="filled" d="M10.3 9l3.4 2-3.4 2z"></path></svg></div>
+              <div class="stack-label"><b>12 Clips</b><span>Ready to Post</span></div>
+            </div>
           </div>
         </div>
         <div class="svc-content">
@@ -1071,12 +1043,12 @@ footer{padding:18px 0 70px;}
       <!-- 2. Long Form Content -->
       <div class="svc-row reveal">
         <div class="svc-visual">
-          <div class="editor-frame">
-            <div class="editor-topbar"><span></span><span></span><span></span></div>
-            <div class="editor-preview"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div></div>
-            <div class="editor-timeline">
-              <div class="editor-track"><div class="editor-clip wide"></div><div class="editor-clip dim"></div><div class="editor-clip"></div></div>
-              <div class="editor-track"><div class="editor-clip dim"></div><div class="editor-clip"></div><div class="editor-clip wide dim"></div></div>
+          <div class="svc-stack">
+            <div class="stack-card back-1"></div>
+            <div class="stack-card back-2"></div>
+            <div class="stack-card front">
+              <div class="stack-icon"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="2.6"></rect><path class="filled" d="M9.6 10l4.4 2-4.4 2z"></path></svg></div>
+              <div class="stack-label"><b>1 Episode</b><span>Fully Edited</span></div>
             </div>
           </div>
         </div>
@@ -1091,12 +1063,12 @@ footer{padding:18px 0 70px;}
       <!-- 3. SaaS Explainers -->
       <div class="svc-row reveal">
         <div class="svc-visual">
-          <div class="browser-frame">
-            <div class="browser-topbar"><span></span><span></span><span></span><i></i></div>
-            <div class="browser-body">
-              <div class="browser-card chart"></div>
-              <div class="browser-card"></div>
-              <div class="browser-card full"><b></b><i></i></div>
+          <div class="svc-stack">
+            <div class="stack-card back-1"></div>
+            <div class="stack-card back-2"></div>
+            <div class="stack-card front">
+              <div class="stack-icon"><svg viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="2"></rect><path d="M9 21h6M12 17v4"></path><path class="accent-stroke" d="M6.5 14l3.2-3.6 2.6 2 4.2-4.8"></path></svg></div>
+              <div class="stack-label"><b>1 Demo</b><span>Investor Ready</span></div>
             </div>
           </div>
         </div>
@@ -1111,21 +1083,12 @@ footer{padding:18px 0 70px;}
       <!-- 4. Podcast -->
       <div class="svc-row reveal">
         <div class="svc-visual">
-          <div class="pod-frame">
-            <div class="pod-top">
-              <div class="pod-avatar"></div>
-              <div class="pod-meta"><b>The Ledger Podcast</b><span>Ep. 42 — 38:12</span></div>
-            </div>
-            <div class="pod-wave">
-              <span style="height:30%"></span><span style="height:60%" class="hi"></span><span style="height:45%"></span>
-              <span style="height:80%" class="hi"></span><span style="height:35%"></span><span style="height:65%"></span>
-              <span style="height:50%" class="hi"></span><span style="height:25%"></span><span style="height:70%"></span>
-              <span style="height:40%"></span><span style="height:55%" class="hi"></span><span style="height:30%"></span>
-            </div>
-            <div class="pod-controls">
-              <svg viewBox="0 0 24 24"><path d="M11 19l-7-7 7-7M20 19l-7-7 7-7"/></svg>
-              <div class="pod-play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
-              <svg viewBox="0 0 24 24"><path d="M13 5l7 7-7 7M4 5l7 7-7 7"/></svg>
+          <div class="svc-stack">
+            <div class="stack-card back-1"></div>
+            <div class="stack-card back-2"></div>
+            <div class="stack-card front">
+              <div class="stack-icon"><svg viewBox="0 0 24 24"><path d="M12 2.5a3.2 3.2 0 013.2 3.2v6a3.2 3.2 0 01-6.4 0v-6A3.2 3.2 0 0112 2.5z"></path><path d="M6 11a6 6 0 0012 0"></path><path d="M12 17v4"></path></svg></div>
+              <div class="stack-label"><b>Weekly</b><span>Episodes</span></div>
             </div>
           </div>
         </div>
@@ -1140,12 +1103,12 @@ footer{padding:18px 0 70px;}
       <!-- 5. Custom AI -->
       <div class="svc-row reveal">
         <div class="svc-visual">
-          <div class="ai-frame">
-            <div class="ai-orb"></div>
-            <div class="ai-title">Describe your project</div>
-            <div class="ai-sub">Tell us the goal — we'll build the video around it.</div>
-            <div class="ai-input">Launch video for our new feature…
-              <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <div class="svc-stack">
+            <div class="stack-card back-1"></div>
+            <div class="stack-card back-2"></div>
+            <div class="stack-card front">
+              <div class="stack-icon"><svg viewBox="0 0 24 24"><path class="filled" d="M12 2.5l2.1 6.2L20.5 11l-6.4 2.3L12 19.5l-2.1-6.2L3.5 11l6.4-2.3z"></path></svg></div>
+              <div class="stack-label"><b>Assisted</b><span>Faster Edit</span></div>
             </div>
           </div>
         </div>
@@ -1292,7 +1255,7 @@ footer{padding:18px 0 70px;}
 <section id="process" class="section-pad">
   <div class="wrap">
     <div class="section-head">
-      <h2 class="reveal">How It Works</h2>
+      <h2 class="reveal">Behind Every Video</h2>
     </div>
     <p class="process-subtitle reveal">A simple 3-step framework we follow on every project.</p>
     <a href="#work" class="process-watch reveal">
