@@ -764,29 +764,6 @@ p{font-size:16px;}
 }
 @media (prefers-reduced-motion: reduce){.rv-av,.rv-panel{transition:none;}}
 
-/* ============ REVIEWS (video carousel) ============ */
-#reviews{background:var(--bg-raised);overflow:hidden;}
-.vc-head{max-width:620px;margin:0 auto 44px;text-align:center;}
-.vc-head p{margin-top:16px;font-size:17px;line-height:1.6;color:var(--text-secondary);}
-.vc-slider{position:relative;}
-.vc-track{display:flex;gap:24px;overflow-x:auto;padding:6px 0 24px;scrollbar-width:none;cursor:grab;-webkit-overflow-scrolling:touch;}
-.vc-track::-webkit-scrollbar{display:none;}
-.vc-track.drag{cursor:grabbing;user-select:none;}
-.vc-card{flex:0 0 clamp(250px,24vw,330px);}
-.vc-video{position:relative;aspect-ratio:9/16;border-radius:8px;overflow:hidden;background:linear-gradient(150deg,hsl(var(--h) 22% 34%),hsl(var(--h) 24% 16%));}
-.vc-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
-.vc-poster{all:unset;box-sizing:border-box;position:absolute;inset:0;cursor:pointer;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;}
-.vc-poster .vc-ini{font:600 clamp(48px,6vw,76px)/1 var(--font-display);letter-spacing:-.03em;color:rgba(255,255,255,.88);}
-.vc-poster:focus-visible{outline:2px solid var(--accent-bright);outline-offset:-4px;}
-.vc-poster .vc-ini{position:absolute;left:0;right:0;top:20%;text-align:center;}
-.vc-play{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:rgba(21,23,27,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;transition:background .25s,transform .3s var(--ease);}
-.vc-play svg{width:22px;height:22px;fill:#fff;margin-left:3px;}
-.vc-poster:hover .vc-play{background:var(--accent-bright);transform:scale(1.1);}
-.vc-by{padding:14px 4px 0;}
-.vc-by b{display:block;font-size:16px;font-weight:600;color:var(--white);}
-.vc-by span{display:block;margin-top:3px;font-size:13.5px;color:var(--text-tertiary);}
-@media (max-width:640px){.vc-card{flex-basis:72vw;}.vc-track{gap:16px;}}
-
 /* ============ NUMBERS ============ */
 .numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .number-item{padding:50px 30px;border-right:1px solid var(--border);}
@@ -1108,6 +1085,19 @@ header.scrolled nav{background:rgba(245,246,248,.95);}
 /* Let's Create Something — white background */
 #cta{background:var(--bg);}
 .booking-panel{background:transparent !important;}
+
+/* ===== REVIEWS wall (text cards) ===== */
+.rw-wall{column-count:3;column-gap:24px;margin-top:8px;}
+.rw-card{break-inside:avoid;-webkit-column-break-inside:avoid;margin:0 0 24px;padding:28px 28px 26px;background:var(--bg-raised-2);border:1px solid var(--border);border-radius:8px;transition:background .3s,border-color .3s,transform .4s var(--ease);}
+.rw-card:hover{background:#d9dce1;border-color:var(--border-strong);transform:translateY(-2px);}
+.rw-card p{font-size:15.5px;line-height:1.75;color:var(--text-secondary);}
+.rw-by{display:flex;align-items:center;gap:14px;margin-top:24px;}
+.rw-av{flex:0 0 44px;width:44px;height:44px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;font:600 13px/1 var(--font-display);color:rgba(0,0,0,.55);background:radial-gradient(circle at 30% 25%,#D5361F,#8E1710 55%,#3F0A07);}
+.rw-av img{width:100%;height:100%;object-fit:cover;}
+.rw-by b{display:block;font-size:15px;font-weight:500;color:var(--white);}
+.rw-by small{display:block;margin-top:3px;font-size:13px;color:var(--text-tertiary);}
+@media (max-width:1000px){.rw-wall{column-count:2;}}
+@media (max-width:640px){.rw-wall{column-count:1;}.rw-card{padding:24px 22px;}}
 </style>
 </head>
 <body>
@@ -1374,12 +1364,10 @@ header.scrolled nav{background:rgba(245,246,248,.95);}
 <!-- REVIEWS (video carousel) -->
 <section id="reviews" class="section-pad">
   <div class="wrap">
-    <div class="vc-head">
+    <div class="rv-head">
       <h2 class="reveal"><span class="hl">Reviews</span></h2>
     </div>
-    <div class="vc-slider">
-      <div class="vc-track" id="vcTrack" aria-label="Client video reviews"></div>
-    </div>
+    <div class="rw-wall" id="rwWall"></div>
   </div>
 </section>
 
@@ -1616,56 +1604,16 @@ document.getElementById('whyTable').innerHTML = `
 })();
 
 (function(){
-  const track=document.getElementById('vcTrack');
-  const FALLBACK_VIDEO='awUYikrGsKk'; /* replace with each client's own YouTube ID via the "video" field (Shorts IDs work too) */
+  const wall=document.getElementById('rwWall');
   const ini=n=>n.split(' ').map(x=>x[0]).join('').slice(0,2);
-  const play='<span class="vc-play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></span>';
-  track.innerHTML=TESTIMONIALS.map((t,i)=>{
-    const bg=t.photo?'background-image:url('+t.photo+')':(t.video?'background-image:url(https://img.youtube.com/vi/'+t.video+'/hqdefault.jpg)':'');
-    return `<article class="vc-card" data-i="${i}">
-      <div class="vc-video" style="--h:${(i*47+12)%360}">
-        <button class="vc-poster" style="${bg}" aria-label="Play video review from ${t.n}">${t.photo||t.video?'':'<span class="vc-ini">'+ini(t.n)+'</span>'}${play}</button>
+  wall.innerHTML=TESTIMONIALS.map(t=>`
+    <article class="rw-card">
+      <p>${t.q}</p>
+      <div class="rw-by">
+        <span class="rw-av">${t.photo?`<img src="${t.photo}" alt="">`:ini(t.n)}</span>
+        <span><b>${t.n}</b><small>${t.r}</small></span>
       </div>
-      <div class="vc-by"><b>${t.n}</b><span>${t.r}</span></div>
-    </article>`;}).join('');
-  /* click play -> embed the video in that card (one video at a time) */
-  track.addEventListener('click',e=>{
-    if(track.dataset.moved==='1'){track.dataset.moved='0';return;}
-    const p=e.target.closest('.vc-poster');if(!p)return;
-    track.querySelectorAll('.vc-video iframe').forEach(f=>{
-      const c=f.closest('.vc-card'),t=TESTIMONIALS[+c.dataset.i];
-      f.parentElement.innerHTML='<button class="vc-poster" aria-label="Play video review from '+t.n+'">'+play+'</button>';
-    });
-    const card=p.closest('.vc-card'),t=TESTIMONIALS[+card.dataset.i],id=t.video||FALLBACK_VIDEO;
-    p.parentElement.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1" title="Video review from '+t.n+'" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
-  });
-  /* duplicate the cards so the slide loops endlessly */
-  const n0=track.children.length;
-  [...track.children].forEach(c=>{const d=c.cloneNode(true);d.setAttribute('aria-hidden','true');d.querySelectorAll('button').forEach(b=>b.tabIndex=-1);track.appendChild(d);});
-  const half=()=>{const c=track.children;return c[n0]?c[n0].offsetLeft-c[0].offsetLeft:track.scrollWidth/2;};
-  const step=()=>{const c=track.querySelector('.vc-card');return c?c.getBoundingClientRect().width+24:300;};
-  /* slow auto slide, right to left; pauses on hover, drag, touch or a playing video */
-  let pos=0,last=0,hover=false,touch=false,dragging=false;
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  track.scrollLeft=pos;
-  track.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')hover=true;});
-  track.addEventListener('pointerleave',()=>{hover=false;});
-  track.addEventListener('touchstart',()=>{touch=true;},{passive:true});
-  track.addEventListener('touchend',()=>{setTimeout(()=>{touch=false;},1200);},{passive:true});
-  function tick(){
-    if(Math.abs(track.scrollLeft-last)>2)pos=track.scrollLeft;   /* user / arrow moved it */
-    const h=half();
-    if(!reduce&&!hover&&!touch&&!dragging&&!track.querySelector('iframe'))pos+=0.6;
-    if(pos<=0)pos+=h;else if(pos>=h)pos-=h;
-    track.scrollLeft=pos;last=track.scrollLeft;
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-  /* mouse drag to scroll */
-  let down=false,sx=0,sl=0;
-  track.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.target.closest('iframe'))return;down=true;dragging=true;sx=e.clientX;sl=track.scrollLeft;track.dataset.moved='0';});
-  addEventListener('pointermove',e=>{if(!down)return;const d=e.clientX-sx;if(Math.abs(d)>5){track.classList.add('drag');track.dataset.moved='1';}track.scrollLeft=sl-d;});
-  addEventListener('pointerup',()=>{if(!down)return;down=false;dragging=false;track.classList.remove('drag');setTimeout(()=>{track.dataset.moved='0';},0);});
+    </article>`).join('');
 })();
 
 document.getElementById('faqList').innerHTML = FAQ.map((f,i) => `
