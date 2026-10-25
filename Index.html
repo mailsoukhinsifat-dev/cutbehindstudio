@@ -1213,6 +1213,29 @@ html[data-theme="dark"] #services::before{background-image:radial-gradient(rgba(
 @media (max-width:900px){html[data-theme="dark"] .fmt-tab[aria-selected="true"]{border-bottom-color:var(--white);}}
 </style>
 <script>document.documentElement.setAttribute('data-theme','dark');</script>
+<style id="square-corners">
+/* ===== All rectangular elements: border-radius 0 (circles stay round) ===== */
+:root{--radius-lg:0;--radius-md:0;--radius-sm:0;}
+nav,.btn,.btn-primary,.btn-ghost,.btn-sm,.trust-badge,
+.filter-btn,.svc-pill,.theme-toggle,
+.hero-video,.hero-video .video-poster,.hero-video .play-btn,.hero-video iframe,
+.work-card,.work-media,.work-tag,.work-play span,.work-media iframe,
+.fc,.fc-ico,.fc-chip,.fc-stat,
+.fmt-eyebrow,.fmt-tab,.fmt-shape,.fmt-stage,.fmt-frame,.fmt-chip,.fmt-info .svc-pill,
+.fmt-info::before,.fmt-fill,.fmt-track::before,
+.problem-card,.pv-callout,.pv-pill,.pv-bar,.pv-progress,.pv-progress i,
+.process-card,.process-card-icon,.process-watch,.process-watch-thumb,
+.compare-col,.compare-col.us h3::after,
+.rw-card,.cv-card,.cv-lb-box,.cv-lb-box iframe,.cv-lb-box video,.cv-card video,.cv-img,
+.rv-video,.rv-poster,
+.cta-panel,.cta-benefit,.booking-panel,.booking-info,
+.faq-item,.about-visual,.team-photo,.team-photo img,
+.fmt-tab:focus-visible,.rv-poster:focus-visible,.cv-card:focus-visible,
+input,textarea,select,iframe,video,
+::-webkit-scrollbar-thumb,::-webkit-scrollbar-track{
+  border-radius:0 !important;
+}
+</style>
 </head>
 <body>
 
