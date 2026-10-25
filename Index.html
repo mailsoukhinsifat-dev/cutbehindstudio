@@ -247,7 +247,7 @@ p{font-size:16px;}
 /* ============ HERO TRUST BADGE (glass) ============ */
 .trust-badge{
   display:inline-flex;align-items:center;gap:8px;
-  padding:10px 22px;border-radius:100px;margin-bottom:26px;
+  padding:10px 22px;border-radius:8px;margin-bottom:26px;
   background:rgba(0,0,0,0.06);
   border:1px solid rgba(0,0,0,0.14);
   backdrop-filter:blur(16px) saturate(160%);
@@ -763,6 +763,33 @@ p{font-size:16px;}
   .rv-lab{display:none;}
 }
 @media (prefers-reduced-motion: reduce){.rv-av,.rv-panel{transition:none;}}
+/* ===== CLIENT VIDEO WALL ===== */
+.cv-wall{background:transparent;border-radius:0;padding:18px 0;overflow:hidden;display:flex;flex-direction:column;gap:16px;margin-top:8px;}
+.cv-row{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);}
+.cv-track{display:flex;gap:16px;width:max-content;padding-right:16px;animation:cvScroll 70s linear infinite;}
+.cv-row.rev .cv-track{animation-direction:reverse;}
+.cv-wall:hover .cv-track{animation-play-state:paused;}
+@keyframes cvScroll{to{transform:translateX(-50%);}}
+.cv-card{all:unset;box-sizing:border-box;position:relative;flex:0 0 auto;width:clamp(260px,32vw,480px);aspect-ratio:16/9;border-radius:22px;overflow:hidden;cursor:pointer;background:#000;}
+.cv-card video,.cv-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background-size:cover;background-position:center;transition:transform .6s var(--ease);}
+.cv-card:hover video,.cv-card:hover .cv-img{transform:scale(1.05);}
+.cv-card:focus-visible{outline:2px solid var(--accent-bright);outline-offset:3px;}
+.cv-play{position:absolute;right:14px;bottom:14px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.85);transition:all .3s var(--ease);}
+.cv-play svg{width:18px;height:18px;fill:#fff;margin-left:2px;}
+.cv-card:hover .cv-play,.cv-card:focus-visible .cv-play{opacity:1;transform:none;}
+@media (hover:none){.cv-play{opacity:1;transform:none;}}
+.cv-cap{position:absolute;left:0;right:0;bottom:0;padding:44px 16px 14px;background:linear-gradient(transparent,rgba(0,0,0,.72));color:#fff;text-align:left;pointer-events:none;}
+.cv-cap b{display:block;font-size:14px;font-weight:500;}
+.cv-cap small{display:block;font-size:12px;opacity:.7;margin-top:2px;}
+.cv-lb{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .3s ease;}
+.cv-lb.open{opacity:1;visibility:visible;}
+.cv-lb-box{position:relative;width:min(960px,100%);max-height:86vh;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000;}
+.cv-lb-box.tall{aspect-ratio:auto;width:auto;height:86vh;max-width:100%;}
+.cv-lb-box video,.cv-lb-box iframe{width:100%;height:100%;border:0;display:block;object-fit:contain;}
+.cv-x{all:unset;position:absolute;top:16px;right:20px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:26px;line-height:42px;text-align:center;cursor:pointer;}
+.cv-x:hover{background:var(--accent-bright);}
+@media (prefers-reduced-motion: reduce){.cv-track{animation:none;}.cv-row{overflow-x:auto;}}
+
 
 /* ============ NUMBERS ============ */
 .numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
@@ -970,7 +997,7 @@ h2{font-size:clamp(34px,4.6vw,58px);line-height:1.06;}
 .btn{border-radius:8px;} .btn-primary{background:var(--white);color:#f5f6f8;}
 .btn-primary:hover{background:var(--accent-bright);color:#fff;}
 .btn-ghost{border-color:var(--white);}
-.filter-btn,.svc-pill{border-radius:8px;} .trust-badge{border-radius:100px;}
+.filter-btn,.svc-pill{border-radius:8px;} .trust-badge{border-radius:8px;}
 nav{border-radius:8px;background:rgba(245,246,248,.82);border-color:var(--border);box-shadow:none;padding-left:28px;}
 header.scrolled nav{background:rgba(245,246,248,.95);}
 .work-card,.testi-card,.process-card,.compare-col,.cta-panel,.booking-panel,.hero-video,.faq-item,.service-tile,.about-visual,.case-media,.pv-card{
@@ -1064,14 +1091,14 @@ header.scrolled nav{background:rgba(245,246,248,.95);}
 .fc-ico svg{width:36px;height:36px;fill:none;stroke:#fff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .fc-ico svg .filled{fill:#fff;}
 .fc-num{font:700 54px/1 var(--font-display);letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.2px rgba(21,23,27,.16);}
-.fc-chip{display:inline-block;align-self:flex-start;margin-top:24px;font-size:12px;font-weight:600;letter-spacing:.03em;padding:6px 12px;border-radius:100px;color:var(--white);background:var(--bg-raised);border:1px solid var(--border-strong);}
+.fc-chip{display:inline-block;align-self:flex-start;margin-top:24px;font-size:12px;font-weight:600;letter-spacing:.03em;padding:6px 12px;border-radius:8px;color:var(--white);background:var(--bg-raised);border:1px solid var(--border-strong);}
 .fc h3{margin-top:14px;font-size:clamp(26px,2.3vw,32px);font-weight:600;letter-spacing:-.03em;line-height:1.1;}
 .fc h4{margin-top:8px;font-size:16px;font-weight:600;letter-spacing:-.01em;background:linear-gradient(100deg,#B11226,#D5152E 60%,#E53935);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;align-self:flex-start;}
 .fc p{margin-top:12px;font-size:15px;line-height:1.7;color:var(--text-secondary);}
 .fc-list{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:10px;}
 .fc-list li{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:500;color:var(--white);}
 .fc-list svg{flex:0 0 22px;width:22px;height:22px;padding:4px;border-radius:50%;box-sizing:border-box;background:rgba(177,18,38,.1);fill:none;stroke:var(--accent-bright);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
-.fc-stat{margin-top:20px;display:inline-flex;align-items:center;gap:8px;align-self:flex-start;font-size:13px;font-weight:600;color:var(--accent-bright);background:rgba(177,18,38,.08);padding:7px 13px;border-radius:100px;}
+.fc-stat{margin-top:20px;display:inline-flex;align-items:center;gap:8px;align-self:flex-start;font-size:13px;font-weight:600;color:var(--accent-bright);background:rgba(177,18,38,.08);padding:7px 13px;border-radius:8px;}
 .fc-stat i{width:7px;height:7px;border-radius:50%;background:var(--accent-bright);}
 .fc-actions{margin-top:auto;padding-top:26px;}
 .fc-link{display:inline-flex;align-items:center;gap:12px;font-weight:600;font-size:15px;color:var(--white);text-decoration:none;}
@@ -1202,9 +1229,9 @@ html[data-theme="dark"] #services::before{background-image:radial-gradient(rgba(
     </a>
     <div class="nav-links">
       <a href="#services">Services</a>
-      <a href="#work">Work</a>
       <a href="#testimonials">Clients</a>
       <a href="#process">Process</a>
+      <a href="#work">Work</a>
       <a href="#reviews">Reviews</a>
       <a href="#faq">FAQ</a>
     </div>
@@ -1223,8 +1250,8 @@ html[data-theme="dark"] #services::before{background-image:radial-gradient(rgba(
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="#services">Services</a>
-  <a href="#work">Work</a>
   <a href="#process">Process</a>
+  <a href="#work">Work</a>
   <a href="#faq">FAQ</a>
   <a href="#cta" class="btn btn-primary">Book a Discovery Call</a>
 </div>
@@ -1257,7 +1284,6 @@ html[data-theme="dark"] #services::before{background-image:radial-gradient(rgba(
 <section id="services" class="section-pad">
   <div class="wrap">
     <div class="section-head fmt-head" style="max-width:980px;">
-      <span class="fmt-eyebrow reveal"><i></i>What we make</span>
       <h2 class="reveal">Content Built For <span class="fmt-grad">Every Format</span></h2>
     </div>
 
@@ -1268,32 +1294,15 @@ html[data-theme="dark"] #services::before{background-image:radial-gradient(rgba(
 <div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
 
 <!-- FEATURED WORK -->
-<section id="work" class="section-pad">
-  <div class="wrap">
-    <div class="section-head">
-      <h2 class="reveal">The Works That <span class="hl">Define Us</span></h2>
-    </div>
-    <div class="filter-row" id="filterRow">
-      <button class="filter-btn active" data-filter="saas">SaaS</button>
-      <button class="filter-btn" data-filter="shortform">Short Form</button>
-      <button class="filter-btn" data-filter="longform">Long Form</button>
-      <button class="filter-btn" data-filter="podcast">Podcast</button>
-    </div>
-    <div class="work-grid" id="workGrid">
-      <!-- cards injected below in stagger for reveal -->
-    </div>
-  </div>
-</section>
 
-<div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
 
 <!-- OUR CLIENTS -->
 <section id="testimonials" class="section-pad rv">
   <div class="wrap">
     <div class="rv-head">
-      <h2 class="reveal">Our <span class="hl">Clients</span></h2>
+      <h2 class="reveal">Our Client <span class="hl">Words</span></h2>
     </div>
-    <div class="rv-row" id="rvRow" role="tablist" aria-label="Client reviews"></div>
+    <div class="cv-wall" id="cvWall" aria-label="Client video reviews"></div>
   </div>
 </section>
 
@@ -1429,6 +1438,25 @@ html[data-theme="dark"] #services::before{background-image:radial-gradient(rgba(
         <circle cx="640" cy="345" r="6"></circle>
       </svg>
       <div class="process-card-grid" id="processList"></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
+
+<section id="work" class="section-pad">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="reveal">The Works That <span class="hl">Define Us</span></h2>
+    </div>
+    <div class="filter-row" id="filterRow">
+      <button class="filter-btn active" data-filter="saas">SaaS</button>
+      <button class="filter-btn" data-filter="shortform">Short Form</button>
+      <button class="filter-btn" data-filter="longform">Long Form</button>
+      <button class="filter-btn" data-filter="podcast">Podcast</button>
+    </div>
+    <div class="work-grid" id="workGrid">
+      <!-- cards injected below in stagger for reveal -->
     </div>
   </div>
 </section>
@@ -1663,31 +1691,59 @@ document.getElementById('whyTable').innerHTML = `
     ${WHY.map(w => `<div class="compare-row"><span class="why-icon">${checkIcon}</span>${w.new}: ${w.newd}</div>`).join('')}
   </div>`;
 
+/* ============================================================
+   CLIENT VIDEO WALL
+   Video add korte nicher list-e ekta line add koro:
+     src     : MP4 file (e.g. 'videos/client1.mp4') -- hover/scroll-e muted loop cholbe
+     youtube : YouTube video ID (src na thakle eta use hobe)
+     poster  : optional thumbnail image
+     name/role : optional, dile card-er niche caption dekhabe
+   Click korle sound shoho lightbox-e full video khulbe.
+============================================================ */
 (function(){
-  const row=document.getElementById('rvRow');
-  const FALLBACK_VIDEO='awUYikrGsKk'; /* replace with each client's own YouTube ID via the "video" field */
-  const ini=n=>n.split(' ').map(x=>x[0]).join('').slice(0,2);
-  row.innerHTML=TESTIMONIALS.map((t,i)=>`
-    <button class="rv-item ${i%2?'dn':'up'}" role="tab" id="rv-tab-${i}" aria-controls="rvPanel" aria-selected="${i===0}" tabindex="${i===0?0:-1}" data-i="${i}" style="--h:${(i*47+12)%360}">
-      <span class="rv-av">${t.photo?`<img src="${t.photo}" alt="">`:ini(t.n)}</span>
-      <span class="rv-lab"><b>${t.n}</b><span>${t.r}</span></span>
-    </button>`).join('');
-  const tabs=[...row.children];let cur=0;
-  function show(i,focus){
-    cur=i;const t=TESTIMONIALS[i];
-    tabs.forEach((b,j)=>{b.setAttribute('aria-selected',j===i);b.tabIndex=j===i?0:-1;});
-    if(focus)tabs[i].focus();
-    if(matchMedia('(max-width:900px)').matches)tabs[i].scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
-  }
-  row.addEventListener('click',e=>{const b=e.target.closest('.rv-item');if(b&&(+b.dataset.i!==cur))show(+b.dataset.i);});
-  row.addEventListener('keydown',e=>{
-    const n=tabs.length;let i=cur;
-    if(e.key==='ArrowRight'||e.key==='ArrowDown')i=(cur+1)%n;
-    else if(e.key==='ArrowLeft'||e.key==='ArrowUp')i=(cur-1+n)%n;
-    else if(e.key==='Home')i=0;else if(e.key==='End')i=n-1;else return;
-    e.preventDefault();show(i,true);
-  });
-  show(0);
+  const CLIENT_VIDEOS=[
+    {src:'', youtube:'GxzUQ7I_6qA', poster:'', name:'', role:''},
+    {src:'', youtube:'J6A7JcbkWvM', poster:'', name:'', role:''},
+    {src:'', youtube:'ddhAoun1hVA', poster:'', name:'', role:''},
+    {src:'', youtube:'1PprdassiY4', poster:'', name:'', role:''},
+    {src:'', youtube:'JcZYBjD4vu4', poster:'', name:'', role:''},
+    {src:'', youtube:'e-L4fZ4W9xM', poster:'', name:'', role:''},
+    {src:'', youtube:'awUYikrGsKk', poster:'', name:'', role:''},
+    {src:'', youtube:'8qZtSBkk0j8', poster:'', name:'', role:''}
+  ];
+  const wall=document.getElementById('cvWall');if(!wall)return;
+  const play='<svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg>';
+  const card=i=>{const v=CLIENT_VIDEOS[i];
+    const media=v.src
+      ?`<video src="${v.src}" ${v.poster?`poster="${v.poster}"`:''} muted loop playsinline preload="metadata"></video>`
+      :`<div class="cv-img" style="background-image:url('${v.poster||`https://img.youtube.com/vi/${v.youtube}/hqdefault.jpg`}')"></div>`;
+    return `<button class="cv-card" type="button" data-i="${i}" aria-label="Play client video${v.name?': '+v.name:''}">${media}<span class="cv-play">${play}</span>${v.name?`<span class="cv-cap"><b>${v.name}</b>${v.role?`<small>${v.role}</small>`:''}</span>`:''}</button>`;};
+  const rows=[[],[]];CLIENT_VIDEOS.forEach((v,i)=>{if(v.src||v.youtube)rows[i%2].push(i);});
+  wall.innerHTML=rows.map((r,n)=>{if(!r.length)return '';
+    let idx=r;while(idx.length<6)idx=idx.concat(r);
+    const t=idx.map(card).join('');
+    return `<div class="cv-row${n?' rev':''}"><div class="cv-track">${t}${t}</div></div>`;}).join('');
+
+  /* autoplay MP4 tiles only while on screen */
+  const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;
+    if(e.isIntersecting){const p=v.play();if(p&&p.catch)p.catch(()=>{});}else v.pause();}),{threshold:.2});
+  wall.querySelectorAll('video').forEach(v=>vio.observe(v));
+
+  /* lightbox */
+  const lb=document.createElement('div');lb.className='cv-lb';
+  lb.innerHTML='<button class="cv-x" type="button" aria-label="Close">&times;</button><div class="cv-lb-box"></div>';
+  document.body.appendChild(lb);
+  const box=lb.querySelector('.cv-lb-box');
+  const close=()=>{lb.classList.remove('open');box.innerHTML='';};
+  wall.addEventListener('click',e=>{const c=e.target.closest('.cv-card');if(!c)return;
+    const v=CLIENT_VIDEOS[+c.dataset.i];
+    box.className='cv-lb-box';
+    box.innerHTML=v.src
+      ?`<video src="${v.src}" controls autoplay playsinline></video>`
+      :`<iframe src="https://www.youtube.com/embed/${v.youtube}?autoplay=1&rel=0" title="Client video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    lb.classList.add('open');});
+  lb.addEventListener('click',e=>{if(e.target===lb||e.target.closest('.cv-x'))close();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});
 })();
 
 (function(){
