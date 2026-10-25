@@ -1098,7 +1098,72 @@ header.scrolled nav{background:rgba(245,246,248,.95);}
 .rw-by small{display:block;margin-top:3px;font-size:13px;color:var(--text-tertiary);}
 @media (max-width:1000px){.rw-wall{column-count:2;}}
 @media (max-width:640px){.rw-wall{column-count:1;}.rw-card{padding:24px 22px;}}
+
+/* ===== THEME TOGGLE + DARK MODE ===== */
+.theme-toggle{position:relative;width:40px;height:40px;border-radius:50%;border:1px solid var(--border-strong);display:inline-flex;align-items:center;justify-content:center;color:var(--white);background:transparent;flex-shrink:0;transition:background .3s,border-color .3s,transform .35s var(--ease);}
+.theme-toggle:hover{background:var(--accent-dim);border-color:var(--accent-bright);transform:rotate(14deg);}
+.theme-toggle:focus-visible{outline:2px solid var(--accent-bright);outline-offset:3px;}
+.theme-toggle svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;position:absolute;transition:opacity .3s,transform .5s var(--ease);}
+.theme-toggle .ic-sun{opacity:0;transform:rotate(-70deg) scale(.5);}
+.theme-toggle .ic-moon{opacity:1;transform:none;}
+html[data-theme="dark"] .theme-toggle .ic-sun{opacity:1;transform:none;}
+html[data-theme="dark"] .theme-toggle .ic-moon{opacity:0;transform:rotate(70deg) scale(.5);}
+body,nav,.fc,.fmt-tab,.work-card,.process-card,.compare-col,.faq-item,.service-tile,.booking-panel{transition:background-color .35s,border-color .35s,color .35s;}
+
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#000000;--bg-raised:#0a0a0a;--bg-raised-2:#0d0d0d;
+  --white:#f2f2f4;
+  --accent:#D5152E;--accent-bright:#F03E4E;--accent-dim:rgba(240,62,78,.16);
+  --text-secondary:#a6a6ae;--text-tertiary:#77777f;
+  --border:rgba(255,255,255,.10);--border-strong:rgba(255,255,255,.20);
+}
+html[data-theme="dark"] ::-webkit-scrollbar-thumb{background:#3a3a40;}
+html[data-theme="dark"] .logo-full{filter:invert(1);}
+html[data-theme="dark"] nav{background:rgba(0,0,0,.78);border-color:var(--border);box-shadow:0 25px 60px -25px rgba(0,0,0,.7);}
+html[data-theme="dark"] header.scrolled nav{background:rgba(0,0,0,.94);}
+html[data-theme="dark"] .fmt-stage{background:linear-gradient(165deg,#111317,#000);}
+html[data-theme="dark"] #loader{background:#000;}
+html[data-theme="dark"] .loader-icon img{filter:invert(1);}
+html[data-theme="dark"],html[data-theme="dark"] body{background:#000;}
+html[data-theme="dark"] .mobile-menu{background:var(--bg);}
+html[data-theme="dark"] .btn-primary{background:var(--white);color:#0b0b0c;}
+html[data-theme="dark"] .btn-primary:hover{background:var(--accent-bright);color:#fff;}
+html[data-theme="dark"] .filter-btn.active{background:var(--white);color:#0b0b0c;border-color:var(--white);}
+html[data-theme="dark"] .loader-bar{background:rgba(255,255,255,.1);}
+html[data-theme="dark"] .trust-badge{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16);}
+html[data-theme="dark"] .cta-benefit{background:rgba(255,255,255,.03);}
+html[data-theme="dark"] .hero-video .video-poster,
+html[data-theme="dark"] .work-thumb{background:linear-gradient(160deg,#16181c,#000) !important;}
+html[data-theme="dark"] .work-media,
+html[data-theme="dark"] .problem-card,
+html[data-theme="dark"] .process-card,
+html[data-theme="dark"] .about-visual,
+html[data-theme="dark"] .team-photo{background:linear-gradient(165deg,var(--bg-raised-2),#000);}
+html[data-theme="dark"] .process-card,
+html[data-theme="dark"] .compare-col{background:var(--bg-raised-2) !important;}
+html[data-theme="dark"] .compare-col.us{background:#0d0507 !important;border-color:var(--accent-bright) !important;box-shadow:0 24px 50px -30px rgba(240,62,78,.45);}
+html[data-theme="dark"] .compare-col.them .why-icon{background:rgba(255,255,255,.07);}
+html[data-theme="dark"] .number-item b{background:linear-gradient(180deg,#ffffff,#77777f);-webkit-background-clip:text;background-clip:text;color:transparent;}
+html[data-theme="dark"] .process-card-icon{background:rgba(255,255,255,.06);}
+html[data-theme="dark"] .pv-chip,html[data-theme="dark"] .pv-dot{background:rgba(255,255,255,.08);}
+html[data-theme="dark"] .fmt-eyebrow,
+html[data-theme="dark"] .fmt-tab,
+html[data-theme="dark"] .fmt-info .svc-pill,
+html[data-theme="dark"] .fc{background:var(--bg-raised-2);}
+html[data-theme="dark"] .fmt-tab[aria-selected="true"]{background:var(--white);border-color:var(--white);color:#0b0b0c;}
+html[data-theme="dark"] .fmt-tab[aria-selected="true"] .fmt-shape{color:var(--accent);}
+html[data-theme="dark"] .fc-num{-webkit-text-stroke:1.2px rgba(255,255,255,.2);}
+html[data-theme="dark"] .fc{box-shadow:0 24px 50px -34px rgba(0,0,0,.8);}
+html[data-theme="dark"] .rv-item[aria-selected="true"] .rv-av,
+html[data-theme="dark"] .rv-av{border-color:var(--bg);}
+html[data-theme="dark"] input,html[data-theme="dark"] textarea,html[data-theme="dark"] select{background:var(--bg-raised);color:var(--white);border-color:var(--border-strong);}
+html[data-theme="dark"] ::placeholder{color:var(--text-tertiary);}
+html[data-theme="dark"] .cta-panel::after{background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);}
+html[data-theme="dark"] #services::before{background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1.4px);}
+@media (max-width:900px){html[data-theme="dark"] .fmt-tab[aria-selected="true"]{border-bottom-color:var(--white);}}
 </style>
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
 
@@ -1127,6 +1192,10 @@ header.scrolled nav{background:rgba(245,246,248,.95);}
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-cta-wrap">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" title="Dark / Light mode">
+        <svg class="ic-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg>
+      </button>
       <a href="#cta" class="btn btn-primary btn-sm magnetic">Book a Discovery Call</a>
       <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
         <span></span><span></span>
@@ -1676,6 +1745,24 @@ const header = document.getElementById('siteHeader');
 window.addEventListener('scroll', () => {
   header.classList.toggle('scrolled', window.scrollY > 40);
 }, {passive:true});
+
+/* ============================================================
+   THEME TOGGLE
+============================================================ */
+(function(){
+  const root=document.documentElement,tbtn=document.getElementById('themeToggle');
+  if(!tbtn)return;
+  const sync=()=>{const d=root.getAttribute('data-theme')==='dark';
+    tbtn.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');
+    tbtn.setAttribute('aria-pressed',d?'true':'false');};
+  sync();
+  tbtn.addEventListener('click',()=>{
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('theme',next);}catch(e){}
+    sync();
+  });
+})();
 
 /* ============================================================
    MOBILE MENU
