@@ -1137,6 +1137,7 @@ html:not([data-theme="dark"]) h1,html:not([data-theme="dark"]) h2,html:not([data
 html:not([data-theme="dark"]) .compare-col.us h3{color:#000 !important;}
 html:not([data-theme="dark"]) h1 .hl,html:not([data-theme="dark"]) h2 .hl,html:not([data-theme="dark"]) h3 .hl,html:not([data-theme="dark"]) h1 .fmt-grad,html:not([data-theme="dark"]) h2 .fmt-grad,html:not([data-theme="dark"]) .hero-headline .accent,html:not([data-theme="dark"]) .cta-headline .accent{background:none !important;-webkit-background-clip:border-box;background-clip:border-box;color:#000 !important;-webkit-text-fill-color:#000 !important;}
 html:not([data-theme="dark"]) .booking-panel,html:not([data-theme="dark"]) .booking-cal{background:var(--bg) !important;}
+html:not([data-theme="dark"]) .booking-cal,html:not([data-theme="dark"]) .booking-cal cal-inline,html:not([data-theme="dark"]) .booking-cal iframe{color-scheme:light;}
 html[data-theme="dark"] .rw-card:hover{background:var(--bg-raised-2);}
 html[data-theme="dark"] #loader{background:#000;}
 html[data-theme="dark"] .loader-icon img{filter:invert(1);}
@@ -1232,7 +1233,7 @@ html[data-theme="dark"] #services::before{background-image:radial-gradient(rgba(
   <div class="hero-bg"></div>
   <div class="wrap">
     <div class="hero-top">
-      <span class="trust-badge reveal is-visible"><i></i>Trusted by 71+ Brands</span>
+      <span class="trust-badge reveal is-visible"><i></i>Trusted by 1000+ Brands</span>
       <h1 class="hero-headline reveal is-visible">We Make <span class="hl">Content Perform</span></h1>
     </div>
   </div>
@@ -1776,6 +1777,27 @@ window.addEventListener('scroll', () => {
     root.setAttribute('data-theme',next);
     try{localStorage.setItem('theme',next);}catch(e){}
     sync();
+    /* Cal.com embed: drop the stale dark canvas when going back to light */
+    const cal=document.querySelector('.booking-cal');
+    if(cal){
+      cal.style.colorScheme=next==='light'?'light':'';
+      if(next==='light'){
+        const frames=[];
+        cal.querySelectorAll('iframe').forEach(f=>frames.push(f));
+        cal.querySelectorAll('*').forEach(el=>{
+          if(el.shadowRoot)el.shadowRoot.querySelectorAll('iframe').forEach(f=>frames.push(f));
+        });
+        frames.forEach(f=>{
+          try{
+            f.style.colorScheme='light';
+            f.style.background='transparent';
+            const src=f.getAttribute('src');
+            if(src){f.setAttribute('src','about:blank');setTimeout(()=>f.setAttribute('src',src),60);}
+          }catch(e){}
+        });
+        try{if(window.Cal&&Cal.ns&&Cal.ns['get-free-30-min-video-strategy-call'])Cal.ns['get-free-30-min-video-strategy-call']('ui',{theme:'light',hideEventTypeDetails:true,layout:'month_view',showTimezoneWhenEventDetailsHidden:true});}catch(e){}
+      }
+    }
   });
 })();
 
