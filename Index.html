@@ -1100,14 +1100,18 @@ header.scrolled nav{background:rgba(245,246,248,.95);}
 @media (max-width:640px){.rw-wall{column-count:1;}.rw-card{padding:24px 22px;}}
 
 /* ===== THEME TOGGLE + DARK MODE ===== */
-.theme-toggle{position:relative;width:40px;height:40px;border-radius:50%;border:1px solid var(--border-strong);display:inline-flex;align-items:center;justify-content:center;color:var(--white);background:transparent;flex-shrink:0;transition:background .3s,border-color .3s,transform .35s var(--ease);}
-.theme-toggle:hover{background:var(--accent-dim);border-color:var(--accent-bright);transform:rotate(14deg);}
+.theme-toggle{position:relative;width:40px;height:40px;border-radius:8px;border:1px solid var(--border-strong);display:inline-flex;align-items:center;justify-content:center;color:var(--white);background:transparent;flex-shrink:0;cursor:pointer;transition:background .3s,border-color .3s,transform .35s var(--ease);}
+.theme-toggle:hover{background:var(--accent-dim);border-color:var(--accent-bright);}
+.theme-toggle:active{transform:scale(.94);}
 .theme-toggle:focus-visible{outline:2px solid var(--accent-bright);outline-offset:3px;}
 .theme-toggle svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;position:absolute;transition:opacity .3s,transform .5s var(--ease);}
+.theme-toggle:hover svg{transform:rotate(14deg);}
 .theme-toggle .ic-sun{opacity:0;transform:rotate(-70deg) scale(.5);}
 .theme-toggle .ic-moon{opacity:1;transform:none;}
 html[data-theme="dark"] .theme-toggle .ic-sun{opacity:1;transform:none;}
 html[data-theme="dark"] .theme-toggle .ic-moon{opacity:0;transform:rotate(70deg) scale(.5);}
+html[data-theme="dark"] .theme-toggle:hover .ic-sun{transform:rotate(14deg);}
+@media (prefers-reduced-motion: reduce){.theme-toggle,.theme-toggle svg{transition:none;}}
 body,nav,.fc,.fmt-tab,.work-card,.process-card,.compare-col,.faq-item,.service-tile,.booking-panel{transition:background-color .35s,border-color .35s,color .35s;}
 
 html[data-theme="dark"]{
@@ -1129,6 +1133,9 @@ html[data-theme="dark"] .compare-col.us h3{color:#fff !important;}
 html[data-theme="dark"] h1 .hl,html[data-theme="dark"] h2 .hl,html[data-theme="dark"] h3 .hl,
 html[data-theme="dark"] h1 .fmt-grad,html[data-theme="dark"] h2 .fmt-grad,
 html[data-theme="dark"] .hero-headline .accent,html[data-theme="dark"] .cta-headline .accent{background:none !important;-webkit-background-clip:border-box;background-clip:border-box;color:#fff !important;-webkit-text-fill-color:#fff !important;}
+html:not([data-theme="dark"]) h1,html:not([data-theme="dark"]) h2,html:not([data-theme="dark"]) h3,html:not([data-theme="dark"]) .hero-headline,html:not([data-theme="dark"]) .cta-headline{color:#000;}
+html:not([data-theme="dark"]) .compare-col.us h3{color:#000 !important;}
+html:not([data-theme="dark"]) h1 .hl,html:not([data-theme="dark"]) h2 .hl,html:not([data-theme="dark"]) h3 .hl,html:not([data-theme="dark"]) h1 .fmt-grad,html:not([data-theme="dark"]) h2 .fmt-grad,html:not([data-theme="dark"]) .hero-headline .accent,html:not([data-theme="dark"]) .cta-headline .accent{background:none !important;-webkit-background-clip:border-box;background-clip:border-box;color:#000 !important;-webkit-text-fill-color:#000 !important;}
 html[data-theme="dark"] #loader{background:#000;}
 html[data-theme="dark"] .loader-icon img{filter:invert(1);}
 html[data-theme="dark"],html[data-theme="dark"] body{background:#000;}
