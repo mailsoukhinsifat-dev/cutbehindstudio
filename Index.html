@@ -9,7 +9,6 @@
 <meta name="description" content="Cut Behind Studio creates strategy-first video content for SaaS, real estate, founders and modern businesses that want more attention, more trust and more revenue.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
 <style>
 /* ============ TOKENS ============ */
 :root{
@@ -979,7 +978,7 @@ footer{padding:18px 0 70px;}
   .filter-btn:hover{color:var(--text-secondary);border-color:var(--border-strong);}
 }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style id="design-v2">
 :root{
   --bg:#e8eaee;--bg-raised:#dcdfe4;--bg-raised-2:#f5f6f8;
@@ -987,7 +986,7 @@ footer{padding:18px 0 70px;}
   --text-secondary:#5b616b;--text-tertiary:#8b919b;
   --border:rgba(21,23,27,.12);--border-strong:rgba(21,23,27,.26);
   --radius-lg:8px;--radius-md:8px;--radius-sm:8px;
-  --font-display:'Bricolage Grotesque','DM Sans',sans-serif;--font-body:'DM Sans',-apple-system,sans-serif;
+  --font-display:'Outfit','DM Sans',sans-serif;--font-body:'DM Sans',-apple-system,sans-serif;
 }
 h1,h2,h3,.hero-stat b,.hero-headline,.cta-headline{font-family:var(--font-display);font-weight:600;letter-spacing:-.035em;}
 h2{font-size:clamp(34px,4.6vw,58px);line-height:1.06;}
@@ -1236,6 +1235,85 @@ input,textarea,select,iframe,video,
   border-radius:0 !important;
 }
 </style>
+<style id="sv-cards">
+/* ===== Services: staggered card wall ===== */
+.sv-wall{--sv-w:350px;--sv-gap:20px;--sv-glow:rgba(213,21,46,.16);display:flex;flex-direction:column;gap:var(--sv-gap);margin-top:56px;padding:2px 0;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);}
+.sv-row{display:flex;justify-content:center;gap:var(--sv-gap);}
+.sv-card{position:relative;flex:0 0 var(--sv-w);min-height:236px;display:flex;flex-direction:column;align-items:center;text-align:center;padding:26px 26px 28px;
+  border:1px solid rgba(255,255,255,.08);border-radius:0;overflow:hidden;
+  background:radial-gradient(ellipse 75% 60% at 50% 0%,var(--sv-glow),transparent 72%),#0a0a0a;transition:border-color .35s;}
+.sv-card::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s;
+  background:radial-gradient(ellipse 75% 60% at 50% 0%,rgba(213,21,46,.22),transparent 72%);}
+.sv-card:hover{border-color:rgba(255,255,255,.2);}
+.sv-card:hover::before{opacity:1;}
+.sv-card>*{position:relative;}
+.sv-ico{display:block;width:62px;height:62px;color:#fff;}
+.sv-ico svg{width:100%;height:100%;fill:currentColor;display:block;}
+.sv-card h3{margin-top:14px;font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-.025em;line-height:1.2;color:#fff;text-wrap:balance;}
+.sv-card p{margin-top:10px;max-width:34ch;font-size:15px;line-height:1.6;color:#a1a1a8;text-wrap:balance;}
+html:not([data-theme="dark"]) .sv-card{background:radial-gradient(ellipse 75% 60% at 50% 0%,rgba(213,21,46,.08),transparent 72%),#fff;border-color:var(--border);}
+html:not([data-theme="dark"]) .sv-ico,html:not([data-theme="dark"]) .sv-card h3{color:#0b0b0c;}
+html:not([data-theme="dark"]) .sv-card p{color:var(--text-secondary);}
+@media (max-width:1100px){.sv-wall{--sv-w:300px;}}
+@media (max-width:720px){
+  .sv-wall{margin-top:36px;-webkit-mask-image:none;mask-image:none;overflow:visible;}
+  .sv-row{justify-content:flex-start;overflow-x:auto;padding:2px 20px;scroll-snap-type:x mandatory;scrollbar-width:none;}
+  .sv-row::-webkit-scrollbar{display:none;}
+  .sv-card{flex:0 0 78vw;min-height:210px;scroll-snap-align:center;}
+}
+/* ===== Hero: cinematic background ===== */
+html[data-theme="dark"] #hero{position:relative;isolation:isolate;}
+html[data-theme="dark"] #hero .hero-bg{opacity:1;background:#000;overflow:hidden;}
+html[data-theme="dark"] #hero .hero-bg::before{content:'';position:absolute;inset:-3% -2%;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000' preserveAspectRatio='none'><defs><filter id='a' x='-20%' y='-80%' width='140%' height='260%'><feGaussianBlur stdDeviation='55'/></filter><filter id='b' x='-20%' y='-80%' width='140%' height='260%'><feGaussianBlur stdDeviation='32'/></filter><linearGradient id='g' x1='0' x2='1' y1='0' y2='0'><stop offset='0' stop-color='%23250509'/><stop offset='.45' stop-color='%23720f20'/><stop offset='1' stop-color='%23a31b2f'/></linearGradient><linearGradient id='h' x1='0' x2='1' y1='0' y2='0'><stop offset='0' stop-color='%23470a14'/><stop offset='.55' stop-color='%23b3203a'/><stop offset='1' stop-color='%23d9405a'/></linearGradient></defs><path d='M-150 210 C 250 110 560 330 900 400 S 1400 570 1780 480' fill='none' stroke='url(%23g)' stroke-width='240' stroke-linecap='round' filter='url(%23a)' opacity='.95'/><path d='M-150 250 C 260 160 580 360 910 435 S 1420 600 1780 520' fill='none' stroke='url(%23h)' stroke-width='80' stroke-linecap='round' filter='url(%23b)' opacity='.5'/></svg>") center/100% 100% no-repeat;
+  animation:auroraDrift 18s ease-in-out infinite alternate;will-change:transform;}
+html[data-theme="dark"] #hero .hero-bg::after{display:block;content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 45%,transparent 55%,rgba(0,0,0,.6) 100%),
+    linear-gradient(180deg,#000 0%,transparent 10%,transparent 82%,#000 100%);
+  mask-image:none;-webkit-mask-image:none;filter:none;}
+html[data-theme="dark"] #hero .hero-video{box-shadow:0 60px 140px -50px rgba(163,27,47,.4),0 0 0 1px rgba(255,255,255,.06) !important;}
+@keyframes auroraDrift{
+  0%{transform:translate3d(-1.5%,-1%,0) scale(1.02);}
+  100%{transform:translate3d(1.5%,1.5%,0) scale(1.05);}
+}
+@media (prefers-reduced-motion:reduce){html[data-theme="dark"] #hero .hero-bg::before{animation:none;}}
+/* ===== Hero video: scroll-linked 3D tilt ===== */
+#hero .hero-video.tilt-card{
+  --tilt:0deg;--sc:1;
+  transform:perspective(1500px) rotateX(var(--tilt)) scale(var(--sc));
+  transform-origin:50% 55%;will-change:transform;transition:none;
+}
+@media (prefers-reduced-motion:reduce){#hero .hero-video.tilt-card{transform:none;}}
+/* ===== Hero: copy above video ===== */
+#hero .hero-headline{margin-bottom:0;}
+#hero .hero-sub{max-width:660px;margin:14px auto 0;font-size:clamp(15.5px,1.2vw + 10px,18px);}
+.hero-proof{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:28px;text-align:left;}
+.hp-avs{display:flex;flex:0 0 auto;}
+.hp-avs i{width:46px;height:46px;margin-left:-12px;border-radius:50%;border:2px solid #000;display:flex;align-items:center;justify-content:center;font:600 13px/1 var(--font-display);font-style:normal;color:#fff;letter-spacing:.02em;}
+.hp-avs i:first-child{margin-left:0;}
+.hp-avs i:nth-child(1){background:linear-gradient(135deg,#4a4a52,#232328);}
+.hp-avs i:nth-child(2){background:linear-gradient(135deg,#8c1a29,#3a0b11);}
+.hp-avs i:nth-child(3){background:linear-gradient(135deg,#5b5b64,#2b2b30);}
+.hp-avs i:nth-child(4){background:linear-gradient(135deg,#a8202f,#4a0e16);}
+.hp-avs i:nth-child(5){background:linear-gradient(135deg,#3b3b42,#17171a);}
+.hp-txt{display:flex;flex-direction:column;gap:2px;}
+.hp-txt b{font-size:17px;font-weight:500;color:var(--white);}
+.hp-txt small{font-size:17px;color:var(--text-secondary);}
+#hero .hero-actions{margin-top:32px;}
+#hero .hero-video{margin-top:clamp(36px,3vw + 16px,56px);}
+@media (max-width:560px){.hero-proof{flex-direction:column;text-align:center;gap:12px;}.hp-txt b,.hp-txt small{font-size:15.5px;}}
+@media (prefers-reduced-motion:reduce){.sv-card,.sv-card::before{transition:none;}}
+</style>
+<style id="lighter-headlines">
+/* Lighter headline weights */
+h1,h2,h3,h4,.hero-headline,.cta-headline,.hero-stat b,.fmt-info h3,.fc h3,.fc h4,.sv-card h3,.problem-body h3,.process-card h3{font-weight:500 !important;letter-spacing:-.02em !important;}
+h2{font-weight:500 !important;}
+.hero-stat b,.pv-value,.pv-metric-value,.pv-output-value,.pv-output-pct,.logo,.loader-logo{font-weight:500 !important;}
+.process-card-num{font-weight:500 !important;}
+</style>
+
 </head>
 <body>
 
@@ -1285,21 +1363,23 @@ input,textarea,select,iframe,video,
   <div class="hero-bg"></div>
   <div class="wrap">
     <div class="hero-top">
-      <span class="trust-badge reveal is-visible"><i></i>Trusted by 71+ Brands</span>
       <h1 class="hero-headline reveal is-visible">We Make <span class="hl">Content Perform</span></h1>
+      <p class="hero-sub reveal is-visible" style="transition-delay:.08s;">We partner with growth-focused businesses, providing done-for-you video editing that drives leads effortlessly.</p>
+      <div class="hero-proof reveal is-visible" style="transition-delay:.12s;">
+        <span class="hp-avs" aria-hidden="true"><i>DF</i><i>AO</i><i>JP</i><i>MC</i><i>PN</i></span>
+        <span class="hp-txt"><b>Helped 71+ Businesses Worldwide.</b><small>Our Clients Speak for Us</small></span>
+      </div>
+      <div class="hero-actions reveal is-visible" style="transition-delay:.2s;">
+        <a href="#cta" class="btn btn-primary magnetic">Book a Discovery Call</a>
+        <a href="#work" class="btn btn-ghost magnetic">View Our Work</a>
+      </div>
     </div>
   </div>
-    <div class="hero-video reveal-scale is-visible" id="heroVideo" style="transition-delay:.15s;" data-video-id="awUYikrGsKk">
+    <div class="hero-video tilt-card" id="heroVideo" data-video-id="awUYikrGsKk">
       <div class="video-poster" id="heroVideoPoster" data-yt-id="awUYikrGsKk" style="background-image:url('https://img.youtube.com/vi/awUYikrGsKk/maxresdefault.jpg');background-size:cover;background-position:center;">
         <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></div>
       </div>
     </div>
-  <div class="wrap">
-    <div class="hero-actions reveal is-visible" style="transition-delay:.4s;">
-      <a href="#cta" class="btn btn-primary magnetic">Book a Discovery Call</a>
-      <a href="#work" class="btn btn-ghost magnetic">View Our Work</a>
-    </div>
-  </div>
 </section>
 
 <div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
@@ -1311,8 +1391,8 @@ input,textarea,select,iframe,video,
       <h2 class="reveal">Content Built For <span class="fmt-grad">Every Format</span></h2>
     </div>
 
-    <div class="fc-grid" id="fcGrid"></div>
   </div>
+  <div class="sv-wall" id="fcGrid"></div>
 </section>
 
 <div class="section-divider reveal" aria-hidden="true"><span class="divider-line"></span><span class="divider-dot"></span></div>
@@ -2006,68 +2086,57 @@ if(!isCoarse){
 </script>
 
 <script>
-/* FORMAT EXPLORER */
+/* SERVICE CARDS */
 (function(){
-const I={
- short:'<svg viewBox="0 0 24 24"><rect x="7.5" y="2.5" width="9" height="19" rx="2.6"/><path class="filled" d="M10.3 9l3.4 2-3.4 2z"/></svg>',
- long:'<svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="2.6"/><path class="filled" d="M9.6 10l4.4 2-4.4 2z"/></svg>',
- saas:'<svg viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M9 21h6M12 17v4"/><path d="M6.5 14l3.2-3.6 2.6 2 4.2-4.8"/></svg>',
- pod:'<svg viewBox="0 0 24 24"><path d="M12 2.5a3.2 3.2 0 013.2 3.2v6a3.2 3.2 0 01-6.4 0v-6A3.2 3.2 0 0112 2.5z"/><path d="M6 11a6 6 0 0012 0"/><path d="M12 17v4"/></svg>',
- thumb:'<svg viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="3"/><circle class="filled" cx="8.5" cy="8.5" r="1.6"/><path d="M21 16l-5.5-5.5L5 21"/></svg>'
+const ic={
+ house:'<path d="M12 2.8 1.8 11.4h2.9V21h5.5v-5.8h3.6V21h5.5v-9.6h2.9z"/>',
+ chart:'<rect x="3" y="14" width="3.6" height="7.5" rx=".6"/><rect x="8.4" y="11" width="3.6" height="10.5" rx=".6"/><rect x="13.8" y="8" width="3.6" height="13.5" rx=".6"/><rect x="19.2" y="5" width="2.6" height="16.5" rx=".6"/><path d="M2.5 10 9 4.5l4 3 6.5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+ head:'<circle cx="12" cy="7.8" r="4.4"/><path d="M3.2 21.5c0-4.9 3.7-7.6 8.8-7.6s8.8 2.7 8.8 7.6z"/>',
+ saas:'<path fill-rule="evenodd" d="M3 3.5h18a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1v-12a1 1 0 011-1zm1.7 1.9v8.7h14.6V5.4zM4.7 15.4h14.6v.7H4.7z"/><path d="M8 20h8v1.8H8zM11 17.5h2V20h-2z"/>',
+ pod:'<rect x="8.5" y="2" width="7" height="12" rx="3.5"/><path d="M5 11a7 7 0 0014 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11 18h2v3h-2zM8 21h8v1.6H8z"/>',
+ vsl:'<path fill-rule="evenodd" d="M5 2h9l5 5v14a1 1 0 01-1 1H5a1 1 0 01-1-1V3a1 1 0 011-1zm5.2 8.2v6.6l5.3-3.3z"/>',
+ short:'<path fill-rule="evenodd" d="M7 1.5h10A2.5 2.5 0 0119.5 4v16a2.5 2.5 0 01-2.5 2.5H7A2.5 2.5 0 014.5 20V4A2.5 2.5 0 017 1.5zM7 4v13.2h10V4zm5 14.8a1 1 0 100 2 1 1 0 000-2z"/>',
+ film:'<path fill-rule="evenodd" d="M2 3.5h20v17H2zM3.8 5.3v2.2h2.2V5.3zm0 3.9v2.2h2.2V9.2zm0 3.9v2.2h2.2v-2.2zm0 3.9v2.2h2.2V17zM18 5.3v2.2h2.2V5.3zm0 3.9v2.2h2.2V9.2zm0 3.9v2.2h2.2v-2.2zm0 3.9v2.2h2.2V17zM7.8 5.3v5.8h8.4V5.3zm0 7.6v5.8h8.4v-5.8z"/>',
+ thumb:'<path fill-rule="evenodd" d="M3 3h18a1 1 0 011 1v16a1 1 0 01-1 1H3a1 1 0 01-1-1V4a1 1 0 011-1zm5.5 3.2a1.9 1.9 0 100 3.8 1.9 1.9 0 000-3.8zM4 19h16v-3.4l-4.2-4.9-3.8 4.5-2.4-2.4z"/>'
 };
-const D=[
-{k:'short',name:'Short Form',stat:'8 clips, ready to post',ar:9/16,sh:[12,21],ratio:'9:16 vertical',filter:'shortform',total:'0:30',
- h:'Built for the scroll',p:'Daily-ready cutdowns engineered for retention on Reels, TikTok and Shorts — a hook in the first second and a payoff before the swipe.',
- pills:['Reels','TikTok','Shorts'],
- m:[[0,'0:00','The hook','A pattern break in the first second, so the thumb stops before it decides to swipe.'],
-    [14,'0:04','The setup','One clear promise, captions on screen and cuts paced to keep the eye moving.'],
-    [58,'0:17','The payoff','The answer lands here, before the point where most viewers would have dropped.'],
-    [92,'0:27','The loop','The ending feeds back into the opening, so replays count toward watch time.']]},
-{k:'long',name:'Long Form',stat:'1 episode, fully edited',ar:16/9,sh:[24,13.5],ratio:'16:9 widescreen',filter:'longform',total:'12:40',
- h:'Full episodes that hold attention',p:'YouTube videos, brand films and interviews edited with a story arc — paced so people stay for the whole runtime, not just the intro.',
- pills:['YouTube','Interviews','Brand Films'],
- m:[[0,'0:00','Cold open','The strongest moment goes first, so the viewer knows why to stay.'],
-    [20,'2:30','Act one','Context and stakes, trimmed so nothing sits still for long.'],
-    [58,'7:20','The turn','The pattern interrupt: a new angle, graphic or story beat that resets attention.'],
-    [90,'11:30','The close','A clean landing that points the viewer to the next video.']]},
-{k:'saas',name:'SaaS Explainers',stat:'1 demo, investor ready',ar:16/9,sh:[24,13.5],ratio:'16:9 landing page',filter:'saas',total:'1:30',
- h:'Product stories that convert',p:'Feature walkthroughs and demo videos that turn a visitor into a signup — built to sit on your landing page and do the selling for you.',
- pills:['Product Demos','Landing Page','Onboarding'],
- m:[[0,'0:00','The problem','Open on the pain your buyer already feels, in their words.'],
-    [30,'0:25','The walkthrough','Screen recordings with zooms and callouts that show only what matters.'],
-    [66,'1:00','The result','The before and after, so the value is visible rather than claimed.'],
-    [94,'1:25','The next step','A single call to action that matches the button on your page.']]},
-{k:'pod',name:'Podcast',stat:'Weekly episodes',ar:1,sh:[18,18],ratio:'1:1 episode and clips',filter:'podcast',total:'46:00',
- h:'Full episodes, clean clips',p:'Full-episode polish plus retention-cut clips for social — built around a listener\'s attention, not just a raw timeline.',
- pills:['Episode Editing','Clip Cutdowns','Audio Cleanup'],
- m:[[0,'0:00','Audio cleanup','Noise, levels and EQ are fixed first, before a single cut is made.'],
-    [14,'6:10','Clip one','The sharpest quote from the episode, cut to stand alone.'],
-    [52,'24:00','Clip two','The best story, trimmed to its beginning, middle and punchline.'],
-    [86,'39:30','Clip three','The takeaway, packaged to send people back to the full episode.']]},
-{k:'thumb',name:'Thumbnails',stat:'+38% avg. CTR lift',ar:16/9,sh:[24,13.5],ratio:'16:9 thumbnail',filter:null,total:'3 variants',
- h:'Thumbnails that stop the scroll',p:'Click-worthy thumbnails engineered to lift CTR — tested layouts, contrast and expression that make people stop and click on every upload.',
- pills:['A/B Testing','Custom Design','CTR Optimization'],
- m:[[0,'A','The control','Your current thumbnail, kept live as the baseline to beat.'],
-    [50,'B','Contrast and layout','Cleaner composition and stronger contrast, so it reads at phone size.'],
-    [100,'C','Expression','A face and an emotion that matches the title, tested against the other two.']]}
+const row1=[
+ ['short','Short Form','Daily-ready cutdowns engineered for retention on Reels, TikTok and Shorts, with a hook in the first second.'],
+ ['film','Long Form','YouTube videos, brand films and interviews edited with a story arc that holds attention to the end.'],
+ ['saas','SaaS Explainers','Feature walkthroughs and demo videos that turn a visitor into a signup.']
 ];
-const $=id=>document.getElementById(id);
-const grid=$('fcGrid');
-grid.innerHTML=D.map((d,i)=>{
-  const chk='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',arrow='<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-  return '<article class="fc fc-'+d.k+'">'
-   +'<div class="fc-top"><span class="fc-num">0'+(i+1)+'</span></div>'
-   +'<span class="fc-chip">'+d.ratio+'</span>'
-   +'<h3>'+d.name+'</h3>'
-   +'<h4>'+d.h+'</h4>'
-   +'<p>'+d.p+'</p>'
-   +'<ul class="fc-list">'+d.pills.map(p=>'<li>'+chk+p+'</li>').join('')+'</ul>'
-   +'<span class="fc-stat"><i></i>'+d.stat+'</span>'
-   +'</article>';}).join('');
-grid.addEventListener('click',e=>{
-  const a=e.target.closest('[data-work]');if(!a)return;
-  const b=document.querySelector('.filter-btn[data-filter="'+a.dataset.work+'"]');if(b)b.click();
-});
+const row2=[
+ ['pod','Podcast','Full-episode polish plus retention-cut clips for social, built around a listener\'s attention.'],
+ ['thumb','Thumbnails','Click-worthy thumbnails engineered to lift CTR with tested layouts, contrast and expression.'],
+ ['chart','Infographic Videos','Visually break down complex info into clear, engaging animated graphics.']
+];
+const card=c=>'<article class="sv-card"><span class="sv-ico" aria-hidden="true"><svg viewBox="0 0 24 24">'+ic[c[0]]+'</svg></span><h3>'+c[1]+'</h3><p>'+c[2]+'</p></article>';
+document.getElementById('fcGrid').innerHTML=[row1,row2].map(r=>'<div class="sv-row">'+r.map(card).join('')+'</div>').join('');
+})();
+</script>
+<script>
+/* Hero video: tilted back at rest, flattens as you scroll (both directions) */
+(function(){
+  var card=document.getElementById('heroVideo');
+  if(!card||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var maxTilt=28,minScale=.93,span=1,top0=0,ticking=false;
+  function measure(){
+    var r=card.getBoundingClientRect();
+    top0=r.top+window.scrollY-(parseFloat(getComputedStyle(card).getPropertyValue('--off'))||0);
+    maxTilt=window.innerWidth<720?16:28;
+    span=Math.max(240,top0*.72);
+  }
+  function update(){
+    ticking=false;
+    var p=Math.min(1,Math.max(0,window.scrollY/span));
+    var e=1-Math.pow(1-p,2);            /* ease-out */
+    card.style.setProperty('--tilt',(maxTilt*(1-e)).toFixed(2)+'deg');
+    card.style.setProperty('--sc',(minScale+(1-minScale)*e).toFixed(4));
+  }
+  function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',function(){measure();update();});
+  window.addEventListener('load',function(){measure();update();});
+  measure();update();
 })();
 </script>
 </body>
