@@ -1528,6 +1528,9 @@ html[data-theme="dark"] header nav,html[data-theme="dark"] header.scrolled nav{
 @media (hover:none) and (pointer:coarse){
   html.k-on header{right:auto;width:calc(100% / var(--k));transform:scale(var(--k));transform-origin:0 0;top:calc(18px * var(--k));}
   html.k-on header.scrolled{top:calc(12px * var(--k));}
+  /* keep content clear of the (scaled) fixed header */
+  html.k-on #hero{padding-top:calc(92px * var(--k));}
+  html.k-on{scroll-padding-top:calc(70px * var(--k));}
   html.k-phone .nav-cta-wrap .btn-primary{display:none;}
 }
 </style>
