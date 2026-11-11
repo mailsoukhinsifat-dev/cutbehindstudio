@@ -1873,7 +1873,7 @@ html[data-theme="dark"] header nav,html[data-theme="dark"] header.scrolled nav{
     <p class="process-subtitle reveal">A simple 3-step framework we follow on every project.</p>
     <a href="#work" class="process-watch reveal">
       <div class="process-watch-thumb">
-        <img src="https://img.youtube.com/vi/awUYikrGsKk/hqdefault.jpg" alt="" loading="lazy">
+        <img src="https://img.youtube.com/vi/awUYikrGsKk/maxresdefault.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/awUYikrGsKk/hqdefault.jpg'">
         <span class="process-watch-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
       </div>
       <span class="process-watch-text"><i></i>See the work it produces</span>
@@ -2089,14 +2089,23 @@ function watchYT(iframe){
       onStateChange:function(e){
         if(e.data===1){
           ytForceHD(pl);
-          ytPlayers.forEach(function(o){if(o!==pl){try{o.pauseVideo();}catch(_){}}});
+          pl._auto=false;
+          ytPlayers.forEach(function(o){if(o!==pl){o._auto=false;try{if(o.getPlayerState()===1){o._byUs=true;o.pauseVideo();}}catch(_){}}});
+        }else if(e.data===2){
+          if(pl._byUs){pl._byUs=false;}else{pl._auto=false;} /* paused by the viewer -> don't auto-resume */
         }
       }
     }});
     ytPlayers.push(pl);
     new IntersectionObserver(function(es){
       es.forEach(function(en){
-        if(!en.isIntersecting){try{if(pl.getPlayerState&&pl.getPlayerState()===1)pl.pauseVideo();}catch(_){}}
+        try{
+          if(!en.isIntersecting){
+            if(pl.getPlayerState&&pl.getPlayerState()===1){pl._byUs=true;pl._auto=true;pl.pauseVideo();}
+          }else if(pl._auto){
+            pl._auto=false;pl.playVideo();
+          }
+        }catch(_){}
       });
     },{threshold:0.25}).observe(iframe);
   };
@@ -2475,11 +2484,20 @@ document.getElementById('caseList').innerHTML = CASES.map(c => `
       <div class="cs-stats">
         ${c.stats.map(st => `<div class="cs-stat"><div class="cs-num">${st.num}</div><div class="cs-cap">${st.cap}</div><div class="cs-bar" style="height:${st.h}px"></div></div>`).join('')}
       </div>
-      <div class="cs-video" data-video-id="${c.videoId}" style="background-image:url('${c.thumb || `https://img.youtube.com/vi/${c.videoId}/hqdefault.jpg`}')">
+      <div class="cs-video" data-video-id="${c.videoId}" style="background-image:url('${c.thumb || `https://img.youtube.com/vi/${c.videoId}/maxresdefault.jpg`}')">
         <div class="cs-play">${playIcon}</div>
       </div>
     </div>
   </article>`).join('');
+document.querySelectorAll('#caseList .cs-video').forEach(v => {
+  /* maxres thumbnail missing for some videos -> fall back to the next best */
+  if(v.style.backgroundImage.indexOf('maxresdefault')>-1){
+    const id=v.dataset.videoId, pr=new Image();
+    pr.onload=function(){ if(this.naturalWidth<=120) v.style.backgroundImage="url('https://img.youtube.com/vi/"+id+"/sddefault.jpg')"; };
+    pr.onerror=function(){ v.style.backgroundImage="url('https://img.youtube.com/vi/"+id+"/hqdefault.jpg')"; };
+    pr.src='https://img.youtube.com/vi/'+id+'/maxresdefault.jpg';
+  }
+}); 
 document.querySelectorAll('#caseList .cs-video').forEach(v => {
   if(!v.dataset.videoId) return;
   v.addEventListener('click', () => {
